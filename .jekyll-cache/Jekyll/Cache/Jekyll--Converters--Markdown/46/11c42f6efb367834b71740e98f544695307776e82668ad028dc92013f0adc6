@@ -1,0 +1,4 @@
+I"�<h3 id="javalang-패키지에서-제공하는-쓰레드-범위-변수">java.lang 패키지에서 제공하는 쓰레드 범위 변수.</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>즉, 쓰레드 수준의 데이터 저장소. - 같은 쓰레드 내에서만 공유. - 따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음. - SecurityContextHolder의 기본 전략.
+</code></pre></div></div>
+:ET

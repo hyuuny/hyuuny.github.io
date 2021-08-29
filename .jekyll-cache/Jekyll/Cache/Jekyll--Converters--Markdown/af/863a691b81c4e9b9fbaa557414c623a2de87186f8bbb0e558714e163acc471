@@ -1,0 +1,8 @@
+I"�<h2 id="영속성-컨텍스트">영속성 컨텍스트</h2>
+<ul>
+  <li>영속성 컨텍스트란, <strong>엔티티를 영구 저장하는 환경이라는 뜻</strong>이다.</li>
+  <li>EntityManager의 persist()를 사용하여, Entity를 저장하고 <strong>영속성 컨텍스트로 관리</strong>한다.</li>
+  <li>영속성 컨텍스트는 <strong>논리적인 개념</strong>으로 눈에 보이지 않는다.</li>
+  <li>EntityManager를 통해서 영속성 컨텍스트에 접근한다.</li>
+</ul>
+:ET

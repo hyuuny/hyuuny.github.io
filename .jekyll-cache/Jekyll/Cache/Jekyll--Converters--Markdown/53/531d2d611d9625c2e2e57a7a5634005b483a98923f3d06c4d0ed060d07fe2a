@@ -1,0 +1,46 @@
+I"f<h2 id="spring-security에서-인증authentication은-authenticationmanager가-한다">Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Authentication</span> <span class="nf">authenticate</span><span class="o">(</span><span class="nc">Authentication</span> <span class="n">authentication</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">AuthenticationException</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>인자로 받은 Authentication이 유효한 인증인지 확인</strong>하고, 
+<strong>Authentication객체를 리턴</strong>한다.</li>
+  <li>인증을 확인하는 과정에서 비활성 계정, 잘못된 비밀번호, 잠긴 계정 등의 에러를 던질 수 있다.</li>
+</ul>
+
+<h2 id="인자로-받은-authentication">인자로 받은 Authentication</h2>
+
+<ul>
+  <li>사용자가 입력한 인증에 필요한 정보(username, password)로 만든 객체다. (폼 인증의 경우)</li>
+  <li>Authentication
+    <ul>
+      <li>Principal : “hyuuny”</li>
+      <li>Credentials : “secret”</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="유효한-인증인지-확인">유효한 인증인지 확인</h2>
+
+<ul>
+  <li>사용자가 입력한 password가 UserDetailsService를 통해 읽어온 UserDatails객체에 들어 있는
+password와 일치하는지 확인한다.
+    <ul>
+      <li>해당 사용자 계정이 잠겨 있지는 않은지, 비활성 계정은 아닌지 등 확인한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="authentication-객체를-리턴">Authentication 객체를 리턴</h2>
+
+<ul>
+  <li>Authentication
+    <ul>
+      <li>Principal : UserDetailsService에서 리턴한 객체 (User)</li>
+      <li>Credentials</li>
+      <li>GrantedAuthorities</li>
+    </ul>
+  </li>
+</ul>
+:ET
