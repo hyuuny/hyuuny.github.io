@@ -6,8 +6,8 @@
     <description></description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 31 Aug 2021 00:13:36 +0900</pubDate>
-    <lastBuildDate>Tue, 31 Aug 2021 00:13:36 +0900</lastBuildDate>
+    <pubDate>Tue, 31 Aug 2021 19:59:04 +0900</pubDate>
+    <lastBuildDate>Tue, 31 Aug 2021 19:59:04 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -82,7 +82,7 @@
 &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/JPA/entity-life.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/entity-life.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;영속성-컨텍스트-1&quot;&gt;영속성 컨텍스트&lt;/h2&gt;
 
@@ -92,7 +92,7 @@
   &lt;li&gt;&lt;strong&gt;1차 캐시는 Transaction내에서만&lt;/strong&gt; 효과가 있다.(Transaction이 끝나면 사라짐)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/JPA/cache0.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/cache0.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 엔티티를 생성한 상태(비영속)&lt;/span&gt;
 &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
@@ -109,7 +109,7 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/JPA/cache1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/cache1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;member1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
@@ -131,7 +131,7 @@
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;member2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/JPA/cache2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/cache2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;member2는 &lt;strong&gt;1차 캐시에 없으므로, DB에서 값을 조회&lt;/strong&gt;한다.&lt;/li&gt;
@@ -171,12 +171,12 @@
 &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 트랜잭션 커밋&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/JPA/write1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/write1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Insert Query를 바로 보내지 않고 &lt;strong&gt;쓰기 지연 SQL 저장소에 모아둔다.&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/JPA/write2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/write2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;쓰기 지연 SQL 저장소&lt;/strong&gt;에 저장된 Query를 &lt;strong&gt;commit&lt;/strong&gt; 시점에 DB에 보낸다.&lt;/li&gt;
 &lt;/ul&gt;
