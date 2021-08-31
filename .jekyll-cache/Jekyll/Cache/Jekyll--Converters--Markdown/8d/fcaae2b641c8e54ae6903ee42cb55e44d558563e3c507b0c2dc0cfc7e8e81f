@@ -1,0 +1,193 @@
+I"y4<h2 id="영속성-컨텍스트">영속성 컨텍스트</h2>
+<ul>
+  <li>영속성 컨텍스트란, <strong>엔티티를 영구 저장하는 환경이라는 뜻</strong>이다.</li>
+  <li>EntityManager의 persist()를 사용하여, Entity를 저장하고 <strong>영속성 컨텍스트로 관리</strong>한다.</li>
+  <li>영속성 컨텍스트는 <strong>논리적인 개념</strong>으로 눈에 보이지 않는다.</li>
+  <li>EntityManager를 통해서 영속성 컨텍스트에 접근한다.</li>
+</ul>
+
+<h2 id="엔티티의-생명주기">엔티티의 생명주기</h2>
+<p>엔티티의 생명주기는 다음과 같이 총 4단계로 구성됩니다.</p>
+
+<ul>
+  <li>비영속(new/transient)
+    <ul>
+      <li>영속성 컨텍스트와 전혀 <strong>관계가 없는</strong> 새로운 상태</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 객체만 생성하였으므로, 비영속 상태</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">"shyune@knou.ac.kr"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>영속(managed)
+    <ul>
+      <li>영속성 컨텍스트에 <strong>관리되는</strong> 상태</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 아직은 비영속 상태</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">"shyune@knou.ac.kr"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+
+<span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">().</span><span class="na">begin</span><span class="o">();</span> <span class="c1">// 트랜잭션 시작!</span>
+
+<span class="c1">// 객체를 저장한 상태(영속)</span>
+<span class="c1">// 영속성 컨텍스트가 관리하는 객체가 된다.</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>준영속(detached)
+    <ul>
+      <li>영속성 컨텍스트에 저장되었다가 <strong>분리된</strong> 상태</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태</span>
+<span class="n">em</span><span class="o">.</span><span class="na">detach</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>삭제(removed)
+    <ul>
+      <li>말 그대로 <strong>삭제</strong>된 상태</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 객체를 삭제한 상태(삭제)</span>
+<span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/jpa/entity-life.png" alt="img.png" /></p>
+
+<h2 id="영속성-컨텍스트-1">영속성 컨텍스트</h2>
+
+<h6 id="1차-캐시">1차 캐시</h6>
+<ul>
+  <li>영속성 컨텍스트는 내부에 1차 캐시를 갖고 있다.</li>
+  <li><strong>1차 캐시는 Transaction내에서만</strong> 효과가 있다.(Transaction이 끝나면 사라짐)</li>
+</ul>
+
+<p><img src="/assets/images/jpa/cache0.png" alt="img.png" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 엔티티를 생성한 상태(비영속)</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+
+<span class="c1">// 엔티티를 영속화</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>객체를 저장하면 영속성 컨텍스트에 의해 관리</strong>된다.</li>
+</ul>
+
+<hr />
+
+<p><img src="/assets/images/jpa/cache1.png" alt="img.png" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+
+<span class="c1">// 1차 캐시에 저장됨</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="c1">// 1차 캐시에서 조회</span>
+<span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>member 객체를 <strong>조회(find)하면 1차캐시에서 조회</strong>한다.</li>
+</ul>
+
+<hr />
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member2"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/jpa/cache2.png" alt="img.png" /></p>
+
+<ul>
+  <li>member2는 <strong>1차 캐시에 없으므로, DB에서 값을 조회</strong>한다.</li>
+</ul>
+
+<hr />
+
+<h6 id="동일성identity-보장">동일성(identity) 보장</h6>
+<ul>
+  <li>JPA는 <strong>식별자(pk)가 같으면 항상 true</strong></li>
+  <li>1차 캐시로 반복 가능한 읽기(REPEATABLE READ) 등급의 트랜잭션 격리 수준을 데이터베이스가 아닌 애플리케이션 차원에서 제공</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">m1</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+<span class="nc">Member</span> <span class="n">m2</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m1</span> <span class="o">==</span> <span class="n">m2</span><span class="o">);</span> <span class="c1">// true</span>
+</code></pre></div></div>
+<hr />
+
+<h6 id="트랜잭션을-지원하는-쓰기-지연transaction-write-behind">트랜잭션을 지원하는 쓰기 지연(transaction write-behind)</h6>
+<ul>
+  <li>JPA는 <strong>엔티티를 등록할 때</strong>, Insert Query를 보내지 않고 <strong>모아두었다가 transaction.commit하는 순간 데이터베이스에 Insert Query를 보낸다.</strong></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="nc">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+
+<span class="c1">// 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span> <span class="c1">// 트랜잭션 시작</span>
+
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberA</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberB</span><span class="o">);</span>
+<span class="c1">// 여기까지 Insert Query를 DB에 보내지 않는다.</span>
+
+<span class="c1">// 커밋하는 순간, DB에 Insert Query를 보낸다.</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 트랜잭션 커밋</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/jpa/write1.png" alt="img.png" /></p>
+<ul>
+  <li>Insert Query를 바로 보내지 않고 <strong>쓰기 지연 SQL 저장소에 모아둔다.</strong></li>
+</ul>
+
+<p><img src="/assets/images/jpa/write2.png" alt="img.png" /></p>
+<ul>
+  <li><strong>쓰기 지연 SQL 저장소</strong>에 저장된 Query를 <strong>commit</strong> 시점에 DB에 보낸다.</li>
+</ul>
+
+<hr />
+
+<h6 id="변경-감지dirty-checking">변경 감지(Dirty Checking)</h6>
+<ul>
+  <li>JPA는 Transaction commit 시점에 <strong>엔티티(커밋 시점 객체)와 스냅샷(최초에 DB에서 읽어온 객체)을 비교</strong>하여 서로 <strong>다를 경우, Update Query를 DB에 반영</strong>한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="nc">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span> <span class="c1">// 트랜잭션 시작</span>
+
+<span class="c1">// 영속 엔티티 조회</span>
+<span class="nc">Member</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memberA"</span><span class="o">);</span>
+
+<span class="c1">// 영속 데이터 수정</span>
+<span class="n">memberA</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"Lee"</span><span class="o">);</span>
+<span class="n">memberA</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+
+<span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 트랜잭션 커밋</span>
+</code></pre></div></div>
+
+<h6 id="지연-로딩lazy-loading">지연 로딩(Lazy Loading)</h6>
+
+:ET

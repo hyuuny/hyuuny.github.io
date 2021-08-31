@@ -1,4 +1,4 @@
-I"-<h2 id="영속성-컨텍스트">영속성 컨텍스트</h2>
+I"�-<h2 id="영속성-컨텍스트">영속성 컨텍스트</h2>
 <ul>
   <li>영속성 컨텍스트란, <strong>엔티티를 영구 저장하는 환경이라는 뜻</strong>이다.</li>
   <li>EntityManager의 persist()를 사용하여, Entity를 저장하고 <strong>영속성 컨텍스트로 관리</strong>한다.</li>
@@ -68,7 +68,7 @@
 <span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p><img src="./assets/images/jpa/entity-life.png" alt="img.png" /></p>
+<p><img src="/assets/images/jpa/entity-life.png" alt="img.png" /></p>
 
 <h2 id="영속성-컨텍스트-1">영속성 컨텍스트</h2>
 
@@ -78,7 +78,7 @@
   <li><strong>1차 캐시는 Transaction내에서만</strong> 효과가 있다.(Transaction이 끝나면 사라짐)</li>
 </ul>
 
-<p><img src="./assets/images/jpa/cache0.png" alt="img.png" /></p>
+<p><img src="/assets/images/jpa/cache0.png" alt="img.png" /></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 엔티티를 생성한 상태(비영속)</span>
 <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
@@ -157,12 +157,12 @@
 <span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 트랜잭션 커밋</span>
 </code></pre></div></div>
 
-<p><img src="/assets/images/JPA/write1.png" alt="img.png" /></p>
+<p><img src="/assets/images/jpa/write1.png" alt="img.png" /></p>
 <ul>
   <li>Insert Query를 바로 보내지 않고 <strong>쓰기 지연 SQL 저장소에 모아둔다.</strong></li>
 </ul>
 
-<p><img src="/assets/images/JPA/write2.png" alt="img.png" /></p>
+<p><img src="/assets/images/jpa/write2.png" alt="img.png" /></p>
 <ul>
   <li><strong>쓰기 지연 SQL 저장소</strong>에 저장된 Query를 <strong>commit</strong> 시점에 DB에 보낸다.</li>
 </ul>
@@ -170,6 +170,10 @@
 <hr />
 
 <h6 id="변경-감지dirty-checking">변경 감지(Dirty Checking)</h6>
+<ul>
+  <li>JPA는 Transaction commit 시점에 <strong>엔티티(커밋 시점 객체)와 스냅샷(최초에 DB에서 읽어온 객체)을 비교</strong>하여 서로 <strong>다를 경우, Update Query를 DB에 반영</strong>한다.</li>
+</ul>
+
 <h6 id="지연-로딩lazy-loading">지연 로딩(Lazy Loading)</h6>
 
 :ET
