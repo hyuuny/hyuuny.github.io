@@ -6,9 +6,24 @@
     <description>배움을 좋아하는 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 31 Aug 2021 23:56:18 +0900</pubDate>
-    <lastBuildDate>Tue, 31 Aug 2021 23:56:18 +0900</lastBuildDate>
+    <pubDate>Wed, 01 Sep 2021 21:44:25 +0900</pubDate>
+    <lastBuildDate>Wed, 01 Sep 2021 21:44:25 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>영속성 컨텍스트</title>
+        <description>
+</description>
+        <pubDate>Wed, 01 Sep 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/</guid>
+        
+        <category>2021년 09월</category>
+        
+        
+        <category>JPA</category>
+        
+      </item>
     
       <item>
         <title>영속성 컨텍스트</title>
@@ -216,7 +231,7 @@
         <link>https://hyuuny.github.io/jpa/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/jpa/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/</guid>
         
-        <category>JPA</category>
+        <category>2021년 08월</category>
         
         
         <category>JPA</category>
@@ -252,7 +267,7 @@
         <link>https://hyuuny.github.io/spring%20security/Thread-Local/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/Thread-Local/</guid>
         
-        <category>Spring Security</category>
+        <category>2021년 08월</category>
         
         
         <category>Spring Security</category>
@@ -315,7 +330,7 @@ Authentication 객체 사이의 어댑터&lt;/li&gt;
         <link>https://hyuuny.github.io/spring%20security/SpringContextHolder/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/SpringContextHolder/</guid>
         
-        <category>Spring Security</category>
+        <category>2021년 08월</category>
         
         
         <category>Spring Security</category>
@@ -374,7 +389,7 @@ password와 일치하는지 확인한다.
         <link>https://hyuuny.github.io/spring%20security/AuthenticationManager/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/AuthenticationManager/</guid>
         
-        <category>Spring Security</category>
+        <category>2021년 08월</category>
         
         
         <category>Spring Security</category>
