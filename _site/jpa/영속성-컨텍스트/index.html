@@ -342,6 +342,8 @@
   <li>EntityManager를 통해서 영속성 컨텍스트에 접근한다.</li>
 </ul>
 
+<p><img src="/assets/images/jpa/entity-manager-factory.png" alt="img.png" /></p>
+
 <h2 id="엔티티의-생명주기">엔티티의 생명주기</h2>
 <p>엔티티의 생명주기는 다음과 같이 총 4단계로 구성됩니다.</p>
 
@@ -598,7 +600,7 @@
 ">이전</a>
     
     
-      <a href="/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/" class="pagination--pager" title="영속성 컨텍스트
+      <a href="/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/" class="pagination--pager" title="플러시(flush)
 ">다음</a>
     
   </nav>
@@ -623,7 +625,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/" rel="permalink">영속성 컨텍스트
+        <a href="/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/" rel="permalink">플러시(flush)
 </a>
       
     </h2>
@@ -648,8 +650,11 @@
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
+    <p class="archive__item-excerpt" itemprop="description">플러시(flush)
+
+  플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.
+  데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨
+  영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를...</p>
   </article>
 </div>
 

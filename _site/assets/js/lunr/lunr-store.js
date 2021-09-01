@@ -23,8 +23,8 @@ var store = [{
         "url": "/jpa/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/",
         "teaser": null
       },{
-        "title": "영속성 컨텍스트",
-        "excerpt":" ","categories": ["JPA"],
+        "title": "플러시(flush)",
+        "excerpt":"플러시(flush) 플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다. 데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다. 플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문 commit 직전에만 동기화 하면 됨 플러시(flush) 발생 플러시(flush)가 발생하면 다음과 같은 일이 발생한다....","categories": ["JPA"],
         "tags": ["2021년 09월"],
         "url": "/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/",
         "teaser": null

@@ -6,13 +6,89 @@
     <description>배움을 좋아하는 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 01 Sep 2021 21:44:25 +0900</pubDate>
-    <lastBuildDate>Wed, 01 Sep 2021 21:44:25 +0900</lastBuildDate>
+    <pubDate>Wed, 01 Sep 2021 22:47:49 +0900</pubDate>
+    <lastBuildDate>Wed, 01 Sep 2021 22:47:49 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
-        <title>영속성 컨텍스트</title>
-        <description>
+        <title>플러시(flush)</title>
+        <description>&lt;h2 id=&quot;플러시flush&quot;&gt;플러시(flush)&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영&lt;/strong&gt;하는 것이다.&lt;/li&gt;
+  &lt;li&gt;데이터베이스 transaction commit이 발생하면 &lt;strong&gt;자동 플러시(flush)&lt;/strong&gt; 됨&lt;/li&gt;
+  &lt;li&gt;영속성 컨텍스트의 변경 내용을 데이터베이스에 &lt;strong&gt;동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문
+    &lt;ul&gt;
+      &lt;li&gt;commit 직전에만 동기화 하면 됨&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;플러시flush-발생&quot;&gt;플러시(flush) 발생&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;플러시(flush)가 발생하면 다음과 같은 일이 발생한다.
+    &lt;ol&gt;
+      &lt;li&gt;변경 감지(Dirty checking) 발생&lt;/li&gt;
+      &lt;li&gt;수정된 엔티티의 내용을 쓰기 지연 SQL 저장소에 등록&lt;/li&gt;
+      &lt;li&gt;쓰기 지연 SQL 저장소의 query를 데이터베이스에 전송(등록, 수정, 삭제)&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;영속성-컨텍스트-플러시flush하는-방법&quot;&gt;영속성 컨텍스트 플러시(flush)하는 방법&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;개발을 하면서 직접 flush 할 일은 거의 없지만, 아래와 같은 행동을 했을 때 발생한다.
+    &lt;ol&gt;
+      &lt;li&gt;em.flush - 직접 호출&lt;/li&gt;
+      &lt;li&gt;transaction commit - 자동 호출&lt;/li&gt;
+      &lt;li&gt;JPQL query 실행 - 자동 호출&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;member3&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// flush 시점에 Insert query 실행&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;============================&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/flush/flush.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;transaction.commit()전에 flush를 호출하였더니 DB에 Insert query를 보낸다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;플러시flush-모드-옵션&quot;&gt;플러시(flush) 모드 옵션&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;JPA에서는 플러시(flush)의 2가지 옵션이 있지만, &lt;strong&gt;사실상 기본 값인 AUTO만 사용&lt;/strong&gt;한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFlushMode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;FlushModeType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;COMMIT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;FlushModeType.AUTO
+    &lt;ul&gt;
+      &lt;li&gt;commit 또는 query를 실행할 때 플러시(기본 값)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;FlushModeType.Commit
+    &lt;ul&gt;
+      &lt;li&gt;commit할 때만 플러시&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 </description>
         <pubDate>Wed, 01 Sep 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/</link>
@@ -34,6 +110,8 @@
   &lt;li&gt;영속성 컨텍스트는 &lt;strong&gt;논리적인 개념&lt;/strong&gt;으로 눈에 보이지 않는다.&lt;/li&gt;
   &lt;li&gt;EntityManager를 통해서 영속성 컨텍스트에 접근한다.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/entity-manager-factory.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;엔티티의-생명주기&quot;&gt;엔티티의 생명주기&lt;/h2&gt;
 &lt;p&gt;엔티티의 생명주기는 다음과 같이 총 4단계로 구성됩니다.&lt;/p&gt;

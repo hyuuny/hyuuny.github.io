@@ -1,0 +1,18 @@
+I"�<h2 id="플러시flush">플러시(flush)</h2>
+<ul>
+  <li><strong>플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영</strong>하는 것이다.</li>
+  <li>데이터베이스 transaction commit이 발생하면 자동으로 플러시(flush) 됨</li>
+</ul>
+
+<h6 id="플러시flush-발생">플러시(flush) 발생</h6>
+<ul>
+  <li>플러시(flush)가 발생하면,
+    <ol>
+      <li>변경 감지(Dirty checking) 발생</li>
+      <li>수정된 엔티티의 내용을 쓰기 지연 SQL 저장소에 등록</li>
+      <li>쓰기 지연 SQL 저장소의 query를 데이터베이스에 전송(등록, 수정, 삭제)</li>
+    </ol>
+  </li>
+</ul>
+
+:ET
