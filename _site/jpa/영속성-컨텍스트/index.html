@@ -334,7 +334,7 @@
             </nav>
           </aside>
         
-        <h2 id="영속성-컨텍스트">영속성 컨텍스트</h2>
+        <h2 id="영속성-컨텍스트"><span style="color:MediumSeaGreen">영속성 컨텍스트</span></h2>
 <ul>
   <li>영속성 컨텍스트란, <strong>엔티티를 영구 저장하는 환경이라는 뜻</strong>이다.</li>
   <li>EntityManager의 persist()를 사용하여, Entity를 저장하고 <strong>영속성 컨텍스트로 관리</strong>한다.</li>
@@ -344,7 +344,7 @@
 
 <p><img src="/assets/images/jpa/entity-manager-factory.png" alt="img.png" /></p>
 
-<h2 id="엔티티의-생명주기">엔티티의 생명주기</h2>
+<h2 id="엔티티의-생명주기"><span style="color:MediumSeaGreen">엔티티의 생명주기</span></h2>
 <p>엔티티의 생명주기는 다음과 같이 총 4단계로 구성됩니다.</p>
 
 <ul>
@@ -408,9 +408,9 @@
 
 <p><img src="/assets/images/jpa/entity-life.png" alt="img.png" /></p>
 
-<h2 id="영속성-컨텍스트-1">영속성 컨텍스트</h2>
+<h2 id="영속성-컨텍스트-1"><span style="color:MediumSeaGreen">영속성 컨텍스트</span></h2>
 
-<h6 id="1차-캐시">1차 캐시</h6>
+<h6 id="1차-캐시"><span style="color:DodgerBlue">1차 캐시</span></h6>
 <ul>
   <li>영속성 컨텍스트는 내부에 1차 캐시를 갖고 있다.</li>
   <li><strong>1차 캐시는 Transaction내에서만</strong> 효과가 있다.(Transaction이 끝나면 사라짐)</li>
@@ -463,7 +463,7 @@
 
 <hr />
 
-<h6 id="동일성identity-보장">동일성(identity) 보장</h6>
+<h6 id="동일성identity-보장"><span style="color:DodgerBlue">동일성(identity) 보장</span></h6>
 <ul>
   <li>JPA는 <strong>식별자(pk)가 같으면 항상 true</strong></li>
   <li>1차 캐시로 반복 가능한 읽기(REPEATABLE READ) 등급의 트랜잭션 격리 수준을 데이터베이스가 아닌 애플리케이션 차원에서 제공</li>
@@ -476,7 +476,7 @@
 </code></pre></div></div>
 <hr />
 
-<h6 id="트랜잭션을-지원하는-쓰기-지연transaction-write-behind">트랜잭션을 지원하는 쓰기 지연(transaction write-behind)</h6>
+<h6 id="트랜잭션을-지원하는-쓰기-지연transaction-write-behind"><span style="color:DodgerBlue">트랜잭션을 지원하는 쓰기 지연(transaction write-behind)</span></h6>
 <ul>
   <li>JPA는 <strong>엔티티를 등록할 때</strong>, Insert Query를 보내지 않고 <strong>모아두었다가 transaction.commit하는 순간 데이터베이스에 Insert Query를 보낸다.</strong></li>
 </ul>
@@ -507,7 +507,7 @@
 
 <hr />
 
-<h6 id="변경-감지dirty-checking">변경 감지(Dirty Checking)</h6>
+<h6 id="변경-감지dirty-checking"><span style="color:DodgerBlue">변경 감지(Dirty Checking)</span></h6>
 <ul>
   <li>JPA는 Transaction commit 시점에 <strong>엔티티(커밋 시점 객체)와 스냅샷(최초에 DB에서 읽어온 객체)을 비교</strong>하여 서로 <strong>다를 경우, Update Query를 DB에 반영</strong>한다.</li>
 </ul>
@@ -531,7 +531,7 @@
 
 <hr />
 
-<h6 id="지연-로딩lazy-loading">지연 로딩(Lazy Loading)</h6>
+<h6 id="지연-로딩lazy-loading"><span style="color:DodgerBlue">지연 로딩(Lazy Loading)</span></h6>
 
 <hr />
 
@@ -615,6 +615,50 @@
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/" rel="permalink">준영속 상태
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">준영속 상태
+
+  준영속 상태란, 영속상태의 엔티티가 영속성 컨텍스트에서 분리된 것이다.
+  준영속 상태가 되면 영속성 컨텍스트가 제공하는 기능(변경 감지)을 사용하지 못한다.
+
+</p>
+  </article>
+</div>
+
         
           
 
@@ -739,46 +783,6 @@
 
 
     <p class="archive__item-excerpt" itemprop="description">Security Context Holder
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/spring%20security/AuthenticationManager/" rel="permalink">Authentication Manager
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.
 </p>
   </article>
 </div>

@@ -1,0 +1,5 @@
+I"�<h2 id="준영속-상태"><span style="color:MediumSeaGreen">준영속 상태</span></h2>
+<ul>
+  <li>준영속 상태란, 영속상태 엔티티가 영속성 컨텍스트에서 분리된 것이다.</li>
+</ul>
+:ET

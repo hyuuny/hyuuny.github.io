@@ -6,18 +6,95 @@
     <description>배움을 좋아하는 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 01 Sep 2021 22:47:49 +0900</pubDate>
-    <lastBuildDate>Wed, 01 Sep 2021 22:47:49 +0900</lastBuildDate>
+    <pubDate>Fri, 03 Sep 2021 00:05:28 +0900</pubDate>
+    <lastBuildDate>Fri, 03 Sep 2021 00:05:28 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
+        <title>준영속 상태</title>
+        <description>&lt;h2 id=&quot;준영속-상태&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;준영속 상태&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;준영속 상태란, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;영속상태의 엔티티가 영속성 컨텍스트에서 분리된 것&lt;/code&gt;이다.&lt;/li&gt;
+  &lt;li&gt;준영속 상태가 되면 영속성 컨텍스트가 제공하는 기능(변경 감지)을 사용하지 못한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;준영속-상태로-만드는-방법&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;준영속 상태로 만드는 방법&lt;/span&gt;&lt;/h2&gt;
+
+&lt;h6 id=&quot;emdetachentity&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;em.detach(entity)&lt;/span&gt;&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;특정 엔티티만 준영속 상태로 전환&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hyuuny&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// findMember를 준영속 상태로 변경한다.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;detach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;member : &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/detach/detach1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;findMember의 name을 “hyuuny”로 변경하였지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;commit()전에 준영속 상태가 되어 update 쿼리를 날리지 않는다.&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;emclear&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;em.clear()&lt;/span&gt;&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;영속성 컨텍스트를 완전히 초기화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 영속 &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 1번째 select query&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hyuuny&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 영속성 컨텍스트 초기화&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// select query 발생 &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 2번째 select query&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reFindMember&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;member : &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/detach/detach2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;clear()를 사용해서 영속성 컨텍스트를 초기화 했기 때문에 Id가 2L인 객체를 find할 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;다시 select 쿼리가 날아간다.&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;emclose&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;em.close()&lt;/span&gt;&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;영속성 컨텍스트 종료&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 02 Sep 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/</guid>
+        
+        <category>2021년 09월</category>
+        
+        
+        <category>JPA</category>
+        
+      </item>
+    
+      <item>
         <title>플러시(flush)</title>
-        <description>&lt;h2 id=&quot;플러시flush&quot;&gt;플러시(flush)&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;플러시flush&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;플러시(flush)&lt;/span&gt;&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영&lt;/strong&gt;하는 것이다.&lt;/li&gt;
   &lt;li&gt;데이터베이스 transaction commit이 발생하면 &lt;strong&gt;자동 플러시(flush)&lt;/strong&gt; 됨&lt;/li&gt;
   &lt;li&gt;영속성 컨텍스트의 변경 내용을 데이터베이스에 &lt;strong&gt;동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문
+  &lt;li&gt;transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.
     &lt;ul&gt;
       &lt;li&gt;commit 직전에만 동기화 하면 됨&lt;/li&gt;
     &lt;/ul&gt;
@@ -26,7 +103,7 @@
 
 &lt;hr /&gt;
 
-&lt;h6 id=&quot;플러시flush-발생&quot;&gt;플러시(flush) 발생&lt;/h6&gt;
+&lt;h2 id=&quot;플러시flush-발생&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;플러시(flush) 발생&lt;/span&gt;&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;플러시(flush)가 발생하면 다음과 같은 일이 발생한다.
     &lt;ol&gt;
@@ -39,7 +116,7 @@
 
 &lt;hr /&gt;
 
-&lt;h6 id=&quot;영속성-컨텍스트-플러시flush하는-방법&quot;&gt;영속성 컨텍스트 플러시(flush)하는 방법&lt;/h6&gt;
+&lt;h2 id=&quot;영속성-컨텍스트-플러시flush하는-방법&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;영속성 컨텍스트 플러시(flush)하는 방법&lt;/span&gt;&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;개발을 하면서 직접 flush 할 일은 거의 없지만, 아래와 같은 행동을 했을 때 발생한다.
     &lt;ol&gt;
@@ -50,7 +127,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;member3&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hyuuny&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// flush 시점에 Insert query 실행&lt;/span&gt;
@@ -68,9 +145,9 @@
 
 &lt;hr /&gt;
 
-&lt;h3 id=&quot;플러시flush-모드-옵션&quot;&gt;플러시(flush) 모드 옵션&lt;/h3&gt;
+&lt;h6 id=&quot;플러시flush-옵션&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;플러시(flush) 옵션&lt;/span&gt;&lt;/h6&gt;
 &lt;ul&gt;
-  &lt;li&gt;JPA에서는 플러시(flush)의 2가지 옵션이 있지만, &lt;strong&gt;사실상 기본 값인 AUTO만 사용&lt;/strong&gt;한다.&lt;/li&gt;
+  &lt;li&gt;JPA에서는 플러시(flush)의 2가지 옵션이 있지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;사실상 기본 값인 AUTO만 사용&lt;/code&gt;한다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFlushMode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;FlushModeType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;COMMIT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
@@ -103,7 +180,7 @@
     
       <item>
         <title>영속성 컨텍스트</title>
-        <description>&lt;h2 id=&quot;영속성-컨텍스트&quot;&gt;영속성 컨텍스트&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;영속성-컨텍스트&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;영속성 컨텍스트&lt;/span&gt;&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;영속성 컨텍스트란, &lt;strong&gt;엔티티를 영구 저장하는 환경이라는 뜻&lt;/strong&gt;이다.&lt;/li&gt;
   &lt;li&gt;EntityManager의 persist()를 사용하여, Entity를 저장하고 &lt;strong&gt;영속성 컨텍스트로 관리&lt;/strong&gt;한다.&lt;/li&gt;
@@ -113,7 +190,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/jpa/entity-manager-factory.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;엔티티의-생명주기&quot;&gt;엔티티의 생명주기&lt;/h2&gt;
+&lt;h2 id=&quot;엔티티의-생명주기&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;엔티티의 생명주기&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;엔티티의 생명주기는 다음과 같이 총 4단계로 구성됩니다.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -177,9 +254,9 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/jpa/entity-life.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;영속성-컨텍스트-1&quot;&gt;영속성 컨텍스트&lt;/h2&gt;
+&lt;h2 id=&quot;영속성-컨텍스트-1&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;영속성 컨텍스트&lt;/span&gt;&lt;/h2&gt;
 
-&lt;h6 id=&quot;1차-캐시&quot;&gt;1차 캐시&lt;/h6&gt;
+&lt;h6 id=&quot;1차-캐시&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;1차 캐시&lt;/span&gt;&lt;/h6&gt;
 &lt;ul&gt;
   &lt;li&gt;영속성 컨텍스트는 내부에 1차 캐시를 갖고 있다.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;1차 캐시는 Transaction내에서만&lt;/strong&gt; 효과가 있다.(Transaction이 끝나면 사라짐)&lt;/li&gt;
@@ -232,7 +309,7 @@
 
 &lt;hr /&gt;
 
-&lt;h6 id=&quot;동일성identity-보장&quot;&gt;동일성(identity) 보장&lt;/h6&gt;
+&lt;h6 id=&quot;동일성identity-보장&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;동일성(identity) 보장&lt;/span&gt;&lt;/h6&gt;
 &lt;ul&gt;
   &lt;li&gt;JPA는 &lt;strong&gt;식별자(pk)가 같으면 항상 true&lt;/strong&gt;&lt;/li&gt;
   &lt;li&gt;1차 캐시로 반복 가능한 읽기(REPEATABLE READ) 등급의 트랜잭션 격리 수준을 데이터베이스가 아닌 애플리케이션 차원에서 제공&lt;/li&gt;
@@ -245,7 +322,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;hr /&gt;
 
-&lt;h6 id=&quot;트랜잭션을-지원하는-쓰기-지연transaction-write-behind&quot;&gt;트랜잭션을 지원하는 쓰기 지연(transaction write-behind)&lt;/h6&gt;
+&lt;h6 id=&quot;트랜잭션을-지원하는-쓰기-지연transaction-write-behind&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;트랜잭션을 지원하는 쓰기 지연(transaction write-behind)&lt;/span&gt;&lt;/h6&gt;
 &lt;ul&gt;
   &lt;li&gt;JPA는 &lt;strong&gt;엔티티를 등록할 때&lt;/strong&gt;, Insert Query를 보내지 않고 &lt;strong&gt;모아두었다가 transaction.commit하는 순간 데이터베이스에 Insert Query를 보낸다.&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -276,7 +353,7 @@
 
 &lt;hr /&gt;
 
-&lt;h6 id=&quot;변경-감지dirty-checking&quot;&gt;변경 감지(Dirty Checking)&lt;/h6&gt;
+&lt;h6 id=&quot;변경-감지dirty-checking&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;변경 감지(Dirty Checking)&lt;/span&gt;&lt;/h6&gt;
 &lt;ul&gt;
   &lt;li&gt;JPA는 Transaction commit 시점에 &lt;strong&gt;엔티티(커밋 시점 객체)와 스냅샷(최초에 DB에서 읽어온 객체)을 비교&lt;/strong&gt;하여 서로 &lt;strong&gt;다를 경우, Update Query를 DB에 반영&lt;/strong&gt;한다.&lt;/li&gt;
 &lt;/ul&gt;
@@ -300,7 +377,7 @@
 
 &lt;hr /&gt;
 
-&lt;h6 id=&quot;지연-로딩lazy-loading&quot;&gt;지연 로딩(Lazy Loading)&lt;/h6&gt;
+&lt;h6 id=&quot;지연-로딩lazy-loading&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;지연 로딩(Lazy Loading)&lt;/span&gt;&lt;/h6&gt;
 
 &lt;hr /&gt;
 

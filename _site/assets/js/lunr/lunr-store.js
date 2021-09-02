@@ -24,8 +24,14 @@ var store = [{
         "teaser": null
       },{
         "title": "플러시(flush)",
-        "excerpt":"플러시(flush) 플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다. 데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다. 플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문 commit 직전에만 동기화 하면 됨 플러시(flush) 발생 플러시(flush)가 발생하면 다음과 같은 일이 발생한다....","categories": ["JPA"],
+        "excerpt":"플러시(flush) 플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다. 데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다. transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다. commit 직전에만 동기화 하면 됨 플러시(flush) 발생 플러시(flush)가 발생하면 다음과 같은 일이 발생한다. 변경...","categories": ["JPA"],
         "tags": ["2021년 09월"],
         "url": "/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/",
+        "teaser": null
+      },{
+        "title": "준영속 상태",
+        "excerpt":"준영속 상태 준영속 상태란, 영속상태의 엔티티가 영속성 컨텍스트에서 분리된 것이다. 준영속 상태가 되면 영속성 컨텍스트가 제공하는 기능(변경 감지)을 사용하지 못한다. 준영속 상태로 만드는 방법 em.detach(entity) 특정 엔티티만 준영속 상태로 전환 Member findMember = em.find(Member.class, 2L); findMember.setName(\"hyuuny\"); // findMember를 준영속 상태로 변경한다. em.detach(findMember); System.out.println(\"member : \" + findMember); tx.commit(); findMember의 name을...","categories": ["JPA"],
+        "tags": ["2021년 09월"],
+        "url": "/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/",
         "teaser": null
       }]

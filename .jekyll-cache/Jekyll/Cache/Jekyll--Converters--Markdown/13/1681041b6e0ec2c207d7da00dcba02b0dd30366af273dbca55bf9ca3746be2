@@ -1,6 +1,0 @@
-I"<h2 id="플러시flush">플러시(flush)</h2>
-<ul>
-  <li><strong>flush는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영</strong>하는 것이다.</li>
-  <li>데이터베이스 transaction commit이 발생하면 flush가 자동으로 됨</li>
-</ul>
-:ET

@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>플러시(flush) - Hyuuny`s Blog</title>
-<meta name="description" content="플러시(flush)    플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.   데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨   영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.   플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문            commit 직전에만 동기화 하면 됨">
+<meta name="description" content="플러시(flush)    플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.   데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨   영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.   transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.            commit 직전에만 동기화 하면 됨">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://hyuuny.github.io/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/">
 
 
-  <meta property="og:description" content="플러시(flush)    플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.   데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨   영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.   플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문            commit 직전에만 동기화 하면 됨">
+  <meta property="og:description" content="플러시(flush)    플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.   데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨   영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.   transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.            commit 직전에만 동기화 하면 됨">
 
 
 
@@ -289,7 +289,7 @@
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="플러시(flush)">
-    <meta itemprop="description" content="플러시(flush)  플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.  데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨  영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.  플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문          commit 직전에만 동기화 하면 됨      ">
+    <meta itemprop="description" content="플러시(flush)  플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.  데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨  영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.  transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.          commit 직전에만 동기화 하면 됨      ">
     <meta itemprop="datePublished" content="2021-09-01T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-09-01T14:00:00+09:00">
 
@@ -329,17 +329,17 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#플러시flush">플러시(flush)</a><ul><li><a href="#플러시flush-발생">플러시(flush) 발생</a></li><li><a href="#영속성-컨텍스트-플러시flush하는-방법">영속성 컨텍스트 플러시(flush)하는 방법</a></li></ul></li></ul></li></ul></li><li><a href="#플러시flush-모드-옵션">플러시(flush) 모드 옵션</a></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#플러시flush">플러시(flush)</a></li><li><a href="#플러시flush-발생">플러시(flush) 발생</a></li><li><a href="#영속성-컨텍스트-플러시flush하는-방법">영속성 컨텍스트 플러시(flush)하는 방법</a><ul><li><a href="#플러시flush-옵션">플러시(flush) 옵션</a></li></ul></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h2 id="플러시flush">플러시(flush)</h2>
+        <h2 id="플러시flush"><span style="color:MediumSeaGreen">플러시(flush)</span></h2>
 <ul>
   <li><strong>플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영</strong>하는 것이다.</li>
   <li>데이터베이스 transaction commit이 발생하면 <strong>자동 플러시(flush)</strong> 됨</li>
   <li>영속성 컨텍스트의 변경 내용을 데이터베이스에 <strong>동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.</strong></li>
-  <li>플러시(flush)가 동작 가능한 메커니즘은 transaction이라는 작업 단위가 있기 때문
+  <li>transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.
     <ul>
       <li>commit 직전에만 동기화 하면 됨</li>
     </ul>
@@ -348,7 +348,7 @@
 
 <hr />
 
-<h6 id="플러시flush-발생">플러시(flush) 발생</h6>
+<h2 id="플러시flush-발생"><span style="color:MediumSeaGreen">플러시(flush) 발생</span></h2>
 <ul>
   <li>플러시(flush)가 발생하면 다음과 같은 일이 발생한다.
     <ol>
@@ -361,7 +361,7 @@
 
 <hr />
 
-<h6 id="영속성-컨텍스트-플러시flush하는-방법">영속성 컨텍스트 플러시(flush)하는 방법</h6>
+<h2 id="영속성-컨텍스트-플러시flush하는-방법"><span style="color:MediumSeaGreen">영속성 컨텍스트 플러시(flush)하는 방법</span></h2>
 <ul>
   <li>개발을 하면서 직접 flush 할 일은 거의 없지만, 아래와 같은 행동을 했을 때 발생한다.
     <ol>
@@ -372,7 +372,7 @@
   </li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">(</span><span class="mi">3L</span><span class="o">,</span> <span class="s">"member3"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">(</span><span class="mi">1L</span><span class="o">,</span> <span class="s">"hyuuny"</span><span class="o">);</span>
 <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
 
 <span class="c1">// flush 시점에 Insert query 실행</span>
@@ -390,9 +390,9 @@
 
 <hr />
 
-<h3 id="플러시flush-모드-옵션">플러시(flush) 모드 옵션</h3>
+<h6 id="플러시flush-옵션"><span style="color:DodgerBlue">플러시(flush) 옵션</span></h6>
 <ul>
-  <li>JPA에서는 플러시(flush)의 2가지 옵션이 있지만, <strong>사실상 기본 값인 AUTO만 사용</strong>한다.</li>
+  <li>JPA에서는 플러시(flush)의 2가지 옵션이 있지만, <code class="language-plaintext highlighter-rouge">사실상 기본 값인 AUTO만 사용</code>한다.</li>
 </ul>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">setFlushMode</span><span class="o">(</span><span class="nc">FlushModeType</span><span class="o">.</span><span class="na">COMMIT</span><span class="o">)</span>
@@ -476,7 +476,8 @@
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/" class="pagination--pager" title="준영속 상태
+">다음</a>
     
   </nav>
 
@@ -490,6 +491,50 @@
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/" rel="permalink">준영속 상태
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">준영속 상태
+
+  준영속 상태란, 영속상태의 엔티티가 영속성 컨텍스트에서 분리된 것이다.
+  준영속 상태가 되면 영속성 컨텍스트가 제공하는 기능(변경 감지)을 사용하지 못한다.
+
+</p>
+  </article>
+</div>
+
         
           
 
@@ -615,46 +660,6 @@
 
 
     <p class="archive__item-excerpt" itemprop="description">Security Context Holder
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/spring%20security/AuthenticationManager/" rel="permalink">Authentication Manager
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.
 </p>
   </article>
 </div>

@@ -1,0 +1,57 @@
+I"�<h2 id="준영속-상태"><span style="color:MediumSeaGreen">준영속 상태</span></h2>
+<ul>
+  <li>준영속 상태란, <code class="language-plaintext highlighter-rouge">영속상태의 엔티티가 영속성 컨텍스트에서 분리된 것</code>이다.</li>
+  <li>준영속 상태가 되면 영속성 컨텍스트가 제공하는 기능(변경 감지)을 사용하지 못한다.</li>
+</ul>
+
+<hr />
+
+<h2 id="준영속-상태로-만드는-방법"><span style="color:MediumSeaGreen">준영속 상태로 만드는 방법</span></h2>
+
+<h6 id="emdetachentity"><span style="color:DodgerBlue">em.detach(entity)</span></h6>
+<ul>
+  <li>특정 엔티티만 준영속 상태로 전환</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="mi">2L</span><span class="o">);</span>
+<span class="n">findMember</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+
+<span class="c1">// findMember를 준영속 상태로 변경한다.</span>
+<span class="n">em</span><span class="o">.</span><span class="na">detach</span><span class="o">(</span><span class="n">findMember</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"member : "</span> <span class="o">+</span> <span class="n">findMember</span><span class="o">);</span>
+
+<span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/jpa/detach/detach1.png" alt="img.png" /></p>
+
+<ul>
+  <li>findMember의 name을 “hyuuny”로 변경하였지만, <code class="language-plaintext highlighter-rouge">commit()전에 준영속 상태가 되어 update 쿼리를 날리지 않는다.</code></li>
+</ul>
+
+<h6 id="emclear"><span style="color:DodgerBlue">em.clear()</span></h6>
+<ul>
+  <li>영속성 컨텍스트를 완전히 초기화</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 영속 (1번째 select query)</span>
+<span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="mi">2L</span><span class="o">);</span>
+<span class="n">findMember</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+
+<span class="c1">// 영속성 컨텍스트 초기화</span>
+<span class="n">em</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+
+<span class="c1">// select query 발생 (2번째 select query)</span>
+<span class="nc">Member</span> <span class="n">reFindMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="mi">2L</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"member : "</span> <span class="o">+</span> <span class="n">findMember</span><span class="o">);</span>
+
+<span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/jpa/detach/detach2.png" alt="img.png" /></p>
+<ul>
+  <li>clear()를 사용해서 영속성 컨텍스트를 초기화 했기 때문에 Id가 2L인 객체를 find할 때 다시 select 쿼리를 날린다.</li>
+</ul>
+:ET
