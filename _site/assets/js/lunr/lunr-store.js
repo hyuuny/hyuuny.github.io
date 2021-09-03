@@ -34,4 +34,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/",
         "teaser": null
+      },{
+        "title": "객체와 테이블 매핑",
+        "excerpt":"@Entity @Entity가 붙은 클래스는 JPA가 관리하게 된다. JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다. @Entity를 사용할 때는 다음과 같은 주의사항이 있다. 하이버네이트는 프록시 DB 연산 결과를 상속한 클래스의 기본 생성자를 호출하여 매핑한다. 이때, 알맞게 결과 값을 넣어주기 위해서는 public 또는 protected 레벨의 기본 생성자가 필요하다. final 클래스, enum,...","categories": ["JPA"],
+        "tags": ["2021년 09월"],
+        "url": "/jpa/%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%A7%A4%ED%95%91/",
+        "teaser": null
       }]

@@ -1,0 +1,14 @@
+I"%<h2 id="entity"><span style="color:MediumSeaGreen">Entity</span></h2>
+<ul>
+  <li>@Entity가 붙은 클래스는 JPA가 관리하게 된다.</li>
+  <li>JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다.</li>
+  <li>@Entity를 사용할 때는 다음과 같은 주의사항이 있다.
+    <ul>
+      <li>하이버네이트는 프록시 DB 연산 결과를 상속한 클래스의 기본 생성자를 호출해서 매핑한다. 이때, 알맞게 결과 값을 넣어주기 위해서 <code class="language-plaintext highlighter-rouge">public 또는 protected 레벨의 기본 생성자</code>가 필요하다.</li>
+      <li>final 클래스, enum, interface, inner 클래스 사용 X</li>
+      <li>저장할 필드에 final 사용 X</li>
+    </ul>
+  </li>
+</ul>
+
+:ET

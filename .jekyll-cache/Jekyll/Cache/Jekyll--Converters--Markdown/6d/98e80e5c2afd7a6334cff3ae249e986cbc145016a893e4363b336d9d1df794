@@ -1,0 +1,5 @@
+I"�<h2 id="entity"><span style="color:MediumSeaGreen">Entity</span></h2>
+<ul>
+  <li>@Entity가 붙은 클래스는 JPA가 관리하게 된다.</li>
+</ul>
+:ET

@@ -1,0 +1,58 @@
+I"?<h2 id="entity"><span style="color:MediumSeaGreen">Entity</span></h2>
+<ul>
+  <li>@Entity가 붙은 클래스는 JPA가 관리하게 된다.</li>
+  <li>JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다.</li>
+  <li>@Entity를 사용할 때는 다음과 같은 주의사항이 있다.
+    <ul>
+      <li>하이버네이트는 <code class="language-plaintext highlighter-rouge">프록시 DB 연산 결과를 상속한 클래스의 기본 생성자를 호출하여 매핑한다</code>. 이때, 알맞게 결과 값을 넣어주기 위해서는 <code class="language-plaintext highlighter-rouge">public 또는 protected 레벨의 기본 생성자</code>가 필요하다.</li>
+      <li>final 클래스, enum, interface, inner 클래스 사용 X</li>
+      <li>저장할 필드에 final 사용 X</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span><span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(){</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h6 id="name"><span style="color:DodgerBlue">name</span></h6>
+<ul>
+  <li>name 속성을 사용하여 JPA에서 사용할 엔티티 이름을 지정할 수 있다.</li>
+  <li>기본값은 클래스의 이름을 그대로 사용한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">같은 클래스 이름이 없다면 가급적 기본값을 사용</code>하는 것이 좋다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"account"</span><span class="o">)</span> <span class="c1">// account라는 이름으로 사용할 수 있다.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span><span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(){</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+:ET

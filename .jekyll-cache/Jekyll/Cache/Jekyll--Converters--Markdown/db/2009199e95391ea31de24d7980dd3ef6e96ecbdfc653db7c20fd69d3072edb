@@ -1,0 +1,184 @@
+I"{+<h2 id="entity"><span style="color:MediumSeaGreen">@Entity</span></h2>
+<ul>
+  <li>@Entity가 붙은 클래스는 JPA가 관리하게 된다.</li>
+  <li>JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다.</li>
+  <li>@Entity를 사용할 때는 다음과 같은 주의사항이 있다.
+    <ul>
+      <li>하이버네이트는 <code class="language-plaintext highlighter-rouge">프록시 DB 연산 결과를 상속한 클래스의 기본 생성자를 호출하여 매핑한다</code>. 이때, 알맞게 결과 값을 넣어주기 위해서는 <code class="language-plaintext highlighter-rouge">public 또는 protected 레벨의 기본 생성자</code>가 필요하다.</li>
+      <li>final 클래스, enum, interface, inner 클래스 사용 X</li>
+      <li>저장할 필드에 final 사용 X</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span><span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(){</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h6 id="name"><span style="color:DodgerBlue">name</span></h6>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"account"</span><span class="o">)</span> <span class="c1">// Member 클래스를 account라는 이름으로 사용하게 된다.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span><span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(){</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="table"><span style="color:MediumSeaGreen">@Table</span></h2>
+<ul>
+  <li>@Table은 엔티티와 매핑할 테이블을 지정한다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">속성</th>
+      <th style="text-align: center">기능</th>
+      <th style="text-align: center">기본값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">name</td>
+      <td style="text-align: center">매핑할 테이블 이름 지정</td>
+      <td style="text-align: center">엔티티 이름을 사용</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">catalog</td>
+      <td style="text-align: center">데이터베이스 catalog 매핑</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">schema</td>
+      <td style="text-align: center">데이터베이스 schema 매핑</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">uniqueConstraints(DDL)</td>
+      <td style="text-align: center">DDL 생성시에 유니크 제약 조건 생성</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"MBR"</span><span class="o">)</span> <span class="c1">// Table명을 MBR로 지정한다.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span><span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(){</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Member</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/jpa/entity/table.png" alt="img.png" /></p>
+<ul>
+  <li>테이블명이 MBR임을 확인할 수 있다.</li>
+</ul>
+
+<hr />
+
+<h2 id="데이터베이스-스키마-자동-생성"><span style="color:MediumSeaGreen">데이터베이스 스키마 자동 생성</span></h2>
+<ul>
+  <li>DDL을 애플리케이션 실행 시점에 자동 생성</li>
+  <li>테이블 중심 → 객체 중심</li>
+  <li>데이터베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL 생성</li>
+  <li><strong>이렇게 생성된 DDL은 개발 장비에서만 사용</strong>하자</li>
+  <li>생성된 DDL은 운영서버에서는 사용하지 않거나, 적절히 다듬은 후 사용</li>
+</ul>
+
+<h6 id="데이터베이스-스키마-자동-생성---속성"><span style="color:DodgerBlue">데이터베이스 스키마 자동 생성 - 속성</span></h6>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">옵션</th>
+      <th style="text-align: center">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">create</td>
+      <td style="text-align: center">기존테이블 삭제 후 다시 생성(DROP + CREATE)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">create-drop</td>
+      <td style="text-align: center">create와 같으나, 종료시점에 테이블 DROP</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">update</td>
+      <td style="text-align: center">변경분만 반영<strong>(운영DB에는 사용하지 말자)</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">validate</td>
+      <td style="text-align: center">엔티티와 테이블이 정상 매핑되었는지만 확인</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">none</td>
+      <td style="text-align: center">사용하지 않음</td>
+    </tr>
+  </tbody>
+</table>
+
+<h6 id="데이터베이스-스키마-자동-생성---주의"><span style="color:DodgerBlue">데이터베이스 스키마 자동 생성 - 주의</span></h6>
+<ul>
+  <li><strong>운영 장비에서는 절대 create, create-drop, update 사용하면 안됨.</strong></li>
+  <li>개발 초기 단계는 create 또는 update</li>
+  <li>테스트 서버는 update 또는 validate</li>
+  <li>스테이징과 운영 서버는 validate 또는 none</li>
+</ul>
+
+<h6 id="ddl-생성-기능"><span style="color:DodgerBlue">DDL 생성 기능</span></h6>
+<ul>
+  <li>제약조건 추가 : 회원 이름 필수, 10자 초과 X
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">10</span><span class="o">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>유니크 제약조건 추가
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Table</span><span class="o">(</span><span class="n">uniqueConstraints</span><span class="o">={</span><span class="nd">@UniqueConstraint</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"NAME_AGE_UNIQUE"</span><span class="o">,</span> <span class="n">columnNames</span> <span class="o">=</span> <span class="o">{</span><span class="s">"NAME"</span><span class="o">,</span> <span class="s">"AGE"</span><span class="o">})})</span>
+</code></pre></div>    </div>
+  </li>
+  <li>DDL 생성 기능은 <code class="language-plaintext highlighter-rouge">DDL을 자동 생성할 때만 사용되고 JPA의 실행 로직에는 영향을 주지 않는다.</code></li>
+</ul>
+
+:ET
