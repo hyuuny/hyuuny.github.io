@@ -1,6 +1,0 @@
-I"<h2 id="entity"><span style="color:MediumSeaGreen">Entity</span></h2>
-<ul>
-  <li>@Entity가 붙은 클래스는 JPA가 관리하게 된다.</li>
-  <li>JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다.</li>
-</ul>
-:ET
