@@ -1,0 +1,288 @@
+I"[:<h2 id="mappedby"><span style="color:MediumSeaGreen">mappedBy</span></h2>
+
+<ul>
+  <li>mappedBy를 알아보기에 앞서 <code class="language-plaintext highlighter-rouge">객체와 테이블이 관계를 맺는 차이</code>를 알아보자</li>
+</ul>
+
+<p><img src="/assets/images/jpa/Annualrelationship.png" alt="img.png" /></p>
+
+<ul>
+  <li>객체의 서로 단방향으로 관계를 맺기 때문에 2개의 연관관계가 존재하게 된다.
+    <ul>
+      <li>회원 -&gt; 팀 : 연관관계 1개(단방향)</li>
+      <li>팀 -&gt; 회원 : 연관관계 1개(단방향)</li>
+    </ul>
+  </li>
+  <li>반면 테이블은 한쪽이 다른 쪽 pk를 참조하는 방식으로 1개의 연관관계가 존재하게 된다.
+    <ul>
+      <li>회원 &lt;-&gt; 팀 : 연관관계 1개(양방향)</li>
+    </ul>
+  </li>
+</ul>
+
+<h6 id="객체의-양방향-관계"><span style="color:DodgerBlue">객체의 양방향 관계</span></h6>
+<ul>
+  <li><strong>객체의 양뱡향 관계는 사실 <span style="color:red">양뱡향 관계가 아니라 서로 다른 단방향 관계 2개</span>다.</strong></li>
+  <li>객체를 <strong>양뱡향으로 참조하려면 단방향 연관관계를 2개 만들어야 한다</strong>.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// A -&gt; B (a.getB())</span>
+<span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span> 
+    <span class="kd">private</span> <span class="no">B</span> <span class="n">b</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// B -&gt; A (b.getA())</span>
+<span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="no">A</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h6 id="테이블의-양방향-관계"><span style="color:DodgerBlue">테이블의 양방향 관계</span></h6>
+
+<ul>
+  <li><strong>테이블은 외래 키 하나로 두 테이블의 연관관계를 관리</strong></li>
+  <li>MEMBER.TEAM_ID <strong>외래 키 하나로 양방향 연관관계 가짐</strong>
+    <ul>
+      <li>양쪽으로 조인할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="nc">Member</span> <span class="n">m</span>
+	<span class="nc">Join</span> <span class="nc">Team</span> <span class="n">t</span> <span class="n">on</span> <span class="n">m</span><span class="o">.</span><span class="na">Team_id</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">member_id</span>
+
+<span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="nc">Team</span> <span class="n">t</span> 
+	<span class="nc">Join</span> <span class="nc">Member</span> <span class="n">m</span> <span class="n">on</span> <span class="n">t</span><span class="o">.</span><span class="na">member_id</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">Team_id</span>
+</code></pre></div></div>
+
+<hr />
+
+<ul>
+  <li>테이블은 한쪽에서 다른쪽 pk를 참조함으로써 관리하게 되지만, 객체는 어떻게 관리해야할지 딜레마에 빠지게 된다.</li>
+</ul>
+
+<p><img src="/assets/images/jpa/Annualrelationship2.png" alt="img.png" /></p>
+
+<ul>
+  <li>객체는 결국 <strong>둘 중 하나를 주인으로 정해야하는데 이게 바로 연관관계의 주인</strong>이 된다.</li>
+</ul>
+
+<hr />
+
+<h6 id="연관관계의-주인mappedby"><span style="color:DodgerBlue">연관관계의 주인(mappedBy)</span></h6>
+<p>연관관계의 주인은 양뱡향 연관관계에서 나온 말이다.<br />
+객체 양뱡향 연관관계에서는 <strong>둘 중 하나를 주인으로 지정</strong>해야하며, 다음과 같은 특징이 있다.</p>
+
+<ul>
+  <li><strong>연관관계의 주인만이 외래 키를 관리(등록, 수정)</strong></li>
+  <li><strong>주인이 아닌쪽은 읽기만 가능</strong></li>
+  <li><strong>주인은 mappedBy 속성 사용 X</strong></li>
+  <li><strong>주인이 아니면 mappedBy 속성으로 주인 지정</strong></li>
+</ul>
+
+<hr />
+
+<p>연관관계 주인은 <strong><span style="color:red">외래키가 있는 곳을 주인</span>으로 정한다.</strong><br />
+아래 그림에서는 Member.team이 연관관계의 주인이 된다.
+<img src="/assets/images/jpa/Annualrelationship3.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="양방향-매핑시-자주-겪게-되는-실수"><span style="color:DodgerBlue">양방향 매핑시 자주 겪게 되는 실수</span></h6>
+
+<p>JPA를 사용하면서 객체간의 양뱡향 연관관계를 다룰 때, 가장 많이 하는 실수는 <strong>한쪽에만 값을 넣고, 다른 쪽에는 값을 넣어주지 않아서 발생하는 문제</strong>다.<br />
+나 역시 처음 JPA를 실무에서 사용할 때 이 문제를 겪고 해맸던 적이 있는데, 이 글을 보는 다른 개발자는 이런 실수를 하지 않았으면 하는 마음에 글을 올린다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+<p><br />
+위 코드에서 <strong>team.getMembers()에만 값을 넣어줬기 때문에 Member Table의 TEAM_ID에는 값이 들어가지 않는다.</strong></p>
+
+<ul>
+  <li>Member Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">MEMBER_ID</th>
+      <th style="text-align: center">USERNAME</th>
+      <th style="text-align: center">TEAM_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">hyuuny</td>
+      <td style="text-align: center">null</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li>Team Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">TEAM_ID</th>
+      <th style="text-align: center">NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">TeamA</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
+<br />
+애초에 객체지향적으로 생각해봐도 항상 <strong>양쪽</strong>에 값을 넣어주는 것이 맞다.<br />
+이 문제를 해결하기 위해서는 <strong>양쪽</strong>에 값을 넣어주면 된다.
+<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team</span><span class="o">);</span> <span class="c1">// team값 세팅</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+</code></pre></div></div>
+<ul>
+  <li>Member Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">MEMBER_ID</th>
+      <th style="text-align: center">USERNAME</th>
+      <th style="text-align: center">TEAM_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">hyuuny</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li>Team Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">TEAM_ID</th>
+      <th style="text-align: center">NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">TeamA</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h6 id="양방향-연관관계-값-세팅을-위한-편의-메서드"><span style="color:DodgerBlue">양방향 연관관계 값 세팅을 위한 편의 메서드</span></h6>
+
+<p><code class="language-plaintext highlighter-rouge">양방향 매핑시 자주 겪게 되는 실수</code>에서 다룬 문제를 쉽게 해결하기 위한 방법으로 <strong>편의 메서드</strong>를 작성하여  한쪽에서 값을 넣으면 다른쪽에서도 값이 들어갈 수 있도록 관리할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Team</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span><span class="o">=</span><span class="s">"team"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="c1">// 편의 메소드</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addMember</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">){</span>
+        <span class="n">member</span><span class="o">.</span><span class="na">changeTeam</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="c1">// member(반대쪽)에 자기자신(team)을 넣는다.</span>
+        <span class="n">members</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">team</span><span class="o">.</span><span class="na">addMember</span><span class="o">(</span><span class="n">member</span><span class="o">);</span> <span class="c1">// 편의 메서드 사용</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br />
+편의 메서드는 어느 쪽에 넣어도 상관없다.<br />
+단지 편의 메서드를 사용하면 한쪽에서 양쪽 값을 세팅할 수 있다는 장점이 있다.<br />
+위 코드에서 team에만 값을 넣었지만, <strong>양쪽 모두 값이 들어간 것을 확인</strong>할 수 있다.</p>
+
+<ul>
+  <li>Member Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">MEMBER_ID</th>
+      <th style="text-align: center">USERNAME</th>
+      <th style="text-align: center">TEAM_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">hyuuny</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li>Team Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">TEAM_ID</th>
+      <th style="text-align: center">NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">TeamA</td>
+    </tr>
+  </tbody>
+</table>
+:ET

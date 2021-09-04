@@ -1,0 +1,23 @@
+I":<h2 id="mappedby"><span style="color:MediumSeaGreen">mappedBy</span></h2>
+
+<ul>
+  <li>mappedBy를 알아보기에 앞서 <code class="language-plaintext highlighter-rouge">객체와 테이블이 관계를 맺는 차이</code>를 알아보자</li>
+</ul>
+
+<p><img src="/assets/images/jpa/Annualrelationship.png" alt="img.png" /></p>
+
+<ul>
+  <li>객체의 서로 단방향으로 관계를 맺기 때문에 2개의 연관관계가 존재하게 된다.
+    <ul>
+      <li>회원 -&gt; 팀 : 연관관계 1개(단방향)</li>
+      <li>팀 -&gt; 회원 : 연관관계 1개(단방향)</li>
+    </ul>
+  </li>
+  <li>반면 테이블은 한쪽이 다른 쪽 pk를 참조하는 방식으로 1개의 연관관계가 존재하게 된다.
+    <ul>
+      <li>회원 &lt;-&gt; 팀 : 연관관계 1개(양방향)</li>
+    </ul>
+  </li>
+</ul>
+
+:ET

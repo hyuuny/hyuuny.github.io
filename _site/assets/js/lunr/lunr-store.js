@@ -40,4 +40,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/jpa/%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%A7%A4%ED%95%91/",
         "teaser": null
+      },{
+        "title": "mappedBy",
+        "excerpt":"mappedBy mappedBy를 알아보기에 앞서 객체와 테이블이 관계를 맺는 차이를 알아보자 객체의 서로 단방향으로 관계를 맺기 때문에 2개의 연관관계가 존재하게 된다. 회원 -&gt; 팀 : 연관관계 1개(단방향) 팀 -&gt; 회원 : 연관관계 1개(단방향) 반면 테이블은 한쪽이 다른 쪽 pk를 참조하는 방식으로 1개의 연관관계가 존재하게 된다. 회원 &lt;-&gt; 팀 : 연관관계 1개(양방향)...","categories": ["JPA"],
+        "tags": ["2021년 09월"],
+        "url": "/jpa/mappedBy/",
+        "teaser": null
       }]

@@ -1,0 +1,975 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>mappedBy - Hyuuny`s Blog</title>
+<meta name="description" content="mappedBy">
+
+
+  <meta name="author" content="Kim SeongHyun">
+  
+  <meta property="article:author" content="Kim SeongHyun">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Hyuuny`s Blog">
+<meta property="og:title" content="mappedBy">
+<meta property="og:url" content="https://hyuuny.github.io/jpa/mappedBy/">
+
+
+  <meta property="og:description" content="mappedBy">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-09-04T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-09-04T14:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://hyuuny.github.io/jpa/mappedBy/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김성현(Kim SeongHyun)",
+      "url": "https://hyuuny.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Hyuuny`s Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://hyuuny.github.io/feed.xml" title="Hyuuny`s Blog Feed">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/123_3sB_icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="mask-icon" href="/assets/logo.ico/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Hyuuny`s Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://hyuuny.github.io/">
+        <img src="/assets/images/profile.png" alt="Kim SeongHyun" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://hyuuny.github.io/" itemprop="url">Kim SeongHyun</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Back-end Developer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Gwangmyeong</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/hyuuny" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:shyune@knou.ac.kr" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="mappedBy">
+    <meta itemprop="description" content="mappedBy">
+    <meta itemprop="datePublished" content="2021-09-04T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-09-04T14:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://hyuuny.github.io/jpa/mappedBy/" class="u-url" itemprop="url">mappedBy
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#mappedby">mappedBy</a><ul><li><a href="#객체의-양방향-관계">객체의 양방향 관계</a></li><li><a href="#테이블의-양방향-관계">테이블의 양방향 관계</a></li><li><a href="#연관관계의-주인mappedby">연관관계의 주인(mappedBy)</a></li><li><a href="#양방향-매핑시-자주-겪게-되는-실수">양방향 매핑시 자주 겪게 되는 실수</a></li><li><a href="#양방향-연관관계-값-세팅을-위한-편의-메서드">양방향 연관관계 값 세팅을 위한 편의 메서드</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="mappedby"><span style="color:MediumSeaGreen">mappedBy</span></h2>
+
+<ul>
+  <li>mappedBy를 알아보기에 앞서 <code class="language-plaintext highlighter-rouge">객체와 테이블이 관계를 맺는 차이</code>를 알아보자</li>
+</ul>
+
+<p><img src="/assets/images/jpa/Annualrelationship.png" alt="img.png" /></p>
+
+<ul>
+  <li>객체의 서로 단방향으로 관계를 맺기 때문에 2개의 연관관계가 존재하게 된다.
+    <ul>
+      <li>회원 -&gt; 팀 : 연관관계 1개(단방향)</li>
+      <li>팀 -&gt; 회원 : 연관관계 1개(단방향)</li>
+    </ul>
+  </li>
+  <li>반면 테이블은 한쪽이 다른 쪽 pk를 참조하는 방식으로 1개의 연관관계가 존재하게 된다.
+    <ul>
+      <li>회원 &lt;-&gt; 팀 : 연관관계 1개(양방향)</li>
+    </ul>
+  </li>
+</ul>
+
+<h6 id="객체의-양방향-관계"><span style="color:DodgerBlue">객체의 양방향 관계</span></h6>
+<ul>
+  <li><strong>객체의 양뱡향 관계는 사실 <span style="color:red">양뱡향 관계가 아니라 서로 다른 단방향 관계 2개</span>다.</strong></li>
+  <li>객체를 <strong>양뱡향으로 참조하려면 단방향 연관관계를 2개 만들어야 한다</strong>.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// A -&gt; B (a.getB())</span>
+<span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span> 
+    <span class="kd">private</span> <span class="no">B</span> <span class="n">b</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// B -&gt; A (b.getA())</span>
+<span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="no">A</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h6 id="테이블의-양방향-관계"><span style="color:DodgerBlue">테이블의 양방향 관계</span></h6>
+
+<ul>
+  <li><strong>테이블은 외래 키 하나로 두 테이블의 연관관계를 관리</strong></li>
+  <li>MEMBER.TEAM_ID <strong>외래 키 하나로 양방향 연관관계 가짐</strong>
+    <ul>
+      <li>양쪽으로 조인할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="nc">Member</span> <span class="n">m</span>
+	<span class="nc">Join</span> <span class="nc">Team</span> <span class="n">t</span> <span class="n">on</span> <span class="n">m</span><span class="o">.</span><span class="na">Team_id</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">member_id</span>
+
+<span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="nc">Team</span> <span class="n">t</span> 
+	<span class="nc">Join</span> <span class="nc">Member</span> <span class="n">m</span> <span class="n">on</span> <span class="n">t</span><span class="o">.</span><span class="na">member_id</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">Team_id</span>
+</code></pre></div></div>
+
+<hr />
+
+<ul>
+  <li>테이블은 한쪽에서 다른쪽 pk를 참조함으로써 관리하게 되지만, 객체는 어떻게 관리해야할지 딜레마에 빠지게 된다.</li>
+</ul>
+
+<p><img src="/assets/images/jpa/Annualrelationship2.png" alt="img.png" /></p>
+
+<ul>
+  <li>객체는 결국 <strong>둘 중 하나를 주인으로 정해야하는데 이게 바로 연관관계의 주인</strong>이 된다.</li>
+</ul>
+
+<hr />
+
+<h6 id="연관관계의-주인mappedby"><span style="color:DodgerBlue">연관관계의 주인(mappedBy)</span></h6>
+<p>연관관계의 주인은 양뱡향 연관관계에서 나온 말이다.<br />
+객체 양뱡향 연관관계에서는 <strong>둘 중 하나를 주인으로 지정</strong>해야하며, 다음과 같은 특징이 있다.</p>
+
+<ul>
+  <li><strong>연관관계의 주인만이 외래 키를 관리(등록, 수정)</strong></li>
+  <li><strong>주인이 아닌쪽은 읽기만 가능</strong></li>
+  <li><strong>주인은 mappedBy 속성 사용 X</strong></li>
+  <li><strong>주인이 아니면 mappedBy 속성으로 주인 지정</strong></li>
+</ul>
+
+<hr />
+
+<p>연관관계 주인은 <strong><span style="color:red">외래키가 있는 곳을 주인</span>으로 정한다.</strong><br />
+아래 그림에서는 Member.team이 연관관계의 주인이 된다.
+<img src="/assets/images/jpa/Annualrelationship3.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="양방향-매핑시-자주-겪게-되는-실수"><span style="color:DodgerBlue">양방향 매핑시 자주 겪게 되는 실수</span></h6>
+
+<p>JPA를 사용하면서 객체간의 양뱡향 연관관계를 다룰 때, 가장 많이 하는 실수는 <strong>한쪽에만 값을 넣고, 다른 쪽에는 값을 넣어주지 않아서 발생하는 문제</strong>다.<br />
+나 역시 JPA를 처음 실무에서 사용할 때 이 문제를 겪고 해맸던 경험이 있는데, 이 글을 보는 다른 개발자는 이런 실수를 하지 않았으면 하는 마음이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+<p><br />
+위 코드에서 <strong>team.getMembers()에만 값을 넣어줬기 때문에 Member Table의 TEAM_ID에는 값이 들어가지 않는다.</strong></p>
+
+<ul>
+  <li>Member Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">MEMBER_ID</th>
+      <th style="text-align: center">USERNAME</th>
+      <th style="text-align: center">TEAM_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">hyuuny</td>
+      <td style="text-align: center">null</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li>Team Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">TEAM_ID</th>
+      <th style="text-align: center">NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">TeamA</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
+<br />
+객체지향적으로 생각해보면 항상 <strong>양쪽</strong>에 값을 넣어주는 것이 맞다.<br />
+이 문제를 해결하기 위해서는 <strong>양쪽</strong> 모두 값을 넣어주기만 하면 된다.
+<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team</span><span class="o">);</span> <span class="c1">// team값 세팅</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+</code></pre></div></div>
+<ul>
+  <li>Member Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">MEMBER_ID</th>
+      <th style="text-align: center">USERNAME</th>
+      <th style="text-align: center">TEAM_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">hyuuny</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li>Team Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">TEAM_ID</th>
+      <th style="text-align: center">NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">TeamA</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h6 id="양방향-연관관계-값-세팅을-위한-편의-메서드"><span style="color:DodgerBlue">양방향 연관관계 값 세팅을 위한 편의 메서드</span></h6>
+
+<p><code class="language-plaintext highlighter-rouge">양방향 매핑시 자주 겪게 되는 실수</code>에서 다룬 문제를 해결하기 위한 방법으로 <strong>편의 메서드</strong>가 있다.<br />
+<strong>편의 메서드를 이용하면 한쪽에서 양쪽 모두의 값을 관리할 수 있게 된다.</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Team</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span><span class="o">=</span><span class="s">"team"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="c1">// 편의 메소드</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addMember</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">){</span>
+        <span class="n">member</span><span class="o">.</span><span class="na">changeTeam</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="c1">// member(반대쪽)에 자기자신(team)을 넣는다.</span>
+        <span class="n">members</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">();</span>
+<span class="n">team</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"teamA"</span><span class="o">);</span>
+<span class="n">team</span><span class="o">.</span><span class="na">addMember</span><span class="o">(</span><span class="n">member</span><span class="o">);</span> <span class="c1">// 편의 메서드 사용</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br />
+편의 메서드는 어느 쪽에 넣어도 상관없다.<br />
+단지 편의 메서드를 사용하면 한쪽에서 양쪽 값을 세팅할 수 있다는 장점이 있다.<br />
+위 코드에서 team에만 값을 넣었지만, <strong>양쪽 모두 값이 들어간 것을 확인</strong>할 수 있다.</p>
+
+<ul>
+  <li>Member Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">MEMBER_ID</th>
+      <th style="text-align: center">USERNAME</th>
+      <th style="text-align: center">TEAM_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">hyuuny</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+<ul>
+  <li>Team Table</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">TEAM_ID</th>
+      <th style="text-align: center">NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">TeamA</td>
+    </tr>
+  </tbody>
+</table>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#2021%EB%85%84-09%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 09월</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-09-04">September 4, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=mappedBy%20https%3A%2F%2Fhyuuny.github.io%2Fjpa%2FmappedBy%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fjpa%2FmappedBy%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fjpa%2FmappedBy%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/jpa/%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%A7%A4%ED%95%91/" class="pagination--pager" title="객체와 테이블 매핑
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%A7%A4%ED%95%91/" rel="permalink">객체와 테이블 매핑
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Entity
+
+  @Entity가 붙은 클래스는 JPA가 관리하게 된다.
+  JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다.
+  @Entity를 사용할 때는 다음과 같은 주의사항이 있다.
+    
+      하이버네이트는 프록시 DB 연산 결과를...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/%EC%A4%80%EC%98%81%EC%86%8D-%EC%83%81%ED%83%9C/" rel="permalink">준영속 상태
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">준영속 상태
+
+  준영속 상태란, 영속상태의 엔티티가 영속성 컨텍스트에서 분리된 것이다.
+  준영속 상태가 되면 영속성 컨텍스트가 제공하는 기능(변경 감지)을 사용하지 못한다.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/%ED%94%8C%EB%9F%AC%EC%8B%9C/" rel="permalink">플러시(flush)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">플러시(flush)
+
+  플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.
+  데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨
+  영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/" rel="permalink">영속성 컨텍스트
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 컨텍스트
+
+  영속성 컨텍스트란, 엔티티를 영구 저장하는 환경이라는 뜻이다.
+  EntityManager의 persist()를 사용하여, Entity를 저장하고 영속성 컨텍스트로 관리한다.
+  영속성 컨텍스트는 논리적인 개념으로 눈에 보이지 않는다.
+  EntityManag...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김성현(Kim SeongHyun). Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://hyuuny.github.io/jpa/mappedBy/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/jpa/mappedBy"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hyuuny-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

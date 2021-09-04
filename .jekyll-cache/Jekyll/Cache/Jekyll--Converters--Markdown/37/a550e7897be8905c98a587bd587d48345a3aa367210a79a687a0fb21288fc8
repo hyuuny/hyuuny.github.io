@@ -1,0 +1,55 @@
+I"�
+<h2 id="양방향-연간관계"><span style="color:MediumSeaGreen">양방향 연간관계</span></h2>
+
+<ul>
+  <li>
+    <p>테이블에서의 연간관계는 한 쪽의 pk값을 다른 쪽에서 fk로 갖고 있으면 되지만, <strong>객체는 서로의 값을 참조</strong>하면 <strong>양뱡향 연간관계</strong>가 된다.</p>
+  </li>
+  <li>
+    <p>양방향 연관관계를 알아보기 위한 team과 member는 아래와 같이 모델링 되어 있다.
+<img src="/assets/images/jpa/two.png" alt="img.png" /></p>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+<span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"USERNAME"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+<span class="nd">@ManyToOne</span>
+<span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">Team</span> <span class="n">team</span><span class="o">;</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+<ul>
+  <li>member는 team의 ID을 갖는다.</li>
+</ul>
+
+<hr />
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Team</span> <span class="o">{</span>
+
+<span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+<span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"team"</span><span class="o">)</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;();</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>team은 member을 List로 갖는다.
+    <ul>
+      <li><strong>항상 외래키가 있는 곳이 연간관계의 주인이 된다.</strong></li>
+    </ul>
+  </li>
+</ul>
+:ET
