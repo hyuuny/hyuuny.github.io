@@ -1,12 +1,0 @@
-I"<h2 id="양방향-연간관계"><span style="color:MediumSeaGreen">양방향 연간관계</span></h2>
-
-<ul>
-  <li>
-    <p>테이블에서의 연간관계는 한 쪽의 pk값을 다른 쪽에서 fk로 갖고 있으면 되지만, <strong>객체는 서로의 값을 참조</strong>하면 <strong>양뱡향 연간관계</strong>가 된다.</p>
-  </li>
-  <li>
-    <p>양방향 연관관계를 알아보기 위한 team과 member는 아래와 같이 모델링 되어 있다.
-<img src="/assets/images/jpa/two.png" alt="img.png" /></p>
-  </li>
-</ul>
-:ET

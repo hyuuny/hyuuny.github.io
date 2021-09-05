@@ -1,8 +1,0 @@
-I"<h2 id="단방향-연간관계"><span style="color:MediumSeaGreen">단방향 연간관계</span></h2>
-
-<ul>
-  <li>멤버와 팀은 다음과 같이 모델링 된다.</li>
-</ul>
-
-<p><img src="/assets/images/jpa/단방향연간관계.png" alt="img.png" /></p>
-:ET
