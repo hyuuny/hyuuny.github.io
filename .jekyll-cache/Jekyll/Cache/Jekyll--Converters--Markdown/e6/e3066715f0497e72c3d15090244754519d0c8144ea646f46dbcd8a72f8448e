@@ -1,0 +1,8 @@
+I"�<h2 id="ignoring"><span style="color:MediumSeaGreen">ignoring</span></h2>
+<p>WebSecurity의 <strong>ignoring()을 사용해서 요청(request)시 시큐리티 필터 적용을 제외하도록 설정할 수 있다.</strong> 스프링 부트가 제공하는 PathRequest를 사용하면 정적(static) 자원 요청에 대하여 스프링 시큐리티 필터가 적용되지 않도록 설정할 수 있는데, 이경우 FilterChain을 거치지 않는다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">WebSecurity</span> <span class="n">web</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="n">web</span><span class="o">.</span><span class="na">ignoring</span><span class="o">().</span><span class="na">requestMatchers</span><span class="o">(</span><span class="nc">PathRequest</span><span class="o">.</span><span class="na">toStaticResources</span><span class="o">().</span><span class="na">atCommonLocations</span><span class="o">());</span>
+   <span class="o">}</span>
+</code></pre></div></div>
+:ET

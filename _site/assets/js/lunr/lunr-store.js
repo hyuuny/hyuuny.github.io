@@ -52,4 +52,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/computer%20science/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%8B%9C%EC%8A%A4%ED%85%9C/",
         "teaser": null
+      },{
+        "title": "ignoring()",
+        "excerpt":"ignoring WebSecurity의 ignoring()을 사용해서 요청(request)시 시큐리티 필터 적용을 제외하도록 설정할 수 있다. 스프링 부트가 제공하는 PathRequest를 사용하면 정적(static) 자원 요청에 대하여 스프링 시큐리티 필터가 적용되지 않도록 설정할 수 있는데, 이경우 FilterChain을 거치지 않는다. public void configure(WebSecurity web) throws Exception { web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()); } 또 다른 설정방법 이와 같이 하나에 설정할수도 있지만,...","categories": ["Spring Security"],
+        "tags": ["2021년 09월"],
+        "url": "/spring%20security/ignoring/",
+        "teaser": null
       }]
