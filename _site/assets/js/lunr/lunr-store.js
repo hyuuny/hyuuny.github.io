@@ -58,4 +58,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/spring%20security/ignoring/",
         "teaser": null
+      },{
+        "title": "WebAsyncManagerIntegrationFilter",
+        "excerpt":"WebAsyncManagerIntegrationFilter WebAsyncManagerIntegrationFilter는 스프링 MVC의 Async 기능(핸들러에서 Callable을 리턴할 수 있는 기능)을 사용할 때에도 SecurityContext를 공유하도록 도와주는 필터. @GetMapping(\"/async-handler\") @ResponseBody public Callable&lt;String&gt; asyncHandler() { SecurityLogger.log(\"MVC\"); // thread = http-nio-8080-exec-5 return () -&gt; { SecurityLogger.log(\"Callable\"); // thread = tesk-1 return \"Async Handler\"; }; } // logger public static void log(String message) {...","categories": ["Spring Security"],
+        "tags": ["2021년 09월"],
+        "url": "/spring%20security/WebAsyncManagerIntegrationFilter/",
+        "teaser": null
       }]

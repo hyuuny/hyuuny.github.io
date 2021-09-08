@@ -6,9 +6,55 @@
     <description>배움을 좋아하는 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 07 Sep 2021 00:20:17 +0900</pubDate>
-    <lastBuildDate>Tue, 07 Sep 2021 00:20:17 +0900</lastBuildDate>
+    <pubDate>Wed, 08 Sep 2021 22:46:05 +0900</pubDate>
+    <lastBuildDate>Wed, 08 Sep 2021 22:46:05 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>WebAsyncManagerIntegrationFilter</title>
+        <description>&lt;h2 id=&quot;webasyncmanagerintegrationfilter&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;WebAsyncManagerIntegrationFilter&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;WebAsyncManagerIntegrationFilter는 스프링 MVC의 &lt;strong&gt;Async 기능(핸들러에서 Callable을 리턴할 수 있는 기능)을 사용할 때에도 SecurityContext를 공유&lt;/strong&gt;하도록 도와주는 필터.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/async-handler&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@ResponseBody&lt;/span&gt; 
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Callable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;asyncHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;SecurityLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MVC&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// thread = http-nio-8080-exec-5&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nc&quot;&gt;SecurityLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Callable&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// thread = tesk-1&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Async Handler&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;c1&quot;&gt;// logger &lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;thread = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SecurityContextHolder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAuthentication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrincipal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;principal = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring-security/async-img.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Async 기능을 사용할 때, 서로 다른 쓰레드이지만 &lt;strong&gt;SecurityContext를 공유하기 때문에 동일한 Principal을 참조&lt;/strong&gt;한 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PresProcess : 새로 만든 Thread에 Integration해준다.&lt;/li&gt;
+  &lt;li&gt;Callable : &lt;strong&gt;Callable안에서는 Thread가 달라도 동일한 SecurityContext를 참조&lt;/strong&gt;할 수 있다.&lt;/li&gt;
+  &lt;li&gt;PostProcess : SecurityContext의 요청을 마친 뒤, Clean Up 작업을 한다.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 07 Sep 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/spring%20security/WebAsyncManagerIntegrationFilter/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/WebAsyncManagerIntegrationFilter/</guid>
+        
+        <category>2021년 09월</category>
+        
+        
+        <category>Spring Security</category>
+        
+      </item>
     
       <item>
         <title>ignoring()</title>
@@ -1158,65 +1204,6 @@ Authentication 객체 사이의 어댑터&lt;/li&gt;
         <pubDate>Sun, 29 Aug 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring%20security/SpringContextHolder/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/SpringContextHolder/</guid>
-        
-        <category>2021년 08월</category>
-        
-        
-        <category>Spring Security</category>
-        
-      </item>
-    
-      <item>
-        <title>Authentication Manager</title>
-        <description>&lt;h2 id=&quot;spring-security에서-인증authentication은-authenticationmanager가-한다&quot;&gt;Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.&lt;/h2&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Authentication&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;authenticate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Authentication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authentication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthenticationException&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;인자로 받은 Authentication이 유효한 인증인지 확인&lt;/strong&gt;하고, 
-&lt;strong&gt;Authentication객체를 리턴&lt;/strong&gt;한다.&lt;/li&gt;
-  &lt;li&gt;인증을 확인하는 과정에서 비활성 계정, 잘못된 비밀번호, 잠긴 계정 등의 에러를 던질 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;인자로-받은-authentication&quot;&gt;인자로 받은 Authentication&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;사용자가 입력한 인증에 필요한 정보(username, password)로 만든 객체다. (폼 인증의 경우)&lt;/li&gt;
-  &lt;li&gt;Authentication
-    &lt;ul&gt;
-      &lt;li&gt;Principal : “hyuuny”&lt;/li&gt;
-      &lt;li&gt;Credentials : “secret”&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;유효한-인증인지-확인&quot;&gt;유효한 인증인지 확인&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;사용자가 입력한 password가 UserDetailsService를 통해 읽어온 UserDatails객체에 들어 있는
-password와 일치하는지 확인한다.
-    &lt;ul&gt;
-      &lt;li&gt;해당 사용자 계정이 잠겨 있지는 않은지, 비활성 계정은 아닌지 등 확인한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;authentication-객체를-리턴&quot;&gt;Authentication 객체를 리턴&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Authentication
-    &lt;ul&gt;
-      &lt;li&gt;Principal : UserDetailsService에서 리턴한 객체 (User)&lt;/li&gt;
-      &lt;li&gt;Credentials&lt;/li&gt;
-      &lt;li&gt;GrantedAuthorities&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sun, 29 Aug 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring%20security/AuthenticationManager/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/AuthenticationManager/</guid>
         
         <category>2021년 08월</category>
         
