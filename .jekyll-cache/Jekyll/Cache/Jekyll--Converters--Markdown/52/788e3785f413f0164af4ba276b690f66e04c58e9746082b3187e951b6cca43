@@ -1,0 +1,99 @@
+I"C!<h2 id="주소지정방식"><span style="color:MediumSeaGreen">주소지정방식</span></h2>
+<p>명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. <strong>주소지정방식(addressing mode)이란, 오퍼랜드를 실제로 참조하기 전에 명령어의 오퍼랜드를 변경하거나 해석하는 규칙을 지정하는 형식이다.</strong><br />
+이러한 규칙을 적용하여 만들어진 오퍼랜드 주소를 <strong>유효주소(effective address)</strong>라고 한다.<br />
+명령어의 주소지정방식은 컴퓨터에 따라 별도의 2진 코드로 정의되기도 하고, 연산방식과 공통으로 사용하는 2진 코드로 정의되기도 한다. 연산코드 필드는 수행할 연산의 종류를 지정하며, 주소지정방식 필드는 연산에 필요한 오퍼랜드의 주소를 알아내는 데 사용된다. 주소 필드는 존재할 수도 있고 안 할수도 있는데, 주소 필드가 존재한다면 그 필드는 기억장치주소 혹은 레지스터 주소를 나타낸다.</p>
+<ul>
+  <li>프로그램 수행시 오퍼랜드를 지정하는 방식</li>
+  <li>명령어의 주소 필드를 변경하거나 해석하는 규칙을 지정하는 형식</li>
+  <li>주소지정방식을 사용하면 <strong>명령어의 수를 줄일 수 있는</strong> 효과적인 프로그래밍 가능</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/addressingMode.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="의미주소지정implied-mode"><span style="color:DodgerBlue">의미주소지정(implied mode)</span></h6>
+<p>대부분의 주소지정방식은 명령어에서 주소 필드를 표현하지만, <strong>주소 필드가 필요 없는 방식이 하나 있는데 이 방식을 의미방식(implied mode)</strong>이라고 한다.<br />
+이 방식에서는 <strong>연산코드 필드에 지정된 묵시적인 의미의 오퍼랜드를 지정</strong>한다.</p>
+<ul>
+  <li>명령어 형식에서 주소 필드를 필요로 하지 않는 방식</li>
+  <li>연산코드 필드에 지정된 묵시적 의미의 오퍼랜드를 지정</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/impliedMode.png" alt="img.png" /></p>
+<ul>
+  <li>기억장치 스택에서 ADD와 같은 명령어는 스택의 맨 위 항목과 그 아래 항목을 더하여 스택의 맨위에 저장하는 명령어로서, <strong>오퍼랜드가 스택의 맨 위에 있다는 것을 묵시적으로 가정</strong>함</li>
+</ul>
+
+<hr />
+<h6 id="즉치주소지정immediate-mode"><span style="color:DodgerBlue">즉치주소지정(immediate mode)</span></h6>
+<p>즉치방식(immediate mode)에서는 <strong>오퍼랜드를 명령어 자체 내에서 지정</strong>하고 있다. 즉, 명령어의 오퍼랜드 필드에 저장된 내용이 명령어에서 사용될 실제 데이터라는 것이다.<br />
+이 방식은 주로 프로그램에서 <strong>레지스터나 변수의 초깃값을 특정 상숫값으로 초기화하는데 매우 유용</strong>하다.</p>
+<ul>
+  <li>명령어 자체 내에 오퍼랜드를 지정하고 있는 방식</li>
+  <li><strong>오퍼랜드 필드의 내용이 실제 사용될 데이터</strong></li>
+  <li><strong>레지스터나 변수의 초기화에 유용</strong></li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/immediateMode.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="직접주소지정direct-addressing-mode"><span style="color:DodgerBlue">직접주소지정(direct-addressing mode)</span></h6>
+<p>직접주소지정방식(direct-addressing mode)은 <strong>명령어의 주소 필드에 직접 오퍼랜드의 주소를 지정하는 방식</strong>이다.<br />
+이 방식은 명령어의 대상이 되는 데이터에 접근되는 데 기억장치를 한 번만 접근하면 되는 장점이 있으나, 오퍼랜드 필드 길이에 따라 접근할 수 있는 기억장치의 주소공간에 한계가 있다는 단점이 있다.</p>
+<ul>
+  <li>명령어의 주소필드에 <strong>직접 오퍼랜드의 주소를 저장</strong>시키는 방식</li>
+  <li>기억장치에의 접근이 한번에 이루어짐</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/directAddressingMode.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="간접주소지정indirect-addressing-mode"><span style="color:DodgerBlue">간접주소지정(indirect-addressing mode)</span></h6>
+<p>간접주소지정방식(indirect-addressing mode)은 <strong>명령어의 주소 필드에 유효주소가 저장되어 있는 기억장치주소를 기억시키는 방식</strong>으로, 제어는 기억장치로부터 명령어를 가져온 후 주소 부분을 이용하여 다시 기억장치에 접근하여 유효 주소를 읽어낸다.<br />
+간접주소지정방식은 접근할 수 있는 기억장치 주소공간이 중앙처리장치가 한 번에 접근할 수 있는 단어의 길이로 결정되는 장점이 있으나, 실행 사이클 동안 두 번의 기억장치 접근이 필요하다는 단점이 있다.</p>
+<ul>
+  <li>명령어의 주소필드에 유효주소가 저장되어있는 기억장치 주소를 기억시키는 방식</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/indirectAddressingMode.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="레지스터-주소지정register-addressing-mode"><span style="color:DodgerBlue">레지스터 주소지정(register addressing mode)</span></h6>
+<p>레지스터 주소지정방식(register addressing mode)은 <strong>오퍼랜드 필드에서 지정한 레지스터에 실제 피연산자가 들어있는 것</strong>이다. 따라서 오퍼랜드에는 레지스터 번호가 저장되며 유효주소는 존재하지 않는다.<br />
+이 방식은 오퍼랜드 필드가 레지스터들의 번호를 나타내기 때문에 오퍼랜드 필드의 비트가 적어도 되고, 데이터 인출을 위해 기억장치에 접근하지 않고 중앙처리장치의 레지스터로 접근하므로 속도가 빠르다는 장점이 있으나, 오퍼랜드가 중앙처리장치의 레지스터 수로 제한되어 있으므로 무한정 사용할 수 없다.</p>
+<ul>
+  <li>오퍼랜드 필드에 레지스터가 기억되는 방식</li>
+  <li>레지스터에 오퍼랜드가 들어있음(<strong>유효주소가 없음</strong>)</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/registerMode.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="레지스터-간접주소지정register-indirect-mode"><span style="color:DodgerBlue">레지스터 간접주소지정(register-indirect mode)</span></h6>
+<p>레지스터 간접주소지정방식(register-indirect mode)에서는 <strong>명령어 내의 주소 필드가 레지스터 중 하나를 지정하고, 지정된 레지스터의 내용은 실제 오퍼랜드가 저장된 기억장치주소를 지정</strong>한다. 즉, 지정된 레지스터는 오퍼랜드 그 자체가 아니라 <strong>오퍼랜드가 저장된 기억장치주소를 가지고 있는 것</strong>이다. 따라서 레지스터 간접주소지정방식에서 유효주소는 지정된 레지스터에 있는 주소가 된다.</p>
+<ul>
+  <li>레지스터가 <strong>실제 오퍼랜드가 저장된 기억장치의 주소 값을 갖고 있는</strong> 방식</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/registerIndirectMode.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="상대주소지정relative-addressing-mode"><span style="color:DodgerBlue">상대주소지정(relative-addressing mode)</span></h6>
+<p>상대주소지정방식(relative-addressing mode)은 <strong>유효주소를 계산하기 위해 처리장치 내에 있는 특정 레지스터의 내용에 명령어 오퍼랜드값을 더하는 방식</strong>이다.<br />
+자주 사용되는 레지스터는 PC로서 상대주소지정방식에서 유효주소는 <strong>유효주소 = 명령어 주소 부분의 내용 + PC의 내용</strong>으로 계산된다.</p>
+<ul>
+  <li>유효주소를 계산하기 위해 처리장치 내에 있는 특정 레지스터의 내용에 명령어 주소필드 값을 더하는 방식</li>
+  <li>특정 레지스터로 프로그램카운터(PC)가 주로 사용</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/relativeAddressingMode.png" alt="img.png" /></p>
+
+<hr />
+
+:ET

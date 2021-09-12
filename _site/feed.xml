@@ -6,9 +6,136 @@
     <description>배움을 좋아하는 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 08 Sep 2021 22:46:05 +0900</pubDate>
-    <lastBuildDate>Wed, 08 Sep 2021 22:46:05 +0900</lastBuildDate>
+    <pubDate>Sun, 12 Sep 2021 14:00:37 +0900</pubDate>
+    <lastBuildDate>Sun, 12 Sep 2021 14:00:37 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>주소지정방식</title>
+        <description>&lt;h2 id=&quot;주소지정방식&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;주소지정방식&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. &lt;strong&gt;주소지정방식(addressing mode)이란, 오퍼랜드를 실제로 참조하기 전에 명령어의 오퍼랜드를 변경하거나 해석하는 규칙을 지정하는 형식이다.&lt;/strong&gt;&lt;br /&gt;
+이러한 규칙을 적용하여 만들어진 오퍼랜드 주소를 &lt;strong&gt;유효주소(effective address)&lt;/strong&gt;라고 한다.&lt;br /&gt;
+명령어의 주소지정방식은 컴퓨터에 따라 별도의 2진 코드로 정의되기도 하고, 연산방식과 공통으로 사용하는 2진 코드로 정의되기도 한다. 연산코드 필드는 수행할 연산의 종류를 지정하며, 주소지정방식 필드는 연산에 필요한 오퍼랜드의 주소를 알아내는 데 사용된다. 주소 필드는 존재할 수도 있고 안 할수도 있는데, 주소 필드가 존재한다면 그 필드는 기억장치주소 혹은 레지스터 주소를 나타낸다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;프로그램 수행시 오퍼랜드를 지정하는 방식&lt;/li&gt;
+  &lt;li&gt;명령어의 주소 필드를 변경하거나 해석하는 규칙을 지정하는 형식&lt;/li&gt;
+  &lt;li&gt;주소지정방식을 사용하면 &lt;strong&gt;명령어의 수를 줄일 수 있는&lt;/strong&gt; 효과적인 프로그래밍 가능&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/addressingMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;의미주소지정implied-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;의미주소지정(implied mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;대부분의 주소지정방식은 명령어에서 주소 필드를 표현하지만, &lt;strong&gt;주소 필드가 필요 없는 방식이 하나 있는데 이 방식을 의미방식(implied mode)&lt;/strong&gt;이라고 한다.&lt;br /&gt;
+이 방식에서는 &lt;strong&gt;연산코드 필드에 지정된 묵시적인 의미의 오퍼랜드를 지정&lt;/strong&gt;한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;명령어 형식에서 주소 필드를 필요로 하지 않는 방식&lt;/li&gt;
+  &lt;li&gt;연산코드 필드에 지정된 묵시적 의미의 오퍼랜드를 지정&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/impliedMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;기억장치 스택에서 ADD와 같은 명령어는 스택의 맨 위 항목과 그 아래 항목을 더하여 스택의 맨위에 저장하는 명령어로서, &lt;strong&gt;오퍼랜드가 스택의 맨 위에 있다는 것을 묵시적으로 가정&lt;/strong&gt;함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h6 id=&quot;즉치주소지정immediate-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;즉치주소지정(immediate mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;즉치방식(immediate mode)에서는 &lt;strong&gt;오퍼랜드를 명령어 자체 내에서 지정&lt;/strong&gt;하고 있다. 즉, 명령어의 오퍼랜드 필드에 저장된 내용이 명령어에서 사용될 실제 데이터라는 것이다.&lt;br /&gt;
+이 방식은 주로 프로그램에서 &lt;strong&gt;레지스터나 변수의 초깃값을 특정 상숫값으로 초기화하는데 매우 유용&lt;/strong&gt;하다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;명령어 자체 내에 오퍼랜드를 지정하고 있는 방식&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;오퍼랜드 필드의 내용이 실제 사용될 데이터&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;레지스터나 변수의 초기화에 유용&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/immediateMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;직접주소지정direct-addressing-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;직접주소지정(direct-addressing mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;직접주소지정방식(direct-addressing mode)은 &lt;strong&gt;명령어의 주소 필드에 직접 오퍼랜드의 주소를 지정하는 방식&lt;/strong&gt;이다.&lt;br /&gt;
+이 방식은 명령어의 대상이 되는 데이터에 접근되는 데 기억장치를 한 번만 접근하면 되는 장점이 있으나, 오퍼랜드 필드 길이에 따라 접근할 수 있는 기억장치의 주소공간에 한계가 있다는 단점이 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;명령어의 주소필드에 &lt;strong&gt;직접 오퍼랜드의 주소를 저장&lt;/strong&gt;시키는 방식&lt;/li&gt;
+  &lt;li&gt;기억장치에의 접근이 한번에 이루어짐&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/directAddressingMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;간접주소지정indirect-addressing-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;간접주소지정(indirect-addressing mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;간접주소지정방식(indirect-addressing mode)은 &lt;strong&gt;명령어의 주소 필드에 유효주소가 저장되어 있는 기억장치주소를 기억시키는 방식&lt;/strong&gt;으로, 제어는 기억장치로부터 명령어를 가져온 후 주소 부분을 이용하여 다시 기억장치에 접근하여 유효 주소를 읽어낸다.&lt;br /&gt;
+간접주소지정방식은 접근할 수 있는 기억장치 주소공간이 중앙처리장치가 한 번에 접근할 수 있는 단어의 길이로 결정되는 장점이 있으나, 실행 사이클 동안 두 번의 기억장치 접근이 필요하다는 단점이 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;명령어의 주소필드에 유효주소가 저장되어있는 기억장치 주소를 기억시키는 방식&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/indirectAddressingMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;레지스터-주소지정register-addressing-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;레지스터 주소지정(register-addressing mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;레지스터 주소지정방식(register addressing mode)은 &lt;strong&gt;오퍼랜드 필드에서 지정한 레지스터에 실제 피연산자가 들어있는 것&lt;/strong&gt;이다. 따라서 오퍼랜드에는 레지스터 번호가 저장되며 유효주소는 존재하지 않는다.&lt;br /&gt;
+이 방식은 오퍼랜드 필드가 레지스터들의 번호를 나타내기 때문에 오퍼랜드 필드의 비트가 적어도 되고, 데이터 인출을 위해 기억장치에 접근하지 않고 중앙처리장치의 레지스터로 접근하므로 속도가 빠르다는 장점이 있으나, 오퍼랜드가 중앙처리장치의 레지스터 수로 제한되어 있으므로 무한정 사용할 수 없다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;오퍼랜드 필드에 레지스터가 기억되는 방식&lt;/li&gt;
+  &lt;li&gt;레지스터에 오퍼랜드가 들어있음(&lt;strong&gt;유효주소가 없음&lt;/strong&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/registerMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;레지스터-간접주소지정register-indirect-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;레지스터 간접주소지정(register-indirect mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;레지스터 간접주소지정방식(register-indirect mode)에서는 &lt;strong&gt;명령어 내의 주소 필드가 레지스터 중 하나를 지정하고, 지정된 레지스터의 내용은 실제 오퍼랜드가 저장된 기억장치주소를 지정&lt;/strong&gt;한다. 즉, 지정된 레지스터는 오퍼랜드 그 자체가 아니라 &lt;strong&gt;오퍼랜드가 저장된 기억장치주소를 가지고 있는 것&lt;/strong&gt;이다. 따라서 레지스터 간접주소지정방식에서 유효주소는 지정된 레지스터에 있는 주소가 된다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;레지스터가 &lt;strong&gt;실제 오퍼랜드가 저장된 기억장치의 주소 값을 갖고 있는&lt;/strong&gt; 방식&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/registerIndirectMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;상대주소지정relative-addressing-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;상대주소지정(relative-addressing mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;상대주소지정방식(relative-addressing mode)은 &lt;strong&gt;유효주소를 계산하기 위해 처리장치 내에 있는 특정 레지스터의 내용에 명령어 오퍼랜드값을 더하는 방식&lt;/strong&gt;이다.&lt;br /&gt;
+자주 사용되는 레지스터는 PC로서 상대주소지정방식에서 유효주소는 &lt;strong&gt;유효주소=명령어 주소 부분의 내용 + PC의 내용&lt;/strong&gt;과 같이 계산된다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;유효주소를 계산하기 위해 처리장치 내에 있는 특정 레지스터의 내용에 명령어 주소필드 값을 더하는 방식&lt;/li&gt;
+  &lt;li&gt;특정 레지스터로 프로그램카운터(PC)가 주로 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/relativeAddressingMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;인덱스된-주소지정indexed-addressing-mode&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;인덱스된 주소지정(indexed-addressing mode)&lt;/span&gt;&lt;/h6&gt;
+&lt;p&gt;인덱스된 주소지정방식(indexed-addressing mode)에서는 인덱스 레지스터의 내용을 &lt;strong&gt;명령어 주소 부분에 더해서&lt;/strong&gt; 유효주소를 얻는다. 인덱스 레지스터는 특정한 CPU 레지스터나 레지스터 파일에 있는 레지스터가 될 수 있다.&lt;br /&gt;
+인덱스된 주소지정방식은 주로 배열을 인덱싱(indexing)할 때 많이 사용되며, 유효주소는 &lt;strong&gt;유효주소=명령어 주소 부분의 내용 + 인덱스 레지스터의 내용&lt;/strong&gt;과 같이 계산된다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;인덱스 레지스터의 내용을 명령어 주소 부분에 더해서 유효주소를 얻는 방식&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/indexedAddressingMode.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h6 id=&quot;주소지정방식-요약summary&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;주소지정방식 요약(Summary)&lt;/span&gt;&lt;/h6&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/Summary1.png&quot; alt=&quot;img.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/computer-structure/Summary2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 12 Sep 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/</guid>
+        
+        <category>2021년 09월</category>
+        
+        
+        <category>Computer Science</category>
+        
+      </item>
     
       <item>
         <title>WebAsyncManagerIntegrationFilter</title>
@@ -1141,69 +1268,6 @@
         <pubDate>Sun, 29 Aug 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring%20security/Thread-Local/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/Thread-Local/</guid>
-        
-        <category>2021년 08월</category>
-        
-        
-        <category>Spring Security</category>
-        
-      </item>
-    
-      <item>
-        <title>Spring Security Holder</title>
-        <description>&lt;h2 id=&quot;security-context-holder&quot;&gt;Security Context Holder&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SecurityContext 제공, 기본적으로 TreadLocal을 사용한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring-security/SecurityContextHolder.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;securitycontext&quot;&gt;SecurityContext&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Authentication 제공&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;authentication&quot;&gt;Authentication&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Principal과 GrantAuthority 제공&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;principal&quot;&gt;Principal&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“누구”에 해당하는 정보&lt;/li&gt;
-  &lt;li&gt;UserDetailsService에서 리턴한 객체&lt;/li&gt;
-  &lt;li&gt;객체의 타입은 UserDetail&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;grantauthority&quot;&gt;GrantAuthority&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“ROLE_USER”, “ROLE_ADMIN”등 Principal이 가지고 있는 “권한”을 나타낸다.&lt;/li&gt;
-  &lt;li&gt;인증 이후, 인가 및 권한 확인할 때 이 정보를 참조한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;userdatails&quot;&gt;UserDatails&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;애플리케이션이 가지고 있는 유저 정보와 스프링 시큐리티가 사용하는 
-Authentication 객체 사이의 어댑터&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;userdetailsservice&quot;&gt;UserDetailsService&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;유저 정보를 UserDetails 타입으로 가져오는 DAO(Data Access Object) 인터페이스&lt;/li&gt;
-  &lt;li&gt;구현은 마음대로 하면 된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sun, 29 Aug 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring%20security/SpringContextHolder/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/SpringContextHolder/</guid>
         
         <category>2021년 08월</category>
         

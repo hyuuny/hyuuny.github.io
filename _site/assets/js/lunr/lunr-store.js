@@ -64,4 +64,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/spring%20security/WebAsyncManagerIntegrationFilter/",
         "teaser": null
+      },{
+        "title": "주소지정방식",
+        "excerpt":"주소지정방식 명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. 주소지정방식(addressing mode)이란, 오퍼랜드를 실제로 참조하기 전에 명령어의 오퍼랜드를 변경하거나 해석하는 규칙을 지정하는 형식이다. 이러한 규칙을 적용하여 만들어진 오퍼랜드 주소를 유효주소(effective address)라고 한다....","categories": ["Computer Science"],
+        "tags": ["2021년 09월"],
+        "url": "/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/",
+        "teaser": null
       }]
