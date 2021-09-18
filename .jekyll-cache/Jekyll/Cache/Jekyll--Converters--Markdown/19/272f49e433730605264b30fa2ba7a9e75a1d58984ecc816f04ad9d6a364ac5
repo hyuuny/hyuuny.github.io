@@ -1,6 +1,0 @@
-I"�<h2 id="주소지정방식"><span style="color:MediumSeaGreen">주소지정방식</span></h2>
-<p>명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. <strong>주소지정방식(addressing mode)이란, 오퍼랜드를 실제로 참조하기 전에 명령어의 오퍼랜드를 변경하거나 해석하는 규칙을 지정하는 형식이다.</strong></p>
-
-<p><img src="/assets/images/computer-structure/addressingMode.png" alt="img.png" /></p>
-
-:ET

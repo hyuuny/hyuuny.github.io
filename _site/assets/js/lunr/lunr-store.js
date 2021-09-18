@@ -70,4 +70,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/",
         "teaser": null
+      },{
+        "title": "처리장치의 구성요소",
+        "excerpt":"처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다. 위 그림은 처리장치의 내부 구성도로 레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성되어 있다. 처리장치의 동작원리는 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고,...","categories": ["Computer Science"],
+        "tags": ["2021년 09월"],
+        "url": "/computer%20science/%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C/",
+        "teaser": null
       }]

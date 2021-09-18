@@ -1,0 +1,12 @@
+I"?<h2 id="처리장치의-구성요소"><span style="color:MediumSeaGreen">처리장치의 구성요소</span></h2>
+<p>처리장치는 여러 가지 마이크로연산을 수항핼 수 있도록 레지스터와 ALU(산술/논리연산장치)로 이루어진다. 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.<br />
+따라서 <strong>처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성</strong>된다.</p>
+
+<p><img src="/assets/images/computer-structure/InternalComposition.png" alt="img.png" /><br />
+위 그림은 처리장치의 내부 구성도이다.<br />
+그림은 레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성되어 있다.</p>
+
+<hr />
+<h4 id="reference"><span style="color:MediumSeaGreen">reference</span></h4>
+<p>김형근·손진곤 (공저). (2021).</p>
+:ET
