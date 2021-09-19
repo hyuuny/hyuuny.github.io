@@ -71,6 +71,18 @@ var store = [{
         "url": "/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/",
         "teaser": null
       },{
+        "title": "산술/논리연산장치",
+        "excerpt":"산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다. 또한, 산술연산회로와 논리연산회로를 결합하여 하나의 ALU를 만들어 낼 수 있다. ALU에 대한 연산표는 다음과 같다. 산술연산회로 산술연산회로의 가장 기본적인...","categories": ["Computer Science"],
+        "tags": ["2021년 09월"],
+        "url": "/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/",
+        "teaser": null
+      },{
+        "title": "상태 레지스터와 시프터",
+        "excerpt":"상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다. 상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다. ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장 상태 레지스터는 C(carry bit),...","categories": ["Computer Science"],
+        "tags": ["2021년 09월"],
+        "url": "/computer%20science/%EC%83%81%ED%83%9C%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80%EC%8B%9C%ED%94%84%ED%84%B0/",
+        "teaser": null
+      },{
         "title": "처리장치의 구성요소",
         "excerpt":"처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다. 위 그림은 처리장치의 내부 구성도로 레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성되어 있다. 처리장치의 동작원리는 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고,...","categories": ["Computer Science"],
         "tags": ["2021년 09월"],

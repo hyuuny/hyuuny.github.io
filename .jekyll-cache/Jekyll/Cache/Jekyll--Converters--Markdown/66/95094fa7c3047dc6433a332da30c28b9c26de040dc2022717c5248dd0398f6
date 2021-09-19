@@ -1,0 +1,29 @@
+I"C	<h2 id="상태-레지스터"><span style="color:MediumSeaGreen">상태 레지스터</span></h2>
+<p>상태 레지스터는 <strong>ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트</strong>한다. 
+상태 레지스터들은 <strong>C(carry bit)</strong>, <strong>S(sign bit)</strong>, <strong>Z(zero bit)</strong>, <strong>V(overflow bit)</strong>로 구성되어 있으며, <strong>1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성</strong>되어 있다.</p>
+<ul>
+  <li>ALU에서 <strong>산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장</strong></li>
+  <li>상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성
+<img src="/assets/images/computer-structure/flagRegister.png" alt="img.png" /></li>
+</ul>
+
+<hr />
+
+<h6 id="캐리비트carry-bit"><span style="color:DodgerBlue">캐리비트(carry bit)</span></h6>
+<p>캐리비트는 <strong>두 수를 가산하여 캐리가 발생하면 비트가 1로 세트되고, 아니면 0</strong>이된다. 따라서 캐리비트는 산술연산장치의 최상위 비트의 전가산기 캐리 아웃(carry out) 신호를 받아서 세트된다. 또한 감산에서 자리내림(borrow)이 발생했을 때도 1로 세트된다.</p>
+
+<hr />
+
+<h6 id="부호비트sign-bit"><span style="color:DodgerBlue">부호비트(sign bit)</span></h6>
+<p>부호비트는 산술연산장치의 출력 최상위 비트와 연결되어 있으며, <strong>최상위 비트가 0이면 양수를 나타내고, 1이면 음수</strong>를 나타낸다.</p>
+
+<hr />
+
+<h6 id="제로비트zero-bit"><span style="color:DodgerBlue">제로비트(zero bit)</span></h6>
+<p>제로비트는 <strong>두 수를 연산한 후 결과값이 0이며 1로 세트</strong>된다. 따라서 산술연산장치의 출력비트들을 논리게이트 NOR에 연결하여 모든 비트가 0이면 출력밧이 1이 되도록 구성한다.</p>
+
+<hr />
+
+<h6 id="오버플로-비트overflow-bit"><span style="color:DodgerBlue">오버플로 비트(overflow bit)</span></h6>
+<p>오버플로는 산술연산에서 <strong>두 수를 가산할 때 결과를 저장할 수 있는 레지스터의 자릿수가 모자라는 경우에 발생</strong>하는 에러로서, 오버플로가 발생하면 오버플로 비트가 1로 세트된다.</p>
+:ET

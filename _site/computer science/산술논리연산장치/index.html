@@ -1,0 +1,719 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>산술/논리연산장치 - Hyuuny`s Blog</title>
+<meta name="description" content="산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
+
+
+  <meta name="author" content="Kim SeongHyun">
+  
+  <meta property="article:author" content="Kim SeongHyun">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Hyuuny`s Blog">
+<meta property="og:title" content="산술/논리연산장치">
+<meta property="og:url" content="https://hyuuny.github.io/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/">
+
+
+  <meta property="og:description" content="산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-09-18T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-09-18T14:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://hyuuny.github.io/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김성현(Kim SeongHyun)",
+      "url": "https://hyuuny.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Hyuuny`s Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://hyuuny.github.io/feed.xml" title="Hyuuny`s Blog Feed">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/123_3sB_icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="mask-icon" href="/assets/logo.ico/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Hyuuny`s Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://hyuuny.github.io/">
+        <img src="/assets/images/profile.png" alt="Kim SeongHyun" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://hyuuny.github.io/" itemprop="url">Kim SeongHyun</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Back-end Developer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Gwangmyeong</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/hyuuny" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:shyune@knou.ac.kr" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="산술/논리연산장치">
+    <meta itemprop="description" content="산술/논리연산장치ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
+    <meta itemprop="datePublished" content="2021-09-18T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-09-18T14:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://hyuuny.github.io/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/" class="u-url" itemprop="url">산술/논리연산장치
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#산술논리연산장치">산술/논리연산장치</a><ul><li><a href="#산술연산회로">산술연산회로</a></li><li><a href="#논리연산회로">논리연산회로</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="산술논리연산장치"><span style="color:MediumSeaGreen">산술/논리연산장치</span></h2>
+<p>ALU는 <strong>기본적인 산술연산과 논리연산을 실행하는 조합논리회로</strong>다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.</p>
+
+<p><img src="/assets/images/computer-structure/ALU.png" alt="img.png" /></p>
+
+<p>또한, <strong>산술연산회로와 논리연산회로를 결합하여 하나의 ALU</strong>를 만들어 낼 수 있다.
+<img src="/assets/images/computer-structure/ALU6.png" alt="img.png" /></p>
+
+<p>ALU에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/ALU7.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="산술연산회로"><span style="color:DodgerBlue">산술연산회로</span></h6>
+<p>산술연산회로의 가장 기본적인 구성요소는 <strong>병렬가산기이며, 여러개의 전가산기 회로를 연속적으로 연결</strong>시켜 만든다. 병렬가산기로 들어가는 제어입력값을 선액하면 여러 가지 형태의 산술연산을 실행할 수 있다.</p>
+<ul>
+  <li>여러 개의 전가산기(FA)를 연속적으로 연결한 병렬가산기로 구성</li>
+  <li>병렬가산기로 들어가는 제어입력 값을 선택하여 여러 가지 형태의 산술연산을 실행</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/ALU2.png" alt="img.png" /><br />
+<br /></p>
+
+<p>산술연산회로에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/ALU3.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="논리연산회로"><span style="color:DodgerBlue">논리연산회로</span></h6>
+<p>논리연산은 <strong>레지스터에 있는 각 비트를 독립된 2진 변수로 간주하여 비트별 연산을 실행</strong>한다. 논리연산에는 <strong>AND</strong>, <strong>OR</strong>, <strong>XOR</strong>, <strong>NOT</strong> 등이 있고 이를 이용하여 복잡한 연산을 유도할 수 있다.</p>
+<ul>
+  <li>레지스터에 있는 각 비트를 독립된 2진 변수로 간주하여 비트별 연산 실행</li>
+  <li>AND, OR, XOR, NOT 연산 등이 있으며, 이를 이용하여 복잡한 연산을 유도</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/ALU4.png" alt="img.png" /></p>
+
+<p>논리연산회로에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/ALU5.png" alt="img.png" /></p>
+
+<hr />
+<p><span style="color:DarkOrange">reference</span><br />
+김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#2021%EB%85%84-09%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 09월</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">Computer Science</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-09-18">September 18, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%82%B0%EC%88%A0%2F%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2F%25EC%2582%25B0%25EC%2588%25A0%25EB%2585%25BC%25EB%25A6%25AC%25EC%2597%25B0%25EC%2582%25B0%25EC%259E%25A5%25EC%25B9%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2F%25EC%2582%25B0%25EC%2588%25A0%25EB%2585%25BC%25EB%25A6%25AC%25EC%2597%25B0%25EC%2582%25B0%25EC%259E%25A5%25EC%25B9%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2F%25EC%2582%25B0%25EC%2588%25A0%25EB%2585%25BC%25EB%25A6%25AC%25EC%2597%25B0%25EC%2582%25B0%25EC%259E%25A5%25EC%25B9%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/" class="pagination--pager" title="주소지정방식
+">이전</a>
+    
+    
+      <a href="/computer%20science/%EC%83%81%ED%83%9C%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80%EC%8B%9C%ED%94%84%ED%84%B0/" class="pagination--pager" title="상태 레지스터와 시프터
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/computer%20science/%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C/" rel="permalink">처리장치의 구성요소
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">처리장치의 구성요소
+처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.
+따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/computer%20science/%EC%83%81%ED%83%9C%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80%EC%8B%9C%ED%94%84%ED%84%B0/" rel="permalink">상태 레지스터와 시프터
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">상태 레지스터
+상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다. 
+상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/" rel="permalink">주소지정방식
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">주소지정방식
+명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. 주소지정방식(addressing mode)이란...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring%20security/WebAsyncManagerIntegrationFilter/" rel="permalink">WebAsyncManagerIntegrationFilter
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">WebAsyncManagerIntegrationFilter
+WebAsyncManagerIntegrationFilter는 스프링 MVC의 Async 기능(핸들러에서 Callable을 리턴할 수 있는 기능)을 사용할 때에도 SecurityContext를 공유하도록 도와주는 필터.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김성현(Kim SeongHyun). Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://hyuuny.github.io/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/computer%20science/산술논리연산장치"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hyuuny-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

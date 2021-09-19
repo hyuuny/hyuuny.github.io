@@ -1,0 +1,16 @@
+I"�<h2 id="산술논리연산장치"><span style="color:MediumSeaGreen">산술/논리연산장치</span></h2>
+<p>ALU는 <strong>기본적인 산술연산과 논리연산을 실행하는 조합논리회로</strong>다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.</p>
+
+<p><img src="/assets/images/computer-structure/ALU.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="산술연산회로"><span style="color:DodgerBlue">산술연산회로</span></h6>
+<p>산술연산회로의 가장 기본적인 구성요소는 병렬가산기이며, 여러개의 전가산기 회로를 연속적으로 연결시켜 만든다.</p>
+
+<hr />
+
+<hr />
+<h4 id="reference"><span style="color:DarkOrange">reference</span></h4>
+<p>김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원</p>
+:ET
