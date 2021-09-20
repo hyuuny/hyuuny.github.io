@@ -1,8 +1,0 @@
-I"�<h2 id="상태-레지스터"><span style="color:MediumSeaGreen">상태 레지스터</span></h2>
-<p>상태 레지스터는 <strong>ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트</strong>한다. 
-상태 레지스터들은 <strong>C(carry bit)</strong>, <strong>S(sign bit)</strong>, <strong>Z(zero bit)</strong>, <strong>V(overflow bit)</strong>로 구성되어 있으며, <strong>1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성</strong>되어 있다.</p>
-<ul>
-  <li>ALU에서 <strong>산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장</strong></li>
-  <li>상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성</li>
-</ul>
-:ET

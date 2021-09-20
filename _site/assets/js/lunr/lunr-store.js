@@ -88,4 +88,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/computer%20science/%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C/",
         "teaser": null
+      },{
+        "title": "HTTP",
+        "excerpt":"월드 와이드 웹을 지탱하는 가장 중요한 기술 두 가지는 HTML과 HTTP이다. 이 두 기술은 팀 버너스 리가 웹을 발명할 때 함께 만들어졌다. 전 세계의 웹 브라우저, 서버, 웹 애플리케이션은 모두 HTTP(Hyper Text Tranfer Protocol)를 통해 서로 대화한다. 인터넷의 멀티미디어 배달부 수십억 개의 JPEG 이미지, HTML 페이지, 텍스트 파일, MPEG 동영상,...","categories": ["HTTP"],
+        "tags": ["2021년 09월"],
+        "url": "/http/HTTP%EA%B0%9C%EA%B4%80/",
+        "teaser": null
       }]
