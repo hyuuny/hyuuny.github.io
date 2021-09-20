@@ -1,0 +1,59 @@
+I"+<p><strong>URL은 브라우저가 정보를 찾는데 필요한 리소스의 위치를 가리키며</strong>, URL을 이용해 사람과 애플리케이션이 인터넷상의 수십억 개의 리소스를 찾고 사용하며 공유할 수 있다. 그리고 URL을 통해 사람이 HTTP 및 다른 프로토콜을 통해 접근할 수 있다. <strong>사용자는 브라우저에 URL을 입력하고 브라우저는 화면 뒤에서 사용자가 원하는 리소스를 얻기 위해서 적절한 프로토콜을 사용하여 메시지를 전송</strong>한다.</p>
+
+<p><strong>URL은 통합 자원 식별자(Uniform Resource Identifier) 혹은 URI라고 불리는 더 일반화된 부류의 부분집합</strong>이다. URI는 두 가지 주요 부분집합인, URL과 URN으로 구성된 종합적인 개념이다. URN은 현재 그 리소스가 어디에 존재하든 상관없이 그 이름만으로 리소스를 식별하는데 비해 URL은 리소스가 어디 있는지 설명해서 리소스를 식별한다.</p>
+
+<p>HTTP 명세에서는 URI를 더 일반화된 개념의 리소스 식별자로 사용한다. 허나 실제로 HTTP 애플리케이션은 URL을 URI의 한 부분으로 취급한다.</p>
+
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">http://www.joes-hardware.com/seasonal/index-fail.html</code>이라는 URL을 불러온다하면</p>
+<ul>
+  <li>URL의 <strong>첫 부분인 http는 URL의 스킴이다</strong>. 스킴은 웹 클라이언트가 리소스에 어떻게 접근하는지 나타낸다. 이 경우에는 URL이 HTTP 프로토콜을 사용한다는 것을 알 수 있다.</li>
+  <li>URL의 <strong>두 번째 부분인</strong> <code class="language-plaintext highlighter-rouge">www.joes-hardware.com</code><strong>은 서버의 위치다</strong>. 이는 웹 클라이언트가 리소스가 어디에 호스팅 되어 있는지 나타낸다.</li>
+  <li>URL의 <strong>세 번째 부분인</strong> <code class="language-plaintext highlighter-rouge">/seasonal/index-fail.html</code><strong>은 리소스의 경로다</strong>. 경로는 서버에 존재하는 로컬 리소스들 중에서 요청받은 리소스가 무엇인지 나타낸다.<br />
+<br /></li>
+</ul>
+
+<p>URL은 HTTP 프로토콜이 아닌 다른 프로토콜을 사용할 수도 있다.
+<code class="language-plaintext highlighter-rouge">mailto:president@whitehouse.gov</code>는 이메일 주소를 가리키며,<br />
+<code class="language-plaintext highlighter-rouge">ftp://ftp.lots-o-books.com/pub/comlite-price-list.xls</code>는 FTP(File Transfer Protocol) 서버에 올라가 있는 파일을 가리킨다.</p>
+
+<p>대부분의 URL은 동일하게 <code class="language-plaintext highlighter-rouge">스킴://서버위치/경로</code> 구조로 이루어져 있다.</p>
+
+<hr />
+
+<h2 id="url-문법"><span style="color:MediumSeaGreen">URL 문법</span></h2>
+<p>URL로 인터넷상의 모든 리소스를 찾을 수 있지만, 그 리소스들은 스킴(HTTP, FTP, SMTP)을 통해 접근할 수 있으며, URL 문법은 스킴에 따라서 달라진다.</p>
+
+<p>대부분의 URL 스킴의 문법은 일반적으로 9개의 부분으로 나뉜다.<br />
+<code class="language-plaintext highlighter-rouge">&lt;스킴&gt;://&lt;사용자이름&gt;:&lt;비밀번호&gt;@&lt;호스트&gt;:&lt;포트&gt;/&lt;경로&gt;;&lt;파라미터&gt;?&lt;질의&gt;#&lt;프레그먼트&gt;</code><br />
+위의 모든 컴포넌트를 갖는 URL은 거의 없고, <strong>URL의 가장 중요한 세 가지 컴포넌트는 스킴, 호스트, 경로다</strong>.</p>
+
+<p>아래는 URL 컴포넌트에 대한 도표이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">컴포넌트</th>
+      <th style="text-align: center">설명</th>
+      <th style="text-align: center">기본값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">스킴</td>
+      <td style="text-align: center">리소스를 가져오려면 어떤 프로토콜을 사용하여 서버에 접근해야 하는지 가리킨다.</td>
+      <td style="text-align: center">없음</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">스킴</td>
+      <td style="text-align: center">리소스를 가져오려면 어떤 프로토콜을 사용하여 서버에 접근해야 하는지 가리킨다.</td>
+      <td style="text-align: center">없음</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<hr />
+<p><span style="color:DarkOrange">reference</span><br />
+데이빗 고울리·브라이언 토티·마조리 세이어·세일루 레디·안슈 아가왈. (2014). HTTP 완벽 가이드. 프로그래밍인사이트</p>
+:ET

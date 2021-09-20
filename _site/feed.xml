@@ -6,9 +6,189 @@
     <description>배움을 좋아하는 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Sep 2021 15:15:51 +0900</pubDate>
-    <lastBuildDate>Mon, 20 Sep 2021 15:15:51 +0900</lastBuildDate>
+    <pubDate>Mon, 20 Sep 2021 17:24:03 +0900</pubDate>
+    <lastBuildDate>Mon, 20 Sep 2021 17:24:03 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>URL과 리소스</title>
+        <description>&lt;p&gt;&lt;strong&gt;URL은 브라우저가 정보를 찾는데 필요한 리소스의 위치를 가리키며&lt;/strong&gt;, URL을 이용해 사람과 애플리케이션이 인터넷상의 수십억 개의 리소스를 찾고 사용하며 공유할 수 있다. 그리고 URL을 통해 사람이 HTTP 및 다른 프로토콜을 통해 접근할 수 있다. &lt;strong&gt;사용자는 브라우저에 URL을 입력하고 브라우저는 화면 뒤에서 사용자가 원하는 리소스를 얻기 위해서 적절한 프로토콜을 사용하여 메시지를 전송&lt;/strong&gt;한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;URL은 통합 자원 식별자(Uniform Resource Identifier) 혹은 URI라고 불리는 더 일반화된 부류의 부분집합&lt;/strong&gt;이다. URI는 두 가지 주요 부분집합인, URL과 URN으로 구성된 종합적인 개념이다. URN은 현재 그 리소스가 어디에 존재하든 상관없이 그 이름만으로 리소스를 식별하는데 비해 URL은 리소스가 어디 있는지 설명해서 리소스를 식별한다.&lt;/p&gt;
+
+&lt;p&gt;HTTP 명세에서는 URI를 더 일반화된 개념의 리소스 식별자로 사용한다. 허나 실제로 HTTP 애플리케이션은 URL을 URI의 한 부분으로 취급한다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://www.joes-hardware.com/seasonal/index-fail.html&lt;/code&gt;이라는 URL을 불러온다하면&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;URL의 &lt;strong&gt;첫 부분인 http는 URL의 스킴이다&lt;/strong&gt;. 스킴은 웹 클라이언트가 리소스에 어떻게 접근하는지 나타낸다. 이 경우에는 URL이 HTTP 프로토콜을 사용한다는 것을 알 수 있다.&lt;/li&gt;
+  &lt;li&gt;URL의 &lt;strong&gt;두 번째 부분인&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.joes-hardware.com&lt;/code&gt;&lt;strong&gt;은 서버의 위치다&lt;/strong&gt;. 이는 웹 클라이언트가 리소스가 어디에 호스팅 되어 있는지 나타낸다.&lt;/li&gt;
+  &lt;li&gt;URL의 &lt;strong&gt;세 번째 부분인&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/seasonal/index-fail.html&lt;/code&gt;&lt;strong&gt;은 리소스의 경로다&lt;/strong&gt;. 경로는 서버에 존재하는 로컬 리소스들 중에서 요청받은 리소스가 무엇인지 나타낸다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;URL은 HTTP 프로토콜이 아닌 다른 프로토콜을 사용할 수도 있다.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mailto:president@whitehouse.gov&lt;/code&gt;는 이메일 주소를 가리키며,&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ftp://ftp.lots-o-books.com/pub/comlite-price-list.xls&lt;/code&gt;는 FTP 서버에 올라가 있는 파일을 가리킨다.&lt;/p&gt;
+
+&lt;p&gt;대부분의 URL은 동일하게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;스킴://서버위치/경로&lt;/code&gt; 구조로 이루어져 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;url-문법&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;URL 문법&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;URL로 인터넷상의 모든 리소스를 찾을 수 있지만, 그 리소스들은 스킴(HTTP, FTP, SMTP)을 통해 접근할 수 있으며, URL 문법은 스킴에 따라서 달라진다.&lt;/p&gt;
+
+&lt;p&gt;대부분의 URL 스킴의 문법은 일반적으로 9개의 부분으로 나뉜다.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;스킴&amp;gt;://&amp;lt;사용자이름&amp;gt;:&amp;lt;비밀번호&amp;gt;@&amp;lt;호스트&amp;gt;:&amp;lt;포트&amp;gt;/&amp;lt;경로&amp;gt;;&amp;lt;파라미터&amp;gt;?&amp;lt;질의&amp;gt;#&amp;lt;프래그먼트&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이처럼 모든 컴포넌트를 갖는 URL은 거의 없고, &lt;strong&gt;URL의 가장 중요한 세 가지 컴포넌트는 스킴, 호스트, 경로다&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;아래는 URL 컴포넌트에 대한 도표이다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;컴포넌트&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;기본값&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;스킴&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;리소스를 가져오려면 어떤 프로토콜을 사용하여 서버에 접근해야 하는지 가리킨다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;사용자 이름&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;몇몇 스킴은 리소스에 접근을 하기 위해 사용자 이름을 필요로 한다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;anonymous&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;비밀번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;사용자의 비밀번호를 가리키며, 사용자 이름에 콜론(:)으로 이어서 기술한다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;이메일 주소&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;호스트&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;리소스를 호스팅하는 서버의 호스트 명이나 IP 주소.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;포트&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;리소스를 호스팅하는 서버가 열어놓은 포트번호, 많은 스킵이 기본 포트를 가지고 있다.(HTTP 기본 포트는 80)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;스킴에 따라 다름&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;경로&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;이전 컴포넌트와 빗금(/)으로 구분되어 있으며, 서버 내 리소스가 서버 어디에 있는지를 가리킨다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;파라미터&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;특정 스킴들에서 입력 파라미터를 기술하는 용도로 사용한다. 파라미터는 이름/값 쌍으로 가지며, 다른 파라미터나 경로의 일부와 세미콜론(;)으로 구분하여 기술하고, 여러 개를 가질 수 있다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;질의&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;스킴에서 애플리케이션(DB, 게시판, 검색엔진, 기타 인터넷 게이트웨이)에 파라미터를 전달하는데 쓰인다. URL 끝에 “?”로 구분한다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;프래그먼트&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;리소스의 조각이나 일부분을 가리키는 이름이다. URL의 끝에서 “#”문자로 구분한다.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;스킴:사용할 프로토콜&lt;/span&gt;&lt;br /&gt;
+&lt;strong&gt;스킴은 주어진 리소스에 어떻게 접근하는지 알려주는 중요한 정보다&lt;/strong&gt;.&lt;br /&gt;
+URL을 해석하는 애플리케이션이 어떤 프로토콜을 사용하여 리소스를 요청해야 하는지 알려주는데, 스킴 컴포넌트는 알파벳으로 시작해야 하고 URL의 나머지 부분들과 첫 번째 ‘:’ 문자로 구분한다.&lt;br /&gt;
+스킴 명은 대소문자를 구분하지 않으므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://www.joes-hardware.com&lt;/code&gt;이나 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HTTP://www.joes-hardware.com&lt;/code&gt;는 같다.&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;호스트와 포트&lt;/span&gt;&lt;br /&gt;
+애플리케이션이 인터넷에 있는 리소스를 찾으려면, 리소스를 호스팅하고 있는 장비와 그 장비 내에서 리소스에 접근할 수 있는 서버가 어디에 있는지 알아야 한다. URL의 호스트와 포트 컴포넌트는 그 두 가지 정보를 제공해준다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어 아래 두 개의 URL은 같은 리소스를 가리킨다.&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://www.joes-hardware.com:80/index.html&lt;/code&gt; (호스트 명으로 가리킴)
+&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://161.58.228.45:80/index.html&lt;/code&gt; (IP 주소로 가리킴)&lt;br /&gt;
+&lt;br /&gt;
+포트 컴포넌트는 서버가 열어놓은 네트워크 포트를 가리키며, 내부적으로 TCP 프로토콜을 사용하는 HTTP는 기본 폰트로 80을 사용한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;경로&lt;/span&gt;&lt;br /&gt;
+&lt;strong&gt;URL의 경로 컴포넌트는 리소스가 서버의 어디에 있는지 알려준다&lt;/strong&gt;.&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://www.joes-hardware.com:80/seasonal/index-fail.html&lt;/code&gt;이라는 URL 경로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;seasonal/index-fail.html&lt;/code&gt;로 유닉스 파일 시스템의 파일 경로와 유사하다. 경로는 서버가 리소스의 위치를 찾는데 사용하는 정보로 HTTP URL에서 경로 컴포넌트는 ‘/’문자를 기준으로 나뉜다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;상대-url&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;상대 URL&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;URL은 상대 URL과 절대 URL 두 가지로 나뉜다&lt;/strong&gt;. 절대 URL은 리소스에 접근하는데 필요한 모든 정보를 가지고 있다. 그와 달리 상대 URL은 모든 정보를 담고 있지는 않다. 상대 URL로 리소스에 접근하는데 필요한 모든 정보를 얻기 위해서는 기저(base)라고 하는 다른 URL을 사용해야 한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;스킴&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;스킴&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;웹에서 쓰이는 유명한 스킴들의 포맷은 아래와 같다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;스킴&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;http&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;사용자 이름이나 비밀번호가 없다는 것을 제외하고는, 일반 URL 포맷을 지키는 하이퍼텍스트 전송 프로토콜(Hyper Text Transfer Protocol)스킴이다.&lt;br /&gt; 포트값이 생략되어 있으면 기본값은 80이다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;https&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;https 스킴은 http 스킴과 거의 같다. 다른 점이라고는 https는 HTTP의 커넥션의 양 끝단에서 암호화하기 위해 넷스케이프에서 개발한 보안 소켓 계층(Secure Sockets Layer, SSL)을 사용한다는 것이다.&lt;br /&gt; 문법은 HTTP와 같고 기본 포트값은 443이다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;mailto&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;mailto URL은 이메일 주소를 가리킨다. 이메일은 다른 스킴과는 다르게 동작하기 때문에, mailto URL은 표준 URL과는 다른 포맷을 가진다. 인터넷 이메일 주소의 문법은 RFC 822에 기술되어 있다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;ftp&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;파일 전송 프로토콜(File Transfer Protocol) URL은 FTP 서버에 있는 파일을 내려 받거나 올리고, FTP 서버의 디렉터리에 있는 컨텐츠 목록을 가져오는데 사용할 수 있다.&lt;br /&gt; FTP는 웹과 URL이 출현하기 전부터 있었다. 웹 애플리케이션은 데이터에 접근하는 용도의 스킴으로 FTP를 사용한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;rtsp, rtspu&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;RTSP URL은 실시간 스트리밍 프로토콜(Real Time Streaming Protocol)을 통해서 읽을 수 있는 오디오 및 비디오와 같은 미디어 리소스 식별자다.&lt;br /&gt; rtspu 스킴에 있는 ‘u’는 리소스를 읽기 위해서 UDP 프로토콜이 사용됨을 뜻한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;file&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;file 스킴은 주어진 호스트 기기(로컬 디스크, 네트워크 파일 시스템 혹은 기타 파일 공유 시스템)에서 바로 접근할 수 있는 파일들을 나타낸다. 각 필드도 일반적인 URL 포맷을 따른다. 만약 호스트가 생략되어 있으면, URL울 사용하고 있는 기기의 로컬 호스트가 기본값이 된다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;telnet&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;telnet 스킴은 대화형 서비스에 접근하는데 사용한다. telnet URL 자체가 객체를 가리키지는 않지만, 리소스라고 할 수 있는 대화형 애플리케이션은 이 telnet 프로토콜을 통해 접근할 수 있다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;span style=&quot;color:DarkOrange&quot;&gt;reference&lt;/span&gt;&lt;br /&gt;
+데이빗 고울리·브라이언 토티·마조리 세이어·세일루 레디·안슈 아가왈. (2014). HTTP 완벽 가이드. 프로그래밍인사이트&lt;/p&gt;
+</description>
+        <pubDate>Sun, 19 Sep 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/http/URL%EA%B3%BC%EB%A6%AC%EC%86%8C%EC%8A%A4/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/URL%EA%B3%BC%EB%A6%AC%EC%86%8C%EC%8A%A4/</guid>
+        
+        <category>2021년 09월</category>
+        
+        
+        <category>HTTP</category>
+        
+      </item>
     
       <item>
         <title>HTTP</title>
@@ -1096,208 +1276,6 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
         <pubDate>Sat, 04 Sep 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/jpa/mappedBy/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/jpa/mappedBy/</guid>
-        
-        <category>2021년 09월</category>
-        
-        
-        <category>JPA</category>
-        
-      </item>
-    
-      <item>
-        <title>객체와 테이블 매핑</title>
-        <description>&lt;h2 id=&quot;entity&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;@Entity&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;@Entity가 붙은 클래스는 JPA가 관리하게 된다.&lt;/li&gt;
-  &lt;li&gt;JPA를 사용해서 테이블과 매핑할 클래스는 @Entity를 필수로 선언해야 한다.&lt;/li&gt;
-  &lt;li&gt;@Entity를 사용할 때는 다음과 같은 주의사항이 있다.
-    &lt;ul&gt;
-      &lt;li&gt;하이버네이트는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;프록시 DB 연산 결과를 상속한 클래스의 기본 생성자를 호출하여 매핑한다&lt;/code&gt;. 이때, 알맞게 결과 값을 넣어주기 위해서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;public 또는 protected 레벨의 기본 생성자&lt;/code&gt;가 필요하다.&lt;/li&gt;
-      &lt;li&gt;final 클래스, enum, interface, inner 클래스 사용 X&lt;/li&gt;
-      &lt;li&gt;저장할 필드에 final 사용 X&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@GeneratedValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strategy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GenerationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;IDENTITY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;name&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;name 속성을 사용하여 JPA에서 사용할 엔티티 이름을 지정할 수 있다.&lt;/li&gt;
-  &lt;li&gt;기본값은 클래스의 이름을 그대로 사용한다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;같은 클래스 이름이 없다면 가급적 기본값을 사용&lt;/code&gt;하는 것이 좋다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;account&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Member 클래스를 account라는 이름으로 사용하게 된다.&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@GeneratedValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strategy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GenerationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;IDENTITY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;table&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;@Table&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;@Table은 엔티티와 매핑할 테이블을 지정한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;속성&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;기능&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;기본값&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;name&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매핑할 테이블 이름 지정&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;엔티티 이름을 사용&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;catalog&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;데이터베이스 catalog 매핑&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;schema&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;데이터베이스 schema 매핑&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;uniqueConstraints(DDL)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;DDL 생성시에 유니크 제약 조건 생성&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MBR&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Table명을 MBR로 지정한다.&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@GeneratedValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strategy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GenerationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;IDENTITY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/jpa/entity/table.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;테이블명이 MBR임을 확인&lt;/strong&gt;할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;데이터베이스-스키마-자동-생성&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;데이터베이스 스키마 자동 생성&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;DDL을 애플리케이션 실행 시점에 자동 생성&lt;/li&gt;
-  &lt;li&gt;테이블 중심 → 객체 중심&lt;/li&gt;
-  &lt;li&gt;데이터베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL 생성&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;이렇게 생성된 DDL은 개발 장비에서만 사용&lt;/strong&gt;하자&lt;/li&gt;
-  &lt;li&gt;생성된 DDL은 운영서버에서는 사용하지 않거나, 적절히 다듬은 후 사용&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id=&quot;데이터베이스-스키마-자동-생성---속성&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;데이터베이스 스키마 자동 생성 - 속성&lt;/span&gt;&lt;/h6&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;옵션&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;create&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;기존테이블 삭제 후 다시 생성(DROP + CREATE)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;create-drop&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;create와 같으나, 종료시점에 테이블 DROP&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;update&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;변경분만 반영&lt;strong&gt;(운영DB에는 사용하지 말자)&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;validate&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;엔티티와 테이블이 정상 매핑되었는지만 확인&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;none&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;사용하지 않음&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h6 id=&quot;데이터베이스-스키마-자동-생성---주의&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;데이터베이스 스키마 자동 생성 - 주의&lt;/span&gt;&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;운영 장비에서는 절대 create, create-drop, update 사용하면 안됨.&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;개발 초기 단계는 create 또는 update&lt;/li&gt;
-  &lt;li&gt;테스트 서버는 update 또는 validate&lt;/li&gt;
-  &lt;li&gt;스테이징과 운영 서버는 validate 또는 none&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id=&quot;ddl-생성-기능&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;DDL 생성 기능&lt;/span&gt;&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;제약조건 추가 : 회원 이름 필수, 10자 초과 X
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nd&quot;&gt;@Column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nullable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;유니크 제약조건 추가
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniqueConstraints&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;={&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@UniqueConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;NAME_AGE_UNIQUE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columnNames&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;NAME&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AGE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;DDL 생성 기능은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DDL을 자동 생성할 때만 사용되고 JPA의 실행 로직에는 영향을 주지 않는다.&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Fri, 03 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/jpa/%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%A7%A4%ED%95%91/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/jpa/%EC%97%94%ED%8B%B0%ED%8B%B0-%EB%A7%A4%ED%95%91/</guid>
         
         <category>2021년 09월</category>
         

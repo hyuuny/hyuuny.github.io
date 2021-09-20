@@ -1,5 +1,0 @@
-I""<p>월드 와이드 웹을 지탱하는 가장 중요한 기술 <strong>두 가지는 HTML과 HTTP</strong>이다. 이 두 기술은 팀 버너스 리가 웹을 발명할 때 함께 만들어졌다. 전 세계의 <strong>웹 브라우저, 서버, 웹 애플리케이션은 모두 HTTP(Hyper Text Tranfer Protocol)</strong>를 통해 서로 대화한다.</p>
-
-<h2 id="http-인터넷의-멀티미디어-배달부"><span style="color:MediumSeaGreen">HTTP: 인터넷의 멀티미디어 배달부</span></h2>
-<p>수십억 개의 JPEG 이미지, HTML 페이지, 텍스트 파일, MPEG 동영상, WAV 음성 파일, 자바 애플릿 등이 인터넷을 항해한다. HTTP는 전 세계의 웹 서버로부터 이 대량의 정보를 빠르고, 간편하고, 정확하게 웹 브라우저로 옮겨준다.</p>
-:ET
