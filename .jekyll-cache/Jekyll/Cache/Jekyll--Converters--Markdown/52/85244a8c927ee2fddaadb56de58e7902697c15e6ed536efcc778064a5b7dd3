@@ -1,0 +1,4 @@
+I"<h2 id="안전한-메서드safe-method"><span style="color:MediumSeaGreen">안전한 메서드(Safe Method)</span></h2>
+<p>HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GET과 HEAD 메서드는 안전하다고 할 수 있는데, 이는 <code class="language-plaintext highlighter-rouge">GET이나 HEAD 메서드는 HTTP 요청의 결과로 서버에 어떤 작용도 없음을 의미</code>한다.<br />
+작용이 없다는 것은 HTTP 요청의 결과로 인해 서버에서 일어나는 일은 아무것도 없다는 의미인데, 예를 들면 온라인 쇼핑몰에서 ‘구매’버튼을 클릭했다고 치면 신용카드 정보를 담은 POST 요청이 전송될 것이고, 서버에서는 구매에 대한 신용카드 대금이 청구될 것이다.</p>
+:ET

@@ -1,0 +1,858 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>HTTP 메서드 - Hyuuny`s Blog</title>
+<meta name="description" content="안전한 메서드(Safe Method) HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GET과 HEAD 메서드는 안전하다고 할 수 있는데, 이는 GET이나 HEAD 메서드는 HTTP 요청의 결과로 서버에 어떤 작용도 없음을 의미한다. 안전한 메서드가 서버에 작용을 유발하지 않는 다는 보장은 없지만(웹 개발자가 어떻게 구현하냐에 달림), 안전한 메서드의 목적은 서버에 어떤 영향을 줄 수 있는 안전하지 않은 메서드가 사용될 때 사용자들에게 그 사실을 알려주는 HTTP 애플리케이션을 만들 수 있도록 하는 것에 있다.">
+
+
+  <meta name="author" content="Kim SeongHyun">
+  
+  <meta property="article:author" content="Kim SeongHyun">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Hyuuny`s Blog">
+<meta property="og:title" content="HTTP 메서드">
+<meta property="og:url" content="https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/">
+
+
+  <meta property="og:description" content="안전한 메서드(Safe Method) HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GET과 HEAD 메서드는 안전하다고 할 수 있는데, 이는 GET이나 HEAD 메서드는 HTTP 요청의 결과로 서버에 어떤 작용도 없음을 의미한다. 안전한 메서드가 서버에 작용을 유발하지 않는 다는 보장은 없지만(웹 개발자가 어떻게 구현하냐에 달림), 안전한 메서드의 목적은 서버에 어떤 영향을 줄 수 있는 안전하지 않은 메서드가 사용될 때 사용자들에게 그 사실을 알려주는 HTTP 애플리케이션을 만들 수 있도록 하는 것에 있다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-09-22T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-09-22T14:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김성현(Kim SeongHyun)",
+      "url": "https://hyuuny.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Hyuuny`s Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://hyuuny.github.io/feed.xml" title="Hyuuny`s Blog Feed">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/123_3sB_icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="mask-icon" href="/assets/logo.ico/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Hyuuny`s Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://hyuuny.github.io/">
+        <img src="/assets/images/profile.png" alt="Kim SeongHyun" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://hyuuny.github.io/" itemprop="url">Kim SeongHyun</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Back-end Developer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Gwangmyeong</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/hyuuny" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:shyune@knou.ac.kr" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="HTTP 메서드">
+    <meta itemprop="description" content="안전한 메서드(Safe Method)HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GET과 HEAD 메서드는 안전하다고 할 수 있는데, 이는 GET이나 HEAD 메서드는 HTTP 요청의 결과로 서버에 어떤 작용도 없음을 의미한다.안전한 메서드가 서버에 작용을 유발하지 않는 다는 보장은 없지만(웹 개발자가 어떻게 구현하냐에 달림), 안전한 메서드의 목적은 서버에 어떤 영향을 줄 수 있는 안전하지 않은 메서드가 사용될 때 사용자들에게 그 사실을 알려주는 HTTP 애플리케이션을 만들 수 있도록 하는 것에 있다.">
+    <meta itemprop="datePublished" content="2021-09-22T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-09-22T14:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/" class="u-url" itemprop="url">HTTP 메서드
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#안전한-메서드safe-method">안전한 메서드(Safe Method)</a></li><li><a href="#get">GET</a></li><li><a href="#head">HEAD</a></li><li><a href="#put">PUT</a></li><li><a href="#post">POST</a></li><li><a href="#trace">TRACE</a></li><li><a href="#options">OPTIONS</a></li><li><a href="#delete">DELETE</a></li><li><a href="#확장-메서드">확장 메서드</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="안전한-메서드safe-method"><span style="color:MediumSeaGreen">안전한 메서드(Safe Method)</span></h2>
+<p>HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GET과 HEAD 메서드는 안전하다고 할 수 있는데, 이는 <code class="language-plaintext highlighter-rouge">GET이나 HEAD 메서드는 HTTP 요청의 결과로 서버에 어떤 작용도 없음을 의미</code>한다.<br />
+안전한 메서드가 서버에 작용을 유발하지 않는 다는 보장은 없지만(웹 개발자가 어떻게 구현하냐에 달림), <strong>안전한 메서드의 목적은 서버에 어떤 영향을 줄 수 있는 안전하지 않은 메서드가 사용될 때 사용자들에게 그 사실을 알려주는 HTTP 애플리케이션을 만들 수 있도록 하는 것에 있다</strong>.</p>
+
+<p>예를 들면 구매하기 버튼을 눌렀을 때, POST 요청(신용카드 정보)이 서버로 전송 될텐데 이때 서버에서 신용카드로 결제될 수 있다는 경고 메시지를 띄우는 일이있다.</p>
+
+<hr />
+
+<h2 id="get"><span style="color:MediumSeaGreen">GET</span></h2>
+<p><strong>GET은 가장 흔히 사용되는 메서드</strong>로서, 주로 서버에게 리소스를 달라고 요청하는데 사용된다. HTTP/1.1은 서버가 이 메서드를 구현할 것을 요구한다.</p>
+
+<ul>
+  <li>요청 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /seasonal/index.fall.html HTTP/1.1
+Host: www.joes-hardware.com
+Accept: *
+</code></pre></div>    </div>
+  </li>
+  <li>응답 메시지(엔터티 본문 포함)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-type: text/html
+Context-Length: 617
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="head"><span style="color:MediumSeaGreen">HEAD</span></h2>
+<p><strong>HEAD 메서드는 정확히 GET처럼 행동하지만, 서버는 응답으로 헤더만을 돌려준다</strong>. 엔터티 본문은 반환되지 않고, 클라이언트가 리소스를 실제로 가져올 필요 없이 헤더만을 조사할 수 있도록 해준다.</p>
+<ul>
+  <li>리소스를 가져오지 않고도 그에 대해 무엇인가(타입)를 알아낼 수 있다.</li>
+  <li>응답의 상태 코드를 통해, 개체가 존재하는지 확인할 수 있다.</li>
+  <li>헤더를 확인하여 리소스가 변경되었는지 확인할 수 있다.</li>
+</ul>
+
+<p><strong>서버 개발자들은 반드시 반환되는 헤더가 GET으로 얻는 것과 정확히 일치함을 보장</strong>해야 하며, HTTP/1.1 준수를 위해서는 HEAD 메서드가 반드시 구현되어 있어야 한다.</p>
+
+<ul>
+  <li>요청 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEAD /seasonal/index-fall.html HTTP/1.1
+Host: www.joes-hardware.com
+Accept: *
+</code></pre></div>    </div>
+  </li>
+  <li>응답 메시지(엔터티 본문 없음)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-Type: text/html
+Context-Length: 617
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="put"><span style="color:MediumSeaGreen">PUT</span></h2>
+<p><strong>GET 메서드가 서버로부터 문서를 읽어들이는데 반해 PUT 메서드는 서버에 문서를 쓴다</strong>. 어떤 발행 시스템은 사용자가 PUT을 이용해 웹페이지를 만들고 웹 서버에 직접 게시할 수 있도록 해준다.</p>
+
+<p><strong>PUT 메서드의 의미는 서버가 요청의 본문을 가지고 요청 URL의 이름대로 새 문서를 만들거나, 이미 URL이 존재한다면 본문을 사용해서 교체하는 것이다</strong>.<br />
+PUT은 컨텐츠를 변경할 수 있게 해주기 때문에, 많은 웹 서버가 PUT을 수행하기 전에 사용자에게 비밀번호를 입력해서 로그인을 하도록 요구하는 방식을 취한다.</p>
+
+<ul>
+  <li>요청 메시지(서버는 ‘/product-list.txt’ 리소스를 갱신/생성하고 디스크에 저장한다.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /product-list.txt HTTP/1.1
+Host: www.joes-hardware.com
+Content-Type: text/plain
+Content-length: 34
+</code></pre></div>    </div>
+  </li>
+  <li>응답 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 201 Created
+Location: http://www.joes-hardware.com/product-list.txt
+Content-Type: text/plain
+Content-Length: 47
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="post"><span style="color:MediumSeaGreen">POST</span></h2>
+<p><strong>POST 메서드는 서버에 입력 데이터를 전송하기 위해 설계 되었다</strong>. <code class="language-plaintext highlighter-rouge">PUT은 서버에 있는 리소스(예:파일)에 데이터를 입력하기 위해 사용된다면, POST는 서버에 데이터를 보내기 위해 사용</code><br />
+채워진 폼에 담긴 데이터는 서버로 전송되어 필요로 하는 곳(데이터를 처리할 서버 게이트웨이 프로그램 등)에 보낸다.</p>
+
+<ul>
+  <li>요청 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /inventory-check.cgi HTTP/1.1
+Host: www.joes-hardware.com
+Content-Type: text/plain
+Content-length: 18
+item=bandsaw 2647(브라우저는 메시지의 엔터티 본문(body)에 데이터를 넣는다.)
+</code></pre></div>    </div>
+  </li>
+  <li>응답 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-type: text/plain
+Context-length: 37
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="trace"><span style="color:MediumSeaGreen">TRACE</span></h2>
+<p>클라이언트가 어떤 요청을 할 때, 그 요청은 방화벽, 프락시, 게이트웨이 등의 애플리케이션을 통과할 수 있다. <strong>TRACE 메서드는 클라이언트에게 자신의 요청이 서버에 도달했을 때 어떻게 보이게 되는지 알려준다</strong>.</p>
+
+<p>TRACE 요청은 목적지 서버에서 ‘루프백(loopback)’ 진단을 시작하는데, 요청 전송의 마지막 단계에 있는 서버는 자신이 받은 요청 메시지를 본문에 넣어 TRACE 응답을 돌려준다. 클라이언트는 자신과 목적지 서버 사이에 있는 모든 HTTP 애플리케이션의 요청/응답 연쇄를 따라가면서 자신이 보낸 메시지가 망가졌거나 수정되었는지, 만약 그렇다면 어떻게 변경되었는지 확인할 수 있다.</p>
+
+<p>TRACE 메서드는 주로 진단을 위해 사용된다. 예를 들면 요청이 의도한 요청/응답 연쇄를 거쳐가는지 검사할 수 있고, 프락시나 다른 애플리케이션들이 요청에 어떤 영향을 미치는지 확인해보고자 할 때도 좋은 도구다.</p>
+
+<p>TRACE는 진단을 위해 사용할 때는 괜찮지만, 메서드를 구별할 수는 없기 때문에 여러 다른 종류의 요청(GET, HEAD, POST 등 각각 다른 메서드를 사용한)들을 일관되게 다룬다는 문제가 있다. 많은 HTTP 애플리케이션은 메서드에 따라 다르게 동작하는데, TRACE 요청을 처리할 것인지에 대해서는 일반적으로 중간 애플리케이션이 결정을 내린다. 또 TRACE 요청은 어떠한 엔터티 본문도 보낼 수 없다.</p>
+
+<hr />
+
+<h2 id="options"><span style="color:MediumSeaGreen">OPTIONS</span></h2>
+<p><strong>OPTIONS 메서드는 웹 서버에게 여러 가지 종류의 지원 범위에 대해 물어본다</strong>. 서버에게 특정 리소스에 대해 어떤 메서드가 지원되는지 물어볼 수 있다(몇몇 서버는 특정 종류의 객체에 대해 특정 동작만을 지원).</p>
+
+<ul>
+  <li>요청 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OPTIONS * HTTP/1.1
+Host: www.joes-hardware.com
+Accept: *
+</code></pre></div>    </div>
+  </li>
+  <li>응답 메시지(OPTIONS 요청이 모든 리소스에 대한 것이므로, 서버는 자신의 리소스에 대해 지원하는 메서드의 목록을 반환하다.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Allow: GET, POST, PUT, OPTIONS(서버가 지원하는 메서드 목록 반환)
+Context-length: 0
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="delete"><span style="color:MediumSeaGreen">DELETE</span></h2>
+<p><strong>DELETE 메서드는 서버에게 요청 URL로 지정한 리소스를 삭제할 것을 요청한다</strong>. 그러나 HTTP 명세는 서버가 클라이언트에게 알리지 않고, 요청을 무시하는 것을 허용하기 때문에 삭제가 수행되는 것을 보장하지 못한다.</p>
+
+<ul>
+  <li>요청 메시지
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /product-list.txt HTTP/1.1
+Host: www.joes-hardware.com
+</code></pre></div>    </div>
+  </li>
+  <li>응답 메시지(파일 ‘product-list’가 서버에서 지워졌다.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-type: text/plain
+Context-Length: 54
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="확장-메서드"><span style="color:MediumSeaGreen">확장 메서드</span></h2>
+<p>확장 메서드는 HTTP/1.1 명세에 정의되지 않고, 개발자들에게 그들의 서버가 구현한 HTTP 서비스의 서버가 관리하는 리소스에 대한 능력을 확장하는 수단을 제공한다.</p>
+
+<p>확장 메서드의 대표적인 몇 가지는 아래 표와 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">메서드</th>
+      <th style="text-align: center">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">LOCK</td>
+      <td style="text-align: center">사용자가 리소스를 잠글 수 있게 해준다. 예를 들어, 문서를 편집하는 동안 다른 사람이 동시에 같은 문서를 편집하지 못하도록 문서를 잠글 수 있다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MKCOL</td>
+      <td style="text-align: center">사용자가 문서를 생성할 수 있게 해준다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">COPY</td>
+      <td style="text-align: center">서버에 있는 리소스를 복사한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MOVE</td>
+      <td style="text-align: center">서버에 있는 리소스를 옮긴다.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#2021%EB%85%84-09%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 09월</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#http" class="page__taxonomy-item p-category" rel="tag">HTTP</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-09-22">September 22, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=HTTP+%EB%A9%94%EC%84%9C%EB%93%9C%20https%3A%2F%2Fhyuuny.github.io%2Fhttp%2FHTTP%25EB%25A9%2594%25EC%2584%259C%25EB%2593%259C%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fhttp%2FHTTP%25EB%25A9%2594%25EC%2584%259C%25EB%2593%259C%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fhttp%2FHTTP%25EB%25A9%2594%25EC%2584%259C%25EB%2593%259C%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/http/HTTP%EB%A9%94%EC%8B%9C%EC%A7%80/" class="pagination--pager" title="HTTP 메시지
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/http/HTTP%EB%A9%94%EC%8B%9C%EC%A7%80/" rel="permalink">HTTP 메시지
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">HTTP가 인터넷의 배달원이라면, HTTP 메시지는 무언가를 담아 보내는 소포와 같다.
+이번에는 어떻게 메시지를 만들고 이해하는지에 대해 알아보자
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/http/URL%EA%B3%BC%EB%A6%AC%EC%86%8C%EC%8A%A4/" rel="permalink">URL과 리소스
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">URL은 브라우저가 정보를 찾는데 필요한 리소스의 위치를 가리키며, URL을 이용해 사람과 애플리케이션이 인터넷상의 수십억 개의 리소스를 찾고 사용하며 공유할 수 있다. 그리고 URL을 통해 사람이 HTTP 및 다른 프로토콜을 통해 접근할 수 있다. 사용자는 브라우저에 URL을 입...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/http/HTTP%EA%B0%9C%EA%B4%80/" rel="permalink">HTTP
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">월드 와이드 웹을 지탱하는 가장 중요한 기술 두 가지는 HTML과 HTTP이다. 이 두 기술은 팀 버너스 리가 웹을 발명할 때 함께 만들어졌다. 전 세계의 웹 브라우저, 서버, 웹 애플리케이션은 모두 HTTP(Hyper Text Tranfer Protocol)를 통해 서로 대화한다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/computer%20science/%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C/" rel="permalink">처리장치의 구성요소
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">처리장치의 구성요소
+처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.
+따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김성현(Kim SeongHyun). Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/http/HTTP메서드"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hyuuny-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -106,4 +106,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/http/HTTP%EB%A9%94%EC%8B%9C%EC%A7%80/",
         "teaser": null
+      },{
+        "title": "HTTP 메서드",
+        "excerpt":"안전한 메서드(Safe Method) HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GET과 HEAD 메서드는 안전하다고 할 수 있는데, 이는 GET이나 HEAD 메서드는 HTTP 요청의 결과로 서버에 어떤 작용도 없음을 의미한다. 안전한 메서드가 서버에 작용을 유발하지 않는 다는 보장은 없지만(웹 개발자가 어떻게 구현하냐에 달림), 안전한 메서드의 목적은 서버에 어떤 영향을 줄 수...","categories": ["HTTP"],
+        "tags": ["2021년 09월"],
+        "url": "/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/",
+        "teaser": null
       }]
