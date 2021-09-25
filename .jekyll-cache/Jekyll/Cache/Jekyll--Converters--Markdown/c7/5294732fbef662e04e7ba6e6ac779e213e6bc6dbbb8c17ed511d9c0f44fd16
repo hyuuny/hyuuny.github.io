@@ -1,0 +1,34 @@
+I"o<p>HTTP 상태 코드는 크게 다섯가지로 나뉘는데, 아래에서 자세히 살펴보자</p>
+
+<h2 id="100-199-정보성-상태-코드"><span style="color:MediumSeaGreen">100-199: 정보성 상태 코드</span></h2>
+<p>정보성 상태 코드는 HTTP/1.1에서 도입되었다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">상태 코드</th>
+      <th style="text-align: center">사유 구절</th>
+      <th style="text-align: center">의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">100</td>
+      <td style="text-align: center">Continue</td>
+      <td style="text-align: center">요청의 시작 부분 일부가 받아들여졌으며, 클라이언트는 나머지는 계속 이어서 보내야 함을 의미한다. 서버는 반드시 요청을 받아 응답해야 한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">101</td>
+      <td style="text-align: center">Swiching Protocols</td>
+      <td style="text-align: center">클라이언트가 Upgrade 헤더에 나열한 것 중 하나로 서버가 프로토콜을 바꾸었음을 의미한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>100 Contine는 HTTP 클라이언트 애플리케이션이 서버에 엔터티 본문을 전송하기 전에 그 엔터티 본문을 서버가 받아들일 것인지 확인하려고 하는데, 그 확인 작업을 최적화하기 위한 의도로 도입 된 것이다.<br />
+<br /></p>
+
+<p><span style="color:DodgerBlue">클라이언트와 100 Continue</span><br />
+만약 클라이언트가 엔터티를 서버에게 보내려고 하고, 그 전에 100 Continue 응답을 기다리겠다면, 클라이언트는 값을 100-Continue로 하는 Expect 요청 헤더를 보낼 필요가 있다. 만약 클라이언트가 엔터티를 보내지 않으려 한다면, 100-Continue Expect 헤더를 보내지 않아야 한다.<br />
+100-Continue는 여러 측면에서 최적화를 위한 것이다. 클라이언트 애플리케이션은 100-Continue를 서버가 다루거나 사용할 수 없는 큰 엔터티를 서버에게 보내지 않으려는 목적으로만 사용해야 한다.</p>
+:ET

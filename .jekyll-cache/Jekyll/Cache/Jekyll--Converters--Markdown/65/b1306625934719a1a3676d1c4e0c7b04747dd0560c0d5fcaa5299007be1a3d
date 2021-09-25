@@ -1,0 +1,90 @@
+I"[<p>HTTP 상태 코드는 크게 다섯가지로 나뉘는데, 아래에서 자세히 살펴보자</p>
+
+<h2 id="100-199-정보성-상태-코드"><span style="color:MediumSeaGreen">100-199: 정보성 상태 코드</span></h2>
+<p>정보성 상태 코드는 HTTP/1.1에서 도입되었다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">상태 코드</th>
+      <th style="text-align: center">사유 구절</th>
+      <th style="text-align: center">의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">100</td>
+      <td style="text-align: center">Continue</td>
+      <td style="text-align: center">요청의 시작 부분 일부가 받아들여졌으며, 클라이언트는 나머지는 계속 이어서 보내야 함을 의미한다. 서버는 반드시 요청을 받아 응답해야 한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">101</td>
+      <td style="text-align: center">Swiching Protocols</td>
+      <td style="text-align: center">클라이언트가 Upgrade 헤더에 나열한 것 중 하나로 서버가 프로토콜을 바꾸었음을 의미한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>100 Contine는 HTTP 클라이언트 애플리케이션이 서버에 엔터티 본문을 전송하기 전에 그 엔터티 본문을 서버가 받아들일 것인지 확인하려고 하는데, 그 확인 작업을 최적화하기 위한 의도로 도입 된 것이다.<br />
+<br /></p>
+
+<p><span style="color:DodgerBlue">클라이언트와 100 Continue</span><br />
+만약 클라이언트가 엔터티를 서버에게 보내려고 하고, 그 전에 100 Continue 응답을 기다리겠다면, 클라이언트는 값을 100-Continue로 하는 Expect 요청 헤더를 보낼 필요가 있다. 만약 클라이언트가 엔터티를 보내지 않으려 한다면, 100-Continue Expect 헤더를 보내지 않아야 한다.<br />
+100-Continue는 여러 측면에서 최적화를 위한 것이다. 클라이언트 애플리케이션은 100-Continue를 서버가 다루거나 사용할 수 없는 큰 엔터티를 서버에게 보내지 않으려는 목적으로만 사용해야 한다. 이때, 100-Continue 값이 담긴 Expect 헤더를 보낸 클라이언트는 서버가 응답을 보내주기만을 막연히 기다리기만 하면 안 된다. 약간의 타임아웃 후에 클라이언트는 그냥 엔터티를 보내야 한다.<br />
+<br /></p>
+
+<p><span style="color:DodgerBlue">서버와 100 Continue</span><br />
+서버가 100-Continue 값이 담긴 Expect 헤더가 포함된 요청을 받는다면, 100-Continue 응답 혹은 에러 코드로 답해야 한다. 서버는 절대 100-Continue 응답을 받을 것을 의도하지 않은 클라이언트에게 보내서는 안 된다.</p>
+
+<h2 id="200-299-성공-상태-코드"><span style="color:MediumSeaGreen">200-299: 성공 상태 코드</span></h2>
+<p>클라이언트가 요청을 보내면, 그 요청을 대부분 성공한다. 서버는 대응하는 성공을 의미하는 상태 코드의 배열을 갖고 있으며, 각각 다른 종류의 요청에 대응한다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">상태 코드</th>
+      <th style="text-align: center">사유 구절</th>
+      <th style="text-align: center">의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">200</td>
+      <td style="text-align: center">OK</td>
+      <td style="text-align: center">요청은 정상이고, 엔터티 본문은 요청된 리소스를 포함하고 있다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">201</td>
+      <td style="text-align: center">Created</td>
+      <td style="text-align: center">서버 개체를 생성하는 요청을 위한 것. 응답은 생성된 리소스에 대한 최대한 구체적인 참조가 담긴 Location 헤더와 함께, 그 리소스를 참조할 수 있는 여러 URL를 엔터티 본문에 포함해야 한다. 서버는 상태 코드를 보내기에 앞서 반드시 객체를 생성해야 한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">202</td>
+      <td style="text-align: center">Accepted</td>
+      <td style="text-align: center">요청은 받아들여졌으나 서버는 아직 그에 대한 어떤 동작도 수행하지 않았다. 서버가 요청의 처리를 완료할 것인지에 대한 어떤 보장도 없다. 이것은 단지 요청이 받아들이기에 적합해 보인다는 의미일 뿐이다. 서버는 엔터티 본문에 요청에 대한 상태와 가급적이면 요청의 처리가 언제 완료될 것인지에 대한 추정(혹은 그에 대한 정보를 어디서 얻을 수 있는지)도 포함해야 한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">203</td>
+      <td style="text-align: center">Non-Authoritative Infomation</td>
+      <td style="text-align: center">엔터티 헤더에 들어있는 정보가 원래 서버가 아닌 리소스의 사본에서 왔다. 중개자가 리소스의 사본을 갖고 있었지만 리소스에 대한 메타 정보(헤더)를 검증하지 못한(혹은 안한) 경우 이런 일이 발생 할 수 있다. 이 응답 코드는 필수적으로 사용되어야 하는 것은 아니다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">204</td>
+      <td style="text-align: center">No Content</td>
+      <td style="text-align: center">응답 메시지는 헤더와 상태줄을 포함하지만 엔터티 본문은 포함하지 않는다. 주로 웹브라우저를 새 문서로 이동시키지 않고 갱신하고자 할 때(예: 폼 리프레시) 사용한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">205</td>
+      <td style="text-align: center">Reset Content</td>
+      <td style="text-align: center">주로 브라우저를 위해 사용되는 또 하나의 코드. 브라우저에게 현재 페이지에 있는 HTML 폼에 채워진 모든 값을 비우라고 말한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">206</td>
+      <td style="text-align: center">Partial Content</td>
+      <td style="text-align: center">범위 요청이 성공했음을 의미한다. Content-Rage와 Data 헤더를 반드시 포함해야 하며, Etag와 Content-Location 중 하나의 헤더도 반드시 포함해야 한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="300-399-리다이렉션-상태-코드"><span style="color:MediumSeaGreen">300-399: 리다이렉션 상태 코드</span></h2>
+:ET

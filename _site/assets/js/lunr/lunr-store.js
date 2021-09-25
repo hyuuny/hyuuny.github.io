@@ -112,4 +112,10 @@ var store = [{
         "tags": ["2021년 09월"],
         "url": "/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/",
         "teaser": null
+      },{
+        "title": "상태 코드",
+        "excerpt":"HTTP 상태 코드는 크게 다섯가지로 나뉘는데, 아래에서 자세히 살펴보자 100-199: 정보성 상태 코드 정보성 상태 코드는 HTTP/1.1에서 도입되었다. 상태 코드 사유 구절 의미 100 Continue 요청의 시작 부분 일부가 받아들여졌으며, 클라이언트는 나머지는 계속 이어서 보내야 함을 의미한다. 서버는 반드시 요청을 받아 응답해야 한다. 101 Swiching Protocols 클라이언트가 Upgrade 헤더에 나열한...","categories": ["HTTP"],
+        "tags": ["2021년 09월"],
+        "url": "/http/%EC%83%81%ED%83%9C%EC%BD%94%EB%93%9C/",
+        "teaser": null
       }]
