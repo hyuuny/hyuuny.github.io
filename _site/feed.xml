@@ -6,8 +6,8 @@
     <description>객체지향과 DDD에 관심이 많은 개발자입니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 Oct 2021 20:35:43 +0900</pubDate>
-    <lastBuildDate>Sat, 02 Oct 2021 20:35:43 +0900</lastBuildDate>
+    <pubDate>Tue, 05 Oct 2021 20:25:38 +0900</pubDate>
+    <lastBuildDate>Tue, 05 Oct 2021 20:25:38 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -264,8 +264,8 @@
 
 </description>
         <pubDate>Sun, 26 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/http/%EC%83%81%ED%83%9C%EC%BD%94%EB%93%9C/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/http/%EC%83%81%ED%83%9C%EC%BD%94%EB%93%9C/</guid>
+        <link>https://hyuuny.github.io/http/status-code/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/status-code/</guid>
         
         <category>2021년 09월</category>
         
@@ -463,8 +463,8 @@ Context-Length: 54
 
 </description>
         <pubDate>Wed, 22 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%84%9C%EB%93%9C/</guid>
+        <link>https://hyuuny.github.io/http/method/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/method/</guid>
         
         <category>2021년 09월</category>
         
@@ -628,8 +628,8 @@ HTTP는 &lt;strong&gt;트랜잭션 방향을 표현하기 위해 인바운드와
 
 </description>
         <pubDate>Tue, 21 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%8B%9C%EC%A7%80/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/http/HTTP%EB%A9%94%EC%8B%9C%EC%A7%80/</guid>
+        <link>https://hyuuny.github.io/http/message/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/message/</guid>
         
         <category>2021년 09월</category>
         
@@ -808,8 +808,8 @@ URL을 해석하는 애플리케이션이 어떤 프로토콜을 사용하여 �
 데이빗 고울리·브라이언 토티·마조리 세이어·세일루 레디·안슈 아가왈. (2014). HTTP 완벽 가이드. 프로그래밍인사이트&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/http/URL%EA%B3%BC%EB%A6%AC%EC%86%8C%EC%8A%A4/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/http/URL%EA%B3%BC%EB%A6%AC%EC%86%8C%EC%8A%A4/</guid>
+        <link>https://hyuuny.github.io/http/url-and-resource/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/url-and-resource/</guid>
         
         <category>2021년 09월</category>
         
@@ -1082,13 +1082,63 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 데이빗 고울리·브라이언 토티·마조리 세이어·세일루 레디·안슈 아가왈. (2014). HTTP 완벽 가이드. 프로그래밍인사이트&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/http/HTTP%EA%B0%9C%EA%B4%80/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/http/HTTP%EA%B0%9C%EA%B4%80/</guid>
+        <link>https://hyuuny.github.io/http/opening/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/opening/</guid>
         
         <category>2021년 09월</category>
         
         
         <category>HTTP</category>
+        
+      </item>
+    
+      <item>
+        <title>상태 레지스터와 시프터</title>
+        <description>&lt;h2 id=&quot;상태-레지스터&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;상태 레지스터&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;상태 레지스터는 &lt;strong&gt;ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트&lt;/strong&gt;한다. 
+상태 레지스터들은 &lt;strong&gt;C(carry bit)&lt;/strong&gt;, &lt;strong&gt;S(sign bit)&lt;/strong&gt;, &lt;strong&gt;Z(zero bit)&lt;/strong&gt;, &lt;strong&gt;V(overflow bit)&lt;/strong&gt;로 구성되어 있으며, &lt;strong&gt;1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성&lt;/strong&gt;되어 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ALU에서 &lt;strong&gt;산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성
+&lt;img src=&quot;/assets/images/computer-structure/flagRegister.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;캐리비트(carry bit)&lt;/span&gt;&lt;br /&gt;
+캐리비트는 &lt;strong&gt;두 수를 가산하여 캐리가 발생하면 비트가 1로 세트되고, 아니면 0&lt;/strong&gt;이된다. 따라서 캐리비트는 산술연산장치의 최상위 비트의 전가산기 캐리 아웃(carry out) 신호를 받아서 세트된다. 또한 감산에서 자리내림(borrow)이 발생했을 때도 1로 세트된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;부호비트(sign bit)&lt;/span&gt;&lt;br /&gt;
+부호비트는 산술연산장치의 출력 최상위 비트와 연결되어 있으며, &lt;strong&gt;최상위 비트가 0이면 양수를 나타내고, 1이면 음수&lt;/strong&gt;를 나타낸다.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;제로비트(zero bit)&lt;/span&gt;&lt;br /&gt;
+제로비트는 &lt;strong&gt;두 수를 연산한 후 결과값이 0이며 1로 세트&lt;/strong&gt;된다. 따라서 산술연산장치의 출력비트들을 논리게이트 NOR에 연결하여 모든 비트가 0이면 출력밧이 1이 되도록 구성한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;오버플로 비트(overflow bit)&lt;/span&gt;&lt;br /&gt;
+오버플로는 산술연산에서 &lt;strong&gt;두 수를 가산할 때 결과를 저장할 수 있는 레지스터의 자릿수가 모자라는 경우에 발생&lt;/strong&gt;하는 에러로서, 오버플로가 발생하면 오버플로 비트가 1로 세트된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;시프터shifter&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;시프터(shifter)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;ALU에는 데이터를 비트 단위로 이동시키는 시프트(shift) 기능이 없다. 따라서 &lt;strong&gt;ALU 출력 단에 시프터(shifter)를 연결하여 시프터 연산을 수행&lt;/strong&gt;한다. 시프트 연산은 입력 데이터의 모든 비트를 각각 서로 이웃한 비트로 자리를 옮기는 연산을 말하여, 왼쪽 시프트와 오른쪽 시프트가 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;입력 데이터의 모든 비트들을 각각 서로 이웃한 비트로 자리를 옮기는 시프트 연산을 수행
+&lt;img src=&quot;/assets/images/computer-structure/shifter.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;시프터에 대한 연산표는 다음과 같다.
+&lt;img src=&quot;/assets/images/computer-structure/shifter2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;span style=&quot;color:DarkOrange&quot;&gt;reference&lt;/span&gt;&lt;br /&gt;
+김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
+</description>
+        <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/computer%20science/status-register/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/status-register/</guid>
+        
+        <category>2021년 09월</category>
+        
+        
+        <category>Computer Science</category>
         
       </item>
     
@@ -1142,58 +1192,8 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C/</guid>
-        
-        <category>2021년 09월</category>
-        
-        
-        <category>Computer Science</category>
-        
-      </item>
-    
-      <item>
-        <title>상태 레지스터와 시프터</title>
-        <description>&lt;h2 id=&quot;상태-레지스터&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;상태 레지스터&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;상태 레지스터는 &lt;strong&gt;ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트&lt;/strong&gt;한다. 
-상태 레지스터들은 &lt;strong&gt;C(carry bit)&lt;/strong&gt;, &lt;strong&gt;S(sign bit)&lt;/strong&gt;, &lt;strong&gt;Z(zero bit)&lt;/strong&gt;, &lt;strong&gt;V(overflow bit)&lt;/strong&gt;로 구성되어 있으며, &lt;strong&gt;1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성&lt;/strong&gt;되어 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;ALU에서 &lt;strong&gt;산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성
-&lt;img src=&quot;/assets/images/computer-structure/flagRegister.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;캐리비트(carry bit)&lt;/span&gt;&lt;br /&gt;
-캐리비트는 &lt;strong&gt;두 수를 가산하여 캐리가 발생하면 비트가 1로 세트되고, 아니면 0&lt;/strong&gt;이된다. 따라서 캐리비트는 산술연산장치의 최상위 비트의 전가산기 캐리 아웃(carry out) 신호를 받아서 세트된다. 또한 감산에서 자리내림(borrow)이 발생했을 때도 1로 세트된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;부호비트(sign bit)&lt;/span&gt;&lt;br /&gt;
-부호비트는 산술연산장치의 출력 최상위 비트와 연결되어 있으며, &lt;strong&gt;최상위 비트가 0이면 양수를 나타내고, 1이면 음수&lt;/strong&gt;를 나타낸다.&lt;/p&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;제로비트(zero bit)&lt;/span&gt;&lt;br /&gt;
-제로비트는 &lt;strong&gt;두 수를 연산한 후 결과값이 0이며 1로 세트&lt;/strong&gt;된다. 따라서 산술연산장치의 출력비트들을 논리게이트 NOR에 연결하여 모든 비트가 0이면 출력밧이 1이 되도록 구성한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;오버플로 비트(overflow bit)&lt;/span&gt;&lt;br /&gt;
-오버플로는 산술연산에서 &lt;strong&gt;두 수를 가산할 때 결과를 저장할 수 있는 레지스터의 자릿수가 모자라는 경우에 발생&lt;/strong&gt;하는 에러로서, 오버플로가 발생하면 오버플로 비트가 1로 세트된다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;시프터shifter&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;시프터(shifter)&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;ALU에는 데이터를 비트 단위로 이동시키는 시프트(shift) 기능이 없다. 따라서 &lt;strong&gt;ALU 출력 단에 시프터(shifter)를 연결하여 시프터 연산을 수행&lt;/strong&gt;한다. 시프트 연산은 입력 데이터의 모든 비트를 각각 서로 이웃한 비트로 자리를 옮기는 연산을 말하여, 왼쪽 시프트와 오른쪽 시프트가 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;입력 데이터의 모든 비트들을 각각 서로 이웃한 비트로 자리를 옮기는 시프트 연산을 수행
-&lt;img src=&quot;/assets/images/computer-structure/shifter.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;시프터에 대한 연산표는 다음과 같다.
-&lt;img src=&quot;/assets/images/computer-structure/shifter2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;&lt;span style=&quot;color:DarkOrange&quot;&gt;reference&lt;/span&gt;&lt;br /&gt;
-김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
-</description>
-        <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/%EC%83%81%ED%83%9C%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80%EC%8B%9C%ED%94%84%ED%84%B0/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/%EC%83%81%ED%83%9C%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80%EC%8B%9C%ED%94%84%ED%84%B0/</guid>
+        <link>https://hyuuny.github.io/computer%20science/components-processing/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/components-processing/</guid>
         
         <category>2021년 09월</category>
         
@@ -1249,8 +1249,8 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/%EC%82%B0%EC%88%A0%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98/</guid>
+        <link>https://hyuuny.github.io/computer%20science/alu/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/alu/</guid>
         
         <category>2021년 09월</category>
         
@@ -1380,8 +1380,8 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/%EC%A3%BC%EC%86%8C%EC%A7%80%EC%A0%95%EB%B0%A9%EC%8B%9D/</guid>
+        <link>https://hyuuny.github.io/computer%20science/addressing-method/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/addressing-method/</guid>
         
         <category>2021년 09월</category>
         
@@ -1426,8 +1426,8 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 &lt;/ul&gt;
 </description>
         <pubDate>Tue, 07 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring%20security/WebAsyncManagerIntegrationFilter/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/WebAsyncManagerIntegrationFilter/</guid>
+        <link>https://hyuuny.github.io/spring%20security/web-async-managerIntegration-filter/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/web-async-managerIntegration-filter/</guid>
         
         <category>2021년 09월</category>
         

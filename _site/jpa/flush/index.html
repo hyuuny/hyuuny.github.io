@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Thread Local - Hyuuny`s Blog</title>
-<meta name="description" content="java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.    같은 쓰레드 내에서만 공유.   따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.   SecurityContextHolder의 기본 전략.">
+<!-- begin _includes/seo.html --><title>플러시(flush) - Hyuuny`s Blog</title>
+<meta name="description" content="플러시(flush)    플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.   데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨   영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.   transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.            commit 직전에만 동기화 하면 됨">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -22,32 +22,32 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Hyuuny`s Blog">
-<meta property="og:title" content="Thread Local">
-<meta property="og:url" content="https://hyuuny.github.io/spring%20security/thread-local/">
+<meta property="og:title" content="플러시(flush)">
+<meta property="og:url" content="https://hyuuny.github.io/jpa/flush/">
 
 
-  <meta property="og:description" content="java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.    같은 쓰레드 내에서만 공유.   따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.   SecurityContextHolder의 기본 전략.">
-
-
-
+  <meta property="og:description" content="플러시(flush)    플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.   데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨   영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.   transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.            commit 직전에만 동기화 하면 됨">
 
 
 
 
-  <meta property="article:published_time" content="2021-08-29T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2021-08-29T14:00:00+09:00">
+  <meta property="article:published_time" content="2021-09-01T00:00:00+09:00">
 
 
 
-  
+  <meta property="article:modified_time" content="2021-09-01T14:00:00+09:00">
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://hyuuny.github.io/spring%20security/thread-local/">
+
+<link rel="canonical" href="https://hyuuny.github.io/jpa/flush/">
 
 
 
@@ -288,16 +288,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Thread Local">
-    <meta itemprop="description" content="java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.  같은 쓰레드 내에서만 공유.  따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.  SecurityContextHolder의 기본 전략.">
-    <meta itemprop="datePublished" content="2021-08-29T00:00:00+09:00">
-    <meta itemprop="dateModified" content="2021-08-29T14:00:00+09:00">
+    <meta itemprop="headline" content="플러시(flush)">
+    <meta itemprop="description" content="플러시(flush)  플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영하는 것이다.  데이터베이스 transaction commit이 발생하면 자동 플러시(flush) 됨  영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.  transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.          commit 직전에만 동기화 하면 됨      ">
+    <meta itemprop="datePublished" content="2021-09-01T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-09-01T14:00:00+09:00">
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="https://hyuuny.github.io/spring%20security/thread-local/" class="u-url" itemprop="url">Thread Local
+            <a href="https://hyuuny.github.io/jpa/flush/" class="u-url" itemprop="url">플러시(flush)
 </a>
           </h1>
           
@@ -329,32 +329,87 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#javalang-패키지에서-제공하는-쓰레드-범위-변수-즉-쓰레드-수준의-데이터-저장소">java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.</a></li></ul>
+              <ul class="toc__menu"><li><a href="#플러시flush">플러시(flush)</a></li><li><a href="#플러시flush-발생">플러시(flush) 발생</a></li><li><a href="#영속성-컨텍스트-플러시flush하는-방법">영속성 컨텍스트 플러시(flush)하는 방법</a><ul><li><a href="#플러시flush-옵션">플러시(flush) 옵션</a></li></ul></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h3 id="javalang-패키지에서-제공하는-쓰레드-범위-변수-즉-쓰레드-수준의-데이터-저장소">java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.</h3>
+        <h2 id="플러시flush"><span style="color:MediumSeaGreen">플러시(flush)</span></h2>
 <ul>
-  <li>같은 쓰레드 내에서만 공유.</li>
-  <li>따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.</li>
-  <li>SecurityContextHolder의 기본 전략.</li>
+  <li><strong>플러시(flush)는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영</strong>하는 것이다.</li>
+  <li>데이터베이스 transaction commit이 발생하면 <strong>자동 플러시(flush)</strong> 됨</li>
+  <li>영속성 컨텍스트의 변경 내용을 데이터베이스에 <strong>동기화하는 것이지 영속성 컨텍스트를 비우는 것이 아니다.</strong></li>
+  <li>transaction이라는 작업 단위가 있기 때문에 플러시(flush)가 동작 가능하다.
+    <ul>
+      <li>commit 직전에만 동기화 하면 됨</li>
+    </ul>
+  </li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountContext</span> <span class="o">{</span>
+<hr />
 
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="no">ACCOUNT_THREAD_LOCAL</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadLocal</span><span class="o">&lt;&gt;();</span>
+<h2 id="플러시flush-발생"><span style="color:MediumSeaGreen">플러시(flush) 발생</span></h2>
+<ul>
+  <li>플러시(flush)가 발생하면 다음과 같은 일이 발생한다.
+    <ol>
+      <li>변경 감지(Dirty checking) 발생</li>
+      <li>수정된 엔티티의 내용을 쓰기 지연 SQL 저장소에 등록</li>
+      <li>쓰기 지연 SQL 저장소의 query를 데이터베이스에 전송(등록, 수정, 삭제)</li>
+    </ol>
+  </li>
+</ul>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setAccount</span><span class="o">(</span><span class="nc">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
-        <span class="no">ACCOUNT_THREAD_LOCAL</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
-    <span class="o">}</span>
+<hr />
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Account</span> <span class="nf">getAccount</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="no">ACCOUNT_THREAD_LOCAL</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-    <span class="o">}</span>
+<h2 id="영속성-컨텍스트-플러시flush하는-방법"><span style="color:MediumSeaGreen">영속성 컨텍스트 플러시(flush)하는 방법</span></h2>
+<ul>
+  <li>개발을 하면서 직접 flush 할 일은 거의 없지만, 아래와 같은 행동을 했을 때 발생한다.
+    <ol>
+      <li>em.flush - 직접 호출</li>
+      <li>transaction commit - 자동 호출</li>
+      <li>JPQL query 실행 - 자동 호출</li>
+    </ol>
+  </li>
+</ul>
 
-<span class="o">}</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">(</span><span class="mi">1L</span><span class="o">,</span> <span class="s">"hyuuny"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="c1">// flush 시점에 Insert query 실행</span>
+<span class="n">em</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"============================"</span><span class="o">);</span>
+
+<span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
 </code></pre></div></div>
+
+<p><img src="/assets/images/jpa/flush/flush.png" alt="img.png" /></p>
+<ul>
+  <li>transaction.commit()전에 flush를 호출하였더니 DB에 Insert query를 보낸다.</li>
+</ul>
+
+<hr />
+
+<h6 id="플러시flush-옵션"><span style="color:DodgerBlue">플러시(flush) 옵션</span></h6>
+<ul>
+  <li>JPA에서는 플러시(flush)의 2가지 옵션이 있지만, <code class="language-plaintext highlighter-rouge">사실상 기본 값인 AUTO만 사용</code>한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">setFlushMode</span><span class="o">(</span><span class="nc">FlushModeType</span><span class="o">.</span><span class="na">COMMIT</span><span class="o">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>FlushModeType.AUTO
+    <ul>
+      <li>commit 또는 query를 실행할 때 플러시(기본 값)</li>
+    </ul>
+  </li>
+  <li>FlushModeType.Commit
+    <ul>
+      <li>commit할 때만 플러시</li>
+    </ul>
+  </li>
+</ul>
 
 
         
@@ -372,7 +427,7 @@
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
     <span itemprop="keywords">
     
-      <a href="/tags/#2021%EB%85%84-08%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 08월</a>
+      <a href="/tags/#2021%EB%85%84-09%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 09월</a>
     
     </span>
   </p>
@@ -389,7 +444,7 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#spring-security" class="page__taxonomy-item p-category" rel="tag">Spring Security</a>
+      <a href="/categories/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a>
     
     </span>
   </p>
@@ -397,7 +452,7 @@
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-08-29">August 29, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-09-01">September 1, 2021</time></p>
 
       </footer>
 
@@ -406,22 +461,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Thread+Local%20https%3A%2F%2Fhyuuny.github.io%2Fspring%2520security%2Fthread-local%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%ED%94%8C%EB%9F%AC%EC%8B%9C%28flush%29%20https%3A%2F%2Fhyuuny.github.io%2Fjpa%2Fflush%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fspring%2520security%2Fthread-local%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fjpa%2Fflush%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fspring%2520security%2Fthread-local%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fjpa%2Fflush%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/spring%20security/spring-context-holder/" class="pagination--pager" title="Spring Security Holder
+      <a href="/jpa/persistent-context/" class="pagination--pager" title="영속성 컨텍스트
 ">이전</a>
     
     
-      <a href="/jpa/persistent-context/" class="pagination--pager" title="영속성 컨텍스트
+      <a href="/jpa/detach/" class="pagination--pager" title="준영속 상태
 ">다음</a>
     
   </nav>
@@ -672,8 +727,8 @@ HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GE
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://hyuuny.github.io/spring%20security/thread-local/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/spring%20security/thread-local"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "https://hyuuny.github.io/jpa/flush/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/jpa/flush"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');
