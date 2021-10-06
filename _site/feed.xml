@@ -3,11 +3,11 @@
   
   <channel>
     <title> Hyuuny`s Blog  </title>
-    <description>객체지향과 DDD에 관심이 많은 개발자입니다.</description>
+    <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 Oct 2021 20:25:38 +0900</pubDate>
-    <lastBuildDate>Tue, 05 Oct 2021 20:25:38 +0900</lastBuildDate>
+    <pubDate>Wed, 06 Oct 2021 20:20:09 +0900</pubDate>
+    <lastBuildDate>Wed, 06 Oct 2021 20:20:09 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -1132,13 +1132,13 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/status-register/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/status-register/</guid>
+        <link>https://hyuuny.github.io/computer-science/status-register/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer-science/status-register/</guid>
         
         <category>2021년 09월</category>
         
         
-        <category>Computer Science</category>
+        <category>computer-science</category>
         
       </item>
     
@@ -1192,13 +1192,13 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/components-processing/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/components-processing/</guid>
+        <link>https://hyuuny.github.io/computer-science/components-processing/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer-science/components-processing/</guid>
         
         <category>2021년 09월</category>
         
         
-        <category>Computer Science</category>
+        <category>computer-science</category>
         
       </item>
     
@@ -1249,13 +1249,13 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/alu/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/alu/</guid>
+        <link>https://hyuuny.github.io/computer-science/alu/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer-science/alu/</guid>
         
         <category>2021년 09월</category>
         
         
-        <category>Computer Science</category>
+        <category>computer-science</category>
         
       </item>
     
@@ -1380,13 +1380,13 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer%20science/addressing-method/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer%20science/addressing-method/</guid>
+        <link>https://hyuuny.github.io/computer-science/addressing-method/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/computer-science/addressing-method/</guid>
         
         <category>2021년 09월</category>
         
         
-        <category>Computer Science</category>
+        <category>computer-science</category>
         
       </item>
     
@@ -1426,13 +1426,13 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
 &lt;/ul&gt;
 </description>
         <pubDate>Tue, 07 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring%20security/web-async-managerIntegration-filter/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring%20security/web-async-managerIntegration-filter/</guid>
+        <link>https://hyuuny.github.io/spring-security/web-async-managerIntegration-filter/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring-security/web-async-managerIntegration-filter/</guid>
         
         <category>2021년 09월</category>
         
         
-        <category>Spring Security</category>
+        <category>spring-security</category>
         
       </item>
     

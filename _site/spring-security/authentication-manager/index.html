@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Thread Local - Hyuuny`s Blog</title>
-<meta name="description" content="java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.    같은 쓰레드 내에서만 공유.   따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.   SecurityContextHolder의 기본 전략.">
+<!-- begin _includes/seo.html --><title>Authentication Manager - Hyuuny`s Blog</title>
+<meta name="description" content="Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Hyuuny`s Blog">
-<meta property="og:title" content="Thread Local">
-<meta property="og:url" content="https://hyuuny.github.io/spring%20security/thread-local/">
+<meta property="og:title" content="Authentication Manager">
+<meta property="og:url" content="https://hyuuny.github.io/spring-security/authentication-manager/">
 
 
-  <meta property="og:description" content="java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.    같은 쓰레드 내에서만 공유.   따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.   SecurityContextHolder의 기본 전략.">
+  <meta property="og:description" content="Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.">
 
 
 
@@ -47,7 +47,7 @@
   
 
 
-<link rel="canonical" href="https://hyuuny.github.io/spring%20security/thread-local/">
+<link rel="canonical" href="https://hyuuny.github.io/spring-security/authentication-manager/">
 
 
 
@@ -288,8 +288,8 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Thread Local">
-    <meta itemprop="description" content="java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.  같은 쓰레드 내에서만 공유.  따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.  SecurityContextHolder의 기본 전략.">
+    <meta itemprop="headline" content="Authentication Manager">
+    <meta itemprop="description" content="Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.">
     <meta itemprop="datePublished" content="2021-08-29T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-08-29T14:00:00+09:00">
 
@@ -297,7 +297,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="https://hyuuny.github.io/spring%20security/thread-local/" class="u-url" itemprop="url">Thread Local
+            <a href="https://hyuuny.github.io/spring-security/authentication-manager/" class="u-url" itemprop="url">Authentication Manager
 </a>
           </h1>
           
@@ -329,33 +329,56 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#javalang-패키지에서-제공하는-쓰레드-범위-변수-즉-쓰레드-수준의-데이터-저장소">java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.</a></li></ul>
+              <ul class="toc__menu"><li><a href="#spring-security에서-인증authentication은-authenticationmanager가-한다">Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.</a></li><li><a href="#인자로-받은-authentication">인자로 받은 Authentication</a></li><li><a href="#유효한-인증인지-확인">유효한 인증인지 확인</a></li><li><a href="#authentication-객체를-리턴">Authentication 객체를 리턴</a></li></ul>
 
             </nav>
           </aside>
         
-        <h3 id="javalang-패키지에서-제공하는-쓰레드-범위-변수-즉-쓰레드-수준의-데이터-저장소">java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소.</h3>
-<ul>
-  <li>같은 쓰레드 내에서만 공유.</li>
-  <li>따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음.</li>
-  <li>SecurityContextHolder의 기본 전략.</li>
-</ul>
+        <h2 id="spring-security에서-인증authentication은-authenticationmanager가-한다">Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다.</h2>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountContext</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="no">ACCOUNT_THREAD_LOCAL</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadLocal</span><span class="o">&lt;&gt;();</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setAccount</span><span class="o">(</span><span class="nc">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
-        <span class="no">ACCOUNT_THREAD_LOCAL</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Account</span> <span class="nf">getAccount</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="no">ACCOUNT_THREAD_LOCAL</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Authentication</span> <span class="nf">authenticate</span><span class="o">(</span><span class="nc">Authentication</span> <span class="n">authentication</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">AuthenticationException</span>
 </code></pre></div></div>
 
+<ul>
+  <li><strong>인자로 받은 Authentication이 유효한 인증인지 확인</strong>하고, 
+<strong>Authentication객체를 리턴</strong>한다.</li>
+  <li>인증을 확인하는 과정에서 비활성 계정, 잘못된 비밀번호, 잠긴 계정 등의 에러를 던질 수 있다.</li>
+</ul>
+
+<h2 id="인자로-받은-authentication">인자로 받은 Authentication</h2>
+
+<ul>
+  <li>사용자가 입력한 인증에 필요한 정보(username, password)로 만든 객체다. (폼 인증의 경우)</li>
+  <li>Authentication
+    <ul>
+      <li>Principal : “hyuuny”</li>
+      <li>Credentials : “secret”</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="유효한-인증인지-확인">유효한 인증인지 확인</h2>
+
+<ul>
+  <li>사용자가 입력한 password가 UserDetailsService를 통해 읽어온 UserDatails객체에 들어 있는
+password와 일치하는지 확인한다.
+    <ul>
+      <li>해당 사용자 계정이 잠겨 있지는 않은지, 비활성 계정은 아닌지 등 확인한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="authentication-객체를-리턴">Authentication 객체를 리턴</h2>
+
+<ul>
+  <li>Authentication
+    <ul>
+      <li>Principal : UserDetailsService에서 리턴한 객체 (User)</li>
+      <li>Credentials</li>
+      <li>GrantedAuthorities</li>
+    </ul>
+  </li>
+</ul>
 
         
       </section>
@@ -389,7 +412,7 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#spring-security" class="page__taxonomy-item p-category" rel="tag">Spring Security</a>
+      <a href="/categories/#spring-security" class="page__taxonomy-item p-category" rel="tag">spring-security</a>
     
     </span>
   </p>
@@ -406,22 +429,21 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Thread+Local%20https%3A%2F%2Fhyuuny.github.io%2Fspring%2520security%2Fthread-local%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Authentication+Manager%20https%3A%2F%2Fhyuuny.github.io%2Fspring-security%2Fauthentication-manager%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fspring%2520security%2Fthread-local%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fspring-security%2Fauthentication-manager%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fspring%2520security%2Fthread-local%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fspring-security%2Fauthentication-manager%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/spring%20security/spring-context-holder/" class="pagination--pager" title="Spring Security Holder
-">이전</a>
+      <a href="#" class="pagination--pager disabled">이전</a>
     
     
-      <a href="/jpa/persistent-context/" class="pagination--pager" title="영속성 컨텍스트
+      <a href="/spring-security/spring-context-holder/" class="pagination--pager" title="Spring Security Holder
 ">다음</a>
     
   </nav>
@@ -672,8 +694,8 @@ HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GE
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://hyuuny.github.io/spring%20security/thread-local/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/spring%20security/thread-local"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "https://hyuuny.github.io/spring-security/authentication-manager/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring-security/authentication-manager"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

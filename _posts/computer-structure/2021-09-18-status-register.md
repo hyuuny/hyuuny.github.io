@@ -1,7 +1,7 @@
 ---
 title: 상태 레지스터와 시프터
 categories:
-- Computer Science
+- computer-science
 tags: 
 - 2021년 09월
 

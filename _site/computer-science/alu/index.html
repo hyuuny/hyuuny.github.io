@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>상태 레지스터와 시프터 - Hyuuny`s Blog</title>
-<meta name="description" content="상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다.  상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다.    ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장   상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성">
+<!-- begin _includes/seo.html --><title>산술/논리연산장치 - Hyuuny`s Blog</title>
+<meta name="description" content="산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Hyuuny`s Blog">
-<meta property="og:title" content="상태 레지스터와 시프터">
-<meta property="og:url" content="https://hyuuny.github.io/computer%20science/status-register/">
+<meta property="og:title" content="산술/논리연산장치">
+<meta property="og:url" content="https://hyuuny.github.io/computer-science/alu/">
 
 
-  <meta property="og:description" content="상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다.  상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다.    ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장   상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성">
+  <meta property="og:description" content="산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
 
 
 
@@ -47,7 +47,7 @@
   
 
 
-<link rel="canonical" href="https://hyuuny.github.io/computer%20science/status-register/">
+<link rel="canonical" href="https://hyuuny.github.io/computer-science/alu/">
 
 
 
@@ -288,8 +288,8 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="상태 레지스터와 시프터">
-    <meta itemprop="description" content="상태 레지스터상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다. 상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다.  ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장  상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성">
+    <meta itemprop="headline" content="산술/논리연산장치">
+    <meta itemprop="description" content="산술/논리연산장치ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
     <meta itemprop="datePublished" content="2021-09-18T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-09-18T14:00:00+09:00">
 
@@ -297,7 +297,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="https://hyuuny.github.io/computer%20science/status-register/" class="u-url" itemprop="url">상태 레지스터와 시프터
+            <a href="https://hyuuny.github.io/computer-science/alu/" class="u-url" itemprop="url">산술/논리연산장치
 </a>
           </h1>
           
@@ -314,7 +314,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          최대 1 분 소요
         
       </span>
     
@@ -329,43 +329,50 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#상태-레지스터">상태 레지스터</a></li><li><a href="#시프터shifter">시프터(shifter)</a></li></ul>
+              <ul class="toc__menu"><li><a href="#산술논리연산장치">산술/논리연산장치</a><ul><li><a href="#산술연산회로">산술연산회로</a></li><li><a href="#논리연산회로">논리연산회로</a></li></ul></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h2 id="상태-레지스터"><span style="color:MediumSeaGreen">상태 레지스터</span></h2>
-<p>상태 레지스터는 <strong>ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트</strong>한다. 
-상태 레지스터들은 <strong>C(carry bit)</strong>, <strong>S(sign bit)</strong>, <strong>Z(zero bit)</strong>, <strong>V(overflow bit)</strong>로 구성되어 있으며, <strong>1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성</strong>되어 있다.</p>
-<ul>
-  <li>ALU에서 <strong>산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장</strong></li>
-  <li>상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성
-<img src="/assets/images/computer-structure/flagRegister.png" alt="img.png" /></li>
-</ul>
+        <h2 id="산술논리연산장치"><span style="color:MediumSeaGreen">산술/논리연산장치</span></h2>
+<p>ALU는 <strong>기본적인 산술연산과 논리연산을 실행하는 조합논리회로</strong>다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.</p>
 
-<p><span style="color:DodgerBlue">캐리비트(carry bit)</span><br />
-캐리비트는 <strong>두 수를 가산하여 캐리가 발생하면 비트가 1로 세트되고, 아니면 0</strong>이된다. 따라서 캐리비트는 산술연산장치의 최상위 비트의 전가산기 캐리 아웃(carry out) 신호를 받아서 세트된다. 또한 감산에서 자리내림(borrow)이 발생했을 때도 1로 세트된다.</p>
+<p><img src="/assets/images/computer-structure/ALU.png" alt="img.png" /></p>
 
-<p><span style="color:DodgerBlue">부호비트(sign bit)</span><br />
-부호비트는 산술연산장치의 출력 최상위 비트와 연결되어 있으며, <strong>최상위 비트가 0이면 양수를 나타내고, 1이면 음수</strong>를 나타낸다.</p>
+<p>또한, <strong>산술연산회로와 논리연산회로를 결합하여 하나의 ALU</strong>를 만들어 낼 수 있다.
+<img src="/assets/images/computer-structure/ALU6.png" alt="img.png" /></p>
 
-<p><span style="color:DodgerBlue">제로비트(zero bit)</span><br />
-제로비트는 <strong>두 수를 연산한 후 결과값이 0이며 1로 세트</strong>된다. 따라서 산술연산장치의 출력비트들을 논리게이트 NOR에 연결하여 모든 비트가 0이면 출력밧이 1이 되도록 구성한다.</p>
-
-<p><span style="color:DodgerBlue">오버플로 비트(overflow bit)</span><br />
-오버플로는 산술연산에서 <strong>두 수를 가산할 때 결과를 저장할 수 있는 레지스터의 자릿수가 모자라는 경우에 발생</strong>하는 에러로서, 오버플로가 발생하면 오버플로 비트가 1로 세트된다.</p>
+<p>ALU에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/ALU7.png" alt="img.png" /></p>
 
 <hr />
 
-<h2 id="시프터shifter"><span style="color:MediumSeaGreen">시프터(shifter)</span></h2>
-<p>ALU에는 데이터를 비트 단위로 이동시키는 시프트(shift) 기능이 없다. 따라서 <strong>ALU 출력 단에 시프터(shifter)를 연결하여 시프터 연산을 수행</strong>한다. 시프트 연산은 입력 데이터의 모든 비트를 각각 서로 이웃한 비트로 자리를 옮기는 연산을 말하여, 왼쪽 시프트와 오른쪽 시프트가 있다.</p>
+<h6 id="산술연산회로"><span style="color:DodgerBlue">산술연산회로</span></h6>
+<p>산술연산회로의 가장 기본적인 구성요소는 <strong>병렬가산기이며, 여러개의 전가산기 회로를 연속적으로 연결</strong>시켜 만든다. 병렬가산기로 들어가는 제어입력값을 선액하면 여러 가지 형태의 산술연산을 실행할 수 있다.</p>
 <ul>
-  <li>입력 데이터의 모든 비트들을 각각 서로 이웃한 비트로 자리를 옮기는 시프트 연산을 수행
-<img src="/assets/images/computer-structure/shifter.png" alt="img.png" /></li>
+  <li>여러 개의 전가산기(FA)를 연속적으로 연결한 병렬가산기로 구성</li>
+  <li>병렬가산기로 들어가는 제어입력 값을 선택하여 여러 가지 형태의 산술연산을 실행</li>
 </ul>
 
-<p>시프터에 대한 연산표는 다음과 같다.
-<img src="/assets/images/computer-structure/shifter2.png" alt="img.png" /></p>
+<p><img src="/assets/images/computer-structure/ALU2.png" alt="img.png" /><br />
+<br /></p>
+
+<p>산술연산회로에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/ALU3.png" alt="img.png" /></p>
+
+<hr />
+
+<h6 id="논리연산회로"><span style="color:DodgerBlue">논리연산회로</span></h6>
+<p>논리연산은 <strong>레지스터에 있는 각 비트를 독립된 2진 변수로 간주하여 비트별 연산을 실행</strong>한다. 논리연산에는 <strong>AND</strong>, <strong>OR</strong>, <strong>XOR</strong>, <strong>NOT</strong> 등이 있고 이를 이용하여 복잡한 연산을 유도할 수 있다.</p>
+<ul>
+  <li>레지스터에 있는 각 비트를 독립된 2진 변수로 간주하여 비트별 연산 실행</li>
+  <li>AND, OR, XOR, NOT 연산 등이 있으며, 이를 이용하여 복잡한 연산을 유도</li>
+</ul>
+
+<p><img src="/assets/images/computer-structure/ALU4.png" alt="img.png" /></p>
+
+<p>논리연산회로에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/ALU5.png" alt="img.png" /></p>
 
 <hr />
 <p><span style="color:DarkOrange">reference</span><br />
@@ -403,7 +410,7 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">Computer Science</a>
+      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">computer-science</a>
     
     </span>
   </p>
@@ -420,22 +427,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EC%83%81%ED%83%9C+%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80+%EC%8B%9C%ED%94%84%ED%84%B0%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Fstatus-register%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EC%82%B0%EC%88%A0%2F%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Falu%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Fstatus-register%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Falu%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Fstatus-register%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Falu%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/computer%20science/components-processing/" class="pagination--pager" title="처리장치의 구성요소
+      <a href="/computer-science/addressing-method/" class="pagination--pager" title="주소지정방식
 ">이전</a>
     
     
-      <a href="/http/opening/" class="pagination--pager" title="HTTP
+      <a href="/computer-science/components-processing/" class="pagination--pager" title="처리장치의 구성요소
 ">다음</a>
     
   </nav>
@@ -686,8 +693,8 @@ HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GE
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://hyuuny.github.io/computer%20science/status-register/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/computer%20science/status-register"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "https://hyuuny.github.io/computer-science/alu/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/computer-science/alu"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

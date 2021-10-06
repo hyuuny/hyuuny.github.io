@@ -1,7 +1,7 @@
 ---
 title: 처리장치의 구성요소
 categories:
-- Computer Science
+- computer-science
 tags: 
 - 2021년 09월
 

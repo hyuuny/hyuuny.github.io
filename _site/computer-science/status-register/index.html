@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>처리장치의 구성요소 - Hyuuny`s Blog</title>
-<meta name="description" content="처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.">
+<!-- begin _includes/seo.html --><title>상태 레지스터와 시프터 - Hyuuny`s Blog</title>
+<meta name="description" content="상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다.  상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다.    ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장   상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Hyuuny`s Blog">
-<meta property="og:title" content="처리장치의 구성요소">
-<meta property="og:url" content="https://hyuuny.github.io/computer%20science/components-processing/">
+<meta property="og:title" content="상태 레지스터와 시프터">
+<meta property="og:url" content="https://hyuuny.github.io/computer-science/status-register/">
 
 
-  <meta property="og:description" content="처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.">
+  <meta property="og:description" content="상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다.  상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다.    ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장   상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성">
 
 
 
@@ -47,7 +47,7 @@
   
 
 
-<link rel="canonical" href="https://hyuuny.github.io/computer%20science/components-processing/">
+<link rel="canonical" href="https://hyuuny.github.io/computer-science/status-register/">
 
 
 
@@ -288,8 +288,8 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="처리장치의 구성요소">
-    <meta itemprop="description" content="처리장치의 구성요소처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.">
+    <meta itemprop="headline" content="상태 레지스터와 시프터">
+    <meta itemprop="description" content="상태 레지스터상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다. 상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다.  ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장  상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성">
     <meta itemprop="datePublished" content="2021-09-18T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-09-18T14:00:00+09:00">
 
@@ -297,7 +297,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="https://hyuuny.github.io/computer%20science/components-processing/" class="u-url" itemprop="url">처리장치의 구성요소
+            <a href="https://hyuuny.github.io/computer-science/status-register/" class="u-url" itemprop="url">상태 레지스터와 시프터
 </a>
           </h1>
           
@@ -329,53 +329,43 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#처리장치의-구성요소">처리장치의 구성요소</a></li><li><a href="#내부버스">내부버스</a><ul><li><a href="#내부버스의-구성-및-동작">내부버스의 구성 및 동작</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#상태-레지스터">상태 레지스터</a></li><li><a href="#시프터shifter">시프터(shifter)</a></li></ul>
 
             </nav>
           </aside>
         
-        <h2 id="처리장치의-구성요소"><span style="color:MediumSeaGreen">처리장치의 구성요소</span></h2>
-<p>처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.<br />
-따라서 <strong>처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성</strong>된다.</p>
+        <h2 id="상태-레지스터"><span style="color:MediumSeaGreen">상태 레지스터</span></h2>
+<p>상태 레지스터는 <strong>ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트</strong>한다. 
+상태 레지스터들은 <strong>C(carry bit)</strong>, <strong>S(sign bit)</strong>, <strong>Z(zero bit)</strong>, <strong>V(overflow bit)</strong>로 구성되어 있으며, <strong>1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성</strong>되어 있다.</p>
+<ul>
+  <li>ALU에서 <strong>산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장</strong></li>
+  <li>상태 레지스터는 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성
+<img src="/assets/images/computer-structure/flagRegister.png" alt="img.png" /></li>
+</ul>
 
-<p><img src="/assets/images/computer-structure/InternalComposition.png" alt="img.png" /><br />
-위 그림은 처리장치의 내부 구성도로 <strong>레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성</strong>되어 있다.<br />
-<strong>처리장치의 동작원리는</strong> 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고, ALU에서 그 연산을 실행한 후 그 결과가 도착 레지스터에 전송된다. 처리장치에 있는 각 레지스터는 ALU와 연결된 버스를 통해 2개의 멀티플렉서와 연결된다. 각 멀티플렉서는 선택신호를 이용하여 특정 레지스터를 선택한다. 2개의 멀티플렉서에 의해 선택된 데이터는 ALU에 의해 산술 및 논리연산을 실행한다. 즉, ALU에 있는 선택신호에 의해 실행되어야 할 특정 마이크로연산이 선택되는 것이다. ALU에서 실행된 마이크로연산의 결과는 시프트 레지스터를 거치게 된다. 스프트 레지스터에서 선택신호는 특정 마이크로연산을 선택할 수 있게하고, 그 결과는 연결된 버스를 통해 레지스터들의 입력으로 전달된다. 여기서 디코더는 처리장치의 각 레지스터와 연결되어 있으며, 선택신호에 따라 도착 레지스터를 결정하게 된다. 따라서 결정된 도착 레지스터에는 지금까지 수행된 마이크로연산의 결과가 저장된다.<br />
-<br /></p>
+<p><span style="color:DodgerBlue">캐리비트(carry bit)</span><br />
+캐리비트는 <strong>두 수를 가산하여 캐리가 발생하면 비트가 1로 세트되고, 아니면 0</strong>이된다. 따라서 캐리비트는 산술연산장치의 최상위 비트의 전가산기 캐리 아웃(carry out) 신호를 받아서 세트된다. 또한 감산에서 자리내림(borrow)이 발생했을 때도 1로 세트된다.</p>
 
-<p>이 과정을 요약하면 다음과 같다.</p>
-<ol>
-  <li>지정된 <strong>출발 레지스터의 내용을 ALU의 입력으로 전달</strong></li>
-  <li>ALU에서 그 <strong>연산을 실행</strong></li>
-  <li>그 결과가 <strong>도착 레지스터에 전송</strong></li>
-</ol>
+<p><span style="color:DodgerBlue">부호비트(sign bit)</span><br />
+부호비트는 산술연산장치의 출력 최상위 비트와 연결되어 있으며, <strong>최상위 비트가 0이면 양수를 나타내고, 1이면 음수</strong>를 나타낸다.</p>
+
+<p><span style="color:DodgerBlue">제로비트(zero bit)</span><br />
+제로비트는 <strong>두 수를 연산한 후 결과값이 0이며 1로 세트</strong>된다. 따라서 산술연산장치의 출력비트들을 논리게이트 NOR에 연결하여 모든 비트가 0이면 출력밧이 1이 되도록 구성한다.</p>
+
+<p><span style="color:DodgerBlue">오버플로 비트(overflow bit)</span><br />
+오버플로는 산술연산에서 <strong>두 수를 가산할 때 결과를 저장할 수 있는 레지스터의 자릿수가 모자라는 경우에 발생</strong>하는 에러로서, 오버플로가 발생하면 오버플로 비트가 1로 세트된다.</p>
 
 <hr />
 
-<h2 id="내부버스"><span style="color:MediumSeaGreen">내부버스</span></h2>
-<p>내부버스란 <strong>중앙처리장치 내부의 연산장치와 레지스터 사이의 정보 전송 경로</strong>를 말하며, 외부버스는 <strong>중앙처리장치와 중앙처리장치 외부의 장치 사이에 정보를 전송하는 경로</strong>를 말한다.<br />
-<strong>외부버스는 시스템버스로서, 컴퓨터 시스템의 각 구성요소 간의 통신이 가능하도록 하는 기능</strong>을 하는데, 주기억장치와 중앙처리장치 사이의 주기억장치버스, 입출력장치와 중앙처리장치 사이의 입출력버스 등이 있다.<br />
-<strong>내부버스는 처리장치 내부에 있는 레지스터 간의 통신이 가능하도록 하는 기능</strong>을 하는데, 처리장치 내부에 각 레지스터는 그 안에 저장된 정보를 입력버스를 통해 연산장치로 전송하고, 연산장치에서의 연산 결과는 출력버스를 통해 해당 목적지 레지스터로 전송된다. 이러한 내부버스는 멀티플렉서와 디코더를 이용하여 구성하는데, 멀티플렉서는 출발 레지스터를 선택하고, 디코더는 버스로부터 정보를 받아들이는 도착 레지스터를 선택한다.</p>
-
-<p>내부버스를 구성하는 방법은 멀티플렉서와 디코더를 이용한다.</p>
+<h2 id="시프터shifter"><span style="color:MediumSeaGreen">시프터(shifter)</span></h2>
+<p>ALU에는 데이터를 비트 단위로 이동시키는 시프트(shift) 기능이 없다. 따라서 <strong>ALU 출력 단에 시프터(shifter)를 연결하여 시프터 연산을 수행</strong>한다. 시프트 연산은 입력 데이터의 모든 비트를 각각 서로 이웃한 비트로 자리를 옮기는 연산을 말하여, 왼쪽 시프트와 오른쪽 시프트가 있다.</p>
 <ul>
-  <li><strong>멀티플렉서는 출발 레지스터</strong> 선택</li>
-  <li><strong>디코더는 도착 레지스터</strong> 선택
-<img src="/assets/images/computer-structure/internalBus.png" alt="img.png" /></li>
+  <li>입력 데이터의 모든 비트들을 각각 서로 이웃한 비트로 자리를 옮기는 시프트 연산을 수행
+<img src="/assets/images/computer-structure/shifter.png" alt="img.png" /></li>
 </ul>
 
-<hr />
-
-<h6 id="내부버스의-구성-및-동작"><span style="color:DodgerBlue">내부버스의 구성 및 동작</span></h6>
-<ul>
-  <li>마이크로 연산 : R1 &lt;- R0(R0, R1이 4비트 레지스터인 경우)
-    <ul>
-      <li>내부버스 구성을 위해 : <strong>2x1 MUX 4개, 1x2 디코더 1개</strong> 필요</li>
-      <li>마이크로 연산을 위해 : MUX의 선택신호 0(2진수), 디코더의 선택신호는 1(2진수) 부여
-<img src="/assets/images/computer-structure/internalBus2.png" alt="img.png" /></li>
-    </ul>
-  </li>
-</ul>
+<p>시프터에 대한 연산표는 다음과 같다.
+<img src="/assets/images/computer-structure/shifter2.png" alt="img.png" /></p>
 
 <hr />
 <p><span style="color:DarkOrange">reference</span><br />
@@ -413,7 +403,7 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">Computer Science</a>
+      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">computer-science</a>
     
     </span>
   </p>
@@ -430,22 +420,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98+%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Fcomponents-processing%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EC%83%81%ED%83%9C+%EB%A0%88%EC%A7%80%EC%8A%A4%ED%84%B0%EC%99%80+%EC%8B%9C%ED%94%84%ED%84%B0%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Fstatus-register%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Fcomponents-processing%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Fstatus-register%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Fcomponents-processing%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Fstatus-register%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/computer%20science/alu/" class="pagination--pager" title="산술/논리연산장치
+      <a href="/computer-science/components-processing/" class="pagination--pager" title="처리장치의 구성요소
 ">이전</a>
     
     
-      <a href="/computer%20science/status-register/" class="pagination--pager" title="상태 레지스터와 시프터
+      <a href="/http/opening/" class="pagination--pager" title="HTTP
 ">다음</a>
     
   </nav>
@@ -696,8 +686,8 @@ HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GE
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://hyuuny.github.io/computer%20science/components-processing/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/computer%20science/components-processing"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "https://hyuuny.github.io/computer-science/status-register/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/computer-science/status-register"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

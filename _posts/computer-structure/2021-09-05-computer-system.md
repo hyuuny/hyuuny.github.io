@@ -1,7 +1,7 @@
 ---
 title: 컴퓨터 구조
 categories:
-- Computer Science
+- computer-science
 tags: 
 - 2021년 09월
 

@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>산술/논리연산장치 - Hyuuny`s Blog</title>
-<meta name="description" content="산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
+<!-- begin _includes/seo.html --><title>처리장치의 구성요소 - Hyuuny`s Blog</title>
+<meta name="description" content="처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Hyuuny`s Blog">
-<meta property="og:title" content="산술/논리연산장치">
-<meta property="og:url" content="https://hyuuny.github.io/computer%20science/alu/">
+<meta property="og:title" content="처리장치의 구성요소">
+<meta property="og:url" content="https://hyuuny.github.io/computer-science/components-processing/">
 
 
-  <meta property="og:description" content="산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
+  <meta property="og:description" content="처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.">
 
 
 
@@ -47,7 +47,7 @@
   
 
 
-<link rel="canonical" href="https://hyuuny.github.io/computer%20science/alu/">
+<link rel="canonical" href="https://hyuuny.github.io/computer-science/components-processing/">
 
 
 
@@ -288,8 +288,8 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="산술/논리연산장치">
-    <meta itemprop="description" content="산술/논리연산장치ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.">
+    <meta itemprop="headline" content="처리장치의 구성요소">
+    <meta itemprop="description" content="처리장치의 구성요소처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다.">
     <meta itemprop="datePublished" content="2021-09-18T00:00:00+09:00">
     <meta itemprop="dateModified" content="2021-09-18T14:00:00+09:00">
 
@@ -297,7 +297,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="https://hyuuny.github.io/computer%20science/alu/" class="u-url" itemprop="url">산술/논리연산장치
+            <a href="https://hyuuny.github.io/computer-science/components-processing/" class="u-url" itemprop="url">처리장치의 구성요소
 </a>
           </h1>
           
@@ -314,7 +314,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          최대 1 분 소요
+          1 분 소요
         
       </span>
     
@@ -329,50 +329,53 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#산술논리연산장치">산술/논리연산장치</a><ul><li><a href="#산술연산회로">산술연산회로</a></li><li><a href="#논리연산회로">논리연산회로</a></li></ul></li></ul></li></ul></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#처리장치의-구성요소">처리장치의 구성요소</a></li><li><a href="#내부버스">내부버스</a><ul><li><a href="#내부버스의-구성-및-동작">내부버스의 구성 및 동작</a></li></ul></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h2 id="산술논리연산장치"><span style="color:MediumSeaGreen">산술/논리연산장치</span></h2>
-<p>ALU는 <strong>기본적인 산술연산과 논리연산을 실행하는 조합논리회로</strong>다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다.</p>
+        <h2 id="처리장치의-구성요소"><span style="color:MediumSeaGreen">처리장치의 구성요소</span></h2>
+<p>처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.<br />
+따라서 <strong>처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성</strong>된다.</p>
 
-<p><img src="/assets/images/computer-structure/ALU.png" alt="img.png" /></p>
-
-<p>또한, <strong>산술연산회로와 논리연산회로를 결합하여 하나의 ALU</strong>를 만들어 낼 수 있다.
-<img src="/assets/images/computer-structure/ALU6.png" alt="img.png" /></p>
-
-<p>ALU에 대한 연산표는 다음과 같다.
-<img src="/assets/images/computer-structure/ALU7.png" alt="img.png" /></p>
-
-<hr />
-
-<h6 id="산술연산회로"><span style="color:DodgerBlue">산술연산회로</span></h6>
-<p>산술연산회로의 가장 기본적인 구성요소는 <strong>병렬가산기이며, 여러개의 전가산기 회로를 연속적으로 연결</strong>시켜 만든다. 병렬가산기로 들어가는 제어입력값을 선액하면 여러 가지 형태의 산술연산을 실행할 수 있다.</p>
-<ul>
-  <li>여러 개의 전가산기(FA)를 연속적으로 연결한 병렬가산기로 구성</li>
-  <li>병렬가산기로 들어가는 제어입력 값을 선택하여 여러 가지 형태의 산술연산을 실행</li>
-</ul>
-
-<p><img src="/assets/images/computer-structure/ALU2.png" alt="img.png" /><br />
+<p><img src="/assets/images/computer-structure/InternalComposition.png" alt="img.png" /><br />
+위 그림은 처리장치의 내부 구성도로 <strong>레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성</strong>되어 있다.<br />
+<strong>처리장치의 동작원리는</strong> 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고, ALU에서 그 연산을 실행한 후 그 결과가 도착 레지스터에 전송된다. 처리장치에 있는 각 레지스터는 ALU와 연결된 버스를 통해 2개의 멀티플렉서와 연결된다. 각 멀티플렉서는 선택신호를 이용하여 특정 레지스터를 선택한다. 2개의 멀티플렉서에 의해 선택된 데이터는 ALU에 의해 산술 및 논리연산을 실행한다. 즉, ALU에 있는 선택신호에 의해 실행되어야 할 특정 마이크로연산이 선택되는 것이다. ALU에서 실행된 마이크로연산의 결과는 시프트 레지스터를 거치게 된다. 스프트 레지스터에서 선택신호는 특정 마이크로연산을 선택할 수 있게하고, 그 결과는 연결된 버스를 통해 레지스터들의 입력으로 전달된다. 여기서 디코더는 처리장치의 각 레지스터와 연결되어 있으며, 선택신호에 따라 도착 레지스터를 결정하게 된다. 따라서 결정된 도착 레지스터에는 지금까지 수행된 마이크로연산의 결과가 저장된다.<br />
 <br /></p>
 
-<p>산술연산회로에 대한 연산표는 다음과 같다.
-<img src="/assets/images/computer-structure/ALU3.png" alt="img.png" /></p>
+<p>이 과정을 요약하면 다음과 같다.</p>
+<ol>
+  <li>지정된 <strong>출발 레지스터의 내용을 ALU의 입력으로 전달</strong></li>
+  <li>ALU에서 그 <strong>연산을 실행</strong></li>
+  <li>그 결과가 <strong>도착 레지스터에 전송</strong></li>
+</ol>
 
 <hr />
 
-<h6 id="논리연산회로"><span style="color:DodgerBlue">논리연산회로</span></h6>
-<p>논리연산은 <strong>레지스터에 있는 각 비트를 독립된 2진 변수로 간주하여 비트별 연산을 실행</strong>한다. 논리연산에는 <strong>AND</strong>, <strong>OR</strong>, <strong>XOR</strong>, <strong>NOT</strong> 등이 있고 이를 이용하여 복잡한 연산을 유도할 수 있다.</p>
+<h2 id="내부버스"><span style="color:MediumSeaGreen">내부버스</span></h2>
+<p>내부버스란 <strong>중앙처리장치 내부의 연산장치와 레지스터 사이의 정보 전송 경로</strong>를 말하며, 외부버스는 <strong>중앙처리장치와 중앙처리장치 외부의 장치 사이에 정보를 전송하는 경로</strong>를 말한다.<br />
+<strong>외부버스는 시스템버스로서, 컴퓨터 시스템의 각 구성요소 간의 통신이 가능하도록 하는 기능</strong>을 하는데, 주기억장치와 중앙처리장치 사이의 주기억장치버스, 입출력장치와 중앙처리장치 사이의 입출력버스 등이 있다.<br />
+<strong>내부버스는 처리장치 내부에 있는 레지스터 간의 통신이 가능하도록 하는 기능</strong>을 하는데, 처리장치 내부에 각 레지스터는 그 안에 저장된 정보를 입력버스를 통해 연산장치로 전송하고, 연산장치에서의 연산 결과는 출력버스를 통해 해당 목적지 레지스터로 전송된다. 이러한 내부버스는 멀티플렉서와 디코더를 이용하여 구성하는데, 멀티플렉서는 출발 레지스터를 선택하고, 디코더는 버스로부터 정보를 받아들이는 도착 레지스터를 선택한다.</p>
+
+<p>내부버스를 구성하는 방법은 멀티플렉서와 디코더를 이용한다.</p>
 <ul>
-  <li>레지스터에 있는 각 비트를 독립된 2진 변수로 간주하여 비트별 연산 실행</li>
-  <li>AND, OR, XOR, NOT 연산 등이 있으며, 이를 이용하여 복잡한 연산을 유도</li>
+  <li><strong>멀티플렉서는 출발 레지스터</strong> 선택</li>
+  <li><strong>디코더는 도착 레지스터</strong> 선택
+<img src="/assets/images/computer-structure/internalBus.png" alt="img.png" /></li>
 </ul>
 
-<p><img src="/assets/images/computer-structure/ALU4.png" alt="img.png" /></p>
+<hr />
 
-<p>논리연산회로에 대한 연산표는 다음과 같다.
-<img src="/assets/images/computer-structure/ALU5.png" alt="img.png" /></p>
+<h6 id="내부버스의-구성-및-동작"><span style="color:DodgerBlue">내부버스의 구성 및 동작</span></h6>
+<ul>
+  <li>마이크로 연산 : R1 &lt;- R0(R0, R1이 4비트 레지스터인 경우)
+    <ul>
+      <li>내부버스 구성을 위해 : <strong>2x1 MUX 4개, 1x2 디코더 1개</strong> 필요</li>
+      <li>마이크로 연산을 위해 : MUX의 선택신호 0(2진수), 디코더의 선택신호는 1(2진수) 부여
+<img src="/assets/images/computer-structure/internalBus2.png" alt="img.png" /></li>
+    </ul>
+  </li>
+</ul>
 
 <hr />
 <p><span style="color:DarkOrange">reference</span><br />
@@ -410,7 +413,7 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">Computer Science</a>
+      <a href="/categories/#computer-science" class="page__taxonomy-item p-category" rel="tag">computer-science</a>
     
     </span>
   </p>
@@ -427,22 +430,22 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EC%82%B0%EC%88%A0%2F%EB%85%BC%EB%A6%AC%EC%97%B0%EC%82%B0%EC%9E%A5%EC%B9%98%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Falu%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EC%B2%98%EB%A6%AC%EC%9E%A5%EC%B9%98%EC%9D%98+%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C%20https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Fcomponents-processing%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Falu%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Fcomponents-processing%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer%2520science%2Falu%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fcomputer-science%2Fcomponents-processing%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/computer%20science/addressing-method/" class="pagination--pager" title="주소지정방식
+      <a href="/computer-science/alu/" class="pagination--pager" title="산술/논리연산장치
 ">이전</a>
     
     
-      <a href="/computer%20science/components-processing/" class="pagination--pager" title="처리장치의 구성요소
+      <a href="/computer-science/status-register/" class="pagination--pager" title="상태 레지스터와 시프터
 ">다음</a>
     
   </nav>
@@ -693,8 +696,8 @@ HTTP는 안전한 메서드라 불리는 메서드의 집합을 정의한다. GE
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://hyuuny.github.io/computer%20science/alu/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/computer%20science/alu"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "https://hyuuny.github.io/computer-science/components-processing/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/computer-science/components-processing"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

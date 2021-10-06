@@ -1,20 +1,20 @@
 var store = [{
         "title": "Authentication Manager",
-        "excerpt":"Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다. Authentication authenticate(Authentication authentication) throws AuthenticationException 인자로 받은 Authentication이 유효한 인증인지 확인하고, Authentication객체를 리턴한다. 인증을 확인하는 과정에서 비활성 계정, 잘못된 비밀번호, 잠긴 계정 등의 에러를 던질 수 있다. 인자로 받은 Authentication 사용자가 입력한 인증에 필요한 정보(username, password)로 만든 객체다. (폼 인증의 경우) Authentication Principal : “hyuuny”...","categories": ["Spring Security"],
+        "excerpt":"Spring Security에서 인증(Authentication)은 AuthenticationManager가 한다. Authentication authenticate(Authentication authentication) throws AuthenticationException 인자로 받은 Authentication이 유효한 인증인지 확인하고, Authentication객체를 리턴한다. 인증을 확인하는 과정에서 비활성 계정, 잘못된 비밀번호, 잠긴 계정 등의 에러를 던질 수 있다. 인자로 받은 Authentication 사용자가 입력한 인증에 필요한 정보(username, password)로 만든 객체다. (폼 인증의 경우) Authentication Principal : “hyuuny”...","categories": ["spring-security"],
         "tags": ["2021년 08월"],
-        "url": "/spring%20security/authentication-manager/",
+        "url": "/spring-security/authentication-manager/",
         "teaser": null
       },{
         "title": "Spring Security Holder",
-        "excerpt":"Security Context Holder SecurityContext 제공, 기본적으로 TreadLocal을 사용한다. SecurityContext Authentication 제공 Authentication Principal과 GrantAuthority 제공 Principal “누구”에 해당하는 정보 UserDetailsService에서 리턴한 객체 객체의 타입은 UserDetail GrantAuthority “ROLE_USER”, “ROLE_ADMIN”등 Principal이 가지고 있는 “권한”을 나타낸다. 인증 이후, 인가 및 권한 확인할 때 이 정보를 참조한다. UserDatails 애플리케이션이 가지고 있는 유저 정보와 스프링...","categories": ["Spring Security"],
+        "excerpt":"Security Context Holder SecurityContext 제공, 기본적으로 TreadLocal을 사용한다. SecurityContext Authentication 제공 Authentication Principal과 GrantAuthority 제공 Principal “누구”에 해당하는 정보 UserDetailsService에서 리턴한 객체 객체의 타입은 UserDetail GrantAuthority “ROLE_USER”, “ROLE_ADMIN”등 Principal이 가지고 있는 “권한”을 나타낸다. 인증 이후, 인가 및 권한 확인할 때 이 정보를 참조한다. UserDatails 애플리케이션이 가지고 있는 유저 정보와 스프링...","categories": ["spring-security"],
         "tags": ["2021년 08월"],
-        "url": "/spring%20security/spring-context-holder/",
+        "url": "/spring-security/spring-context-holder/",
         "teaser": null
       },{
         "title": "Thread Local",
-        "excerpt":"java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소. 같은 쓰레드 내에서만 공유. 따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음. SecurityContextHolder의 기본 전략. public class AccountContext { private static final ThreadLocal&lt;Account&gt; ACCOUNT_THREAD_LOCAL = new ThreadLocal&lt;&gt;(); public static void setAccount(Account account) { ACCOUNT_THREAD_LOCAL.set(account); } public static...","categories": ["Spring Security"],
+        "excerpt":"java.lang 패키지에서 제공하는 쓰레드 범위 변수. 즉, 쓰레드 수준의 데이터 저장소. 같은 쓰레드 내에서만 공유. 따라서 같은 쓰레드라면 해당 데이터를 메소드 매개변수로 넘겨줄 필요 없음. SecurityContextHolder의 기본 전략. public class AccountContext { private static final ThreadLocal&lt;Account&gt; ACCOUNT_THREAD_LOCAL = new ThreadLocal&lt;&gt;(); public static void setAccount(Account account) { ACCOUNT_THREAD_LOCAL.set(account); } public static...","categories": ["spring-security"],
         "tags": ["2021년 08월"],
-        "url": "/spring%20security/thread-local/",
+        "url": "/spring-security/thread-local/",
         "teaser": null
       },{
         "title": "영속성 컨텍스트",
@@ -48,45 +48,45 @@ var store = [{
         "teaser": null
       },{
         "title": "컴퓨터 구조",
-        "excerpt":"컴퓨터 시스템 우리는 일반적으로 컴퓨터를 말할 때, “시스템”이란 용어를 덧 붙여서 “컴퓨터 시스템”이라고 부른다. 시스템이란 그 시스템에 부여된 목적을 달성하기 위하여 상호작용하는 구성요소들의 집합으로 정의된다. 이러한 컴퓨터 시스템의 원리는 인체와 비슷하다. 인체는 눈, 귀, 피부, 혀, 코와 같은 감각기관을 통해 데이터를 받아들이고, 수집된 데이터는 뇌에 전달된다. 신경망은 뇌에 저장된 데이터를...","categories": ["Computer Science"],
+        "excerpt":"컴퓨터 시스템 우리는 일반적으로 컴퓨터를 말할 때, “시스템”이란 용어를 덧 붙여서 “컴퓨터 시스템”이라고 부른다. 시스템이란 그 시스템에 부여된 목적을 달성하기 위하여 상호작용하는 구성요소들의 집합으로 정의된다. 이러한 컴퓨터 시스템의 원리는 인체와 비슷하다. 인체는 눈, 귀, 피부, 혀, 코와 같은 감각기관을 통해 데이터를 받아들이고, 수집된 데이터는 뇌에 전달된다. 신경망은 뇌에 저장된 데이터를...","categories": ["computer-science"],
         "tags": ["2021년 09월"],
-        "url": "/computer%20science/computer-system/",
+        "url": "/computer-science/computer-system/",
         "teaser": null
       },{
         "title": "ignoring()",
-        "excerpt":"ignoring WebSecurity의 ignoring()을 사용해서 요청(request)시 시큐리티 필터 적용을 제외하도록 설정할 수 있다. 스프링 부트가 제공하는 PathRequest를 사용하면 정적(static) 자원 요청에 대하여 스프링 시큐리티 필터가 적용되지 않도록 설정할 수 있는데, 이경우 FilterChain을 거치지 않는다. public void configure(WebSecurity web) throws Exception { web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()); } 또 다른 설정방법 이와 같이 하나에 설정할수도 있지만,...","categories": ["Spring Security"],
+        "excerpt":"ignoring WebSecurity의 ignoring()을 사용해서 요청(request)시 시큐리티 필터 적용을 제외하도록 설정할 수 있다. 스프링 부트가 제공하는 PathRequest를 사용하면 정적(static) 자원 요청에 대하여 스프링 시큐리티 필터가 적용되지 않도록 설정할 수 있는데, 이경우 FilterChain을 거치지 않는다. public void configure(WebSecurity web) throws Exception { web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()); } 또 다른 설정방법 이와 같이 하나에 설정할수도 있지만,...","categories": ["spring-security"],
         "tags": ["2021년 09월"],
-        "url": "/spring%20security/ignoring/",
+        "url": "/spring-security/ignoring/",
         "teaser": null
       },{
         "title": "WebAsyncManagerIntegrationFilter",
-        "excerpt":"WebAsyncManagerIntegrationFilter WebAsyncManagerIntegrationFilter는 스프링 MVC의 Async 기능(핸들러에서 Callable을 리턴할 수 있는 기능)을 사용할 때에도 SecurityContext를 공유하도록 도와주는 필터. @GetMapping(\"/async-handler\") @ResponseBody public Callable&lt;String&gt; asyncHandler() { SecurityLogger.log(\"MVC\"); // thread = http-nio-8080-exec-5 return () -&gt; { SecurityLogger.log(\"Callable\"); // thread = tesk-1 return \"Async Handler\"; }; } // logger public static void log(String message) {...","categories": ["Spring Security"],
+        "excerpt":"WebAsyncManagerIntegrationFilter WebAsyncManagerIntegrationFilter는 스프링 MVC의 Async 기능(핸들러에서 Callable을 리턴할 수 있는 기능)을 사용할 때에도 SecurityContext를 공유하도록 도와주는 필터. @GetMapping(\"/async-handler\") @ResponseBody public Callable&lt;String&gt; asyncHandler() { SecurityLogger.log(\"MVC\"); // thread = http-nio-8080-exec-5 return () -&gt; { SecurityLogger.log(\"Callable\"); // thread = tesk-1 return \"Async Handler\"; }; } // logger public static void log(String message) {...","categories": ["spring-security"],
         "tags": ["2021년 09월"],
-        "url": "/spring%20security/web-async-managerIntegration-filter/",
+        "url": "/spring-security/web-async-managerIntegration-filter/",
         "teaser": null
       },{
         "title": "주소지정방식",
-        "excerpt":"주소지정방식 명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. 주소지정방식(addressing mode)이란, 오퍼랜드를 실제로 참조하기 전에 명령어의 오퍼랜드를 변경하거나 해석하는 규칙을 지정하는 형식이다. 이러한 규칙을 적용하여 만들어진 오퍼랜드 주소를 유효주소(effective address)라고 한다....","categories": ["Computer Science"],
+        "excerpt":"주소지정방식 명령어 내의 연산코드 필드는 수행할명령어의 종류를 지정하고, 컴퓨터 레지스터나 기억장치에 저장되어 있는 항목을 대상으로 수행된다. 프로그램 수행 시 오퍼랜드를 지정하는 방법은 명령어 내에 있는 주소지정방식에 의해 결정된다. 주소지정방식(addressing mode)이란, 오퍼랜드를 실제로 참조하기 전에 명령어의 오퍼랜드를 변경하거나 해석하는 규칙을 지정하는 형식이다. 이러한 규칙을 적용하여 만들어진 오퍼랜드 주소를 유효주소(effective address)라고 한다....","categories": ["computer-science"],
         "tags": ["2021년 09월"],
-        "url": "/computer%20science/addressing-method/",
+        "url": "/computer-science/addressing-method/",
         "teaser": null
       },{
         "title": "산술/논리연산장치",
-        "excerpt":"산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다. 또한, 산술연산회로와 논리연산회로를 결합하여 하나의 ALU를 만들어 낼 수 있다. ALU에 대한 연산표는 다음과 같다. 산술연산회로 산술연산회로의 가장 기본적인...","categories": ["Computer Science"],
+        "excerpt":"산술/논리연산장치 ALU는 기본적인 산술연산과 논리연산을 실행하는 조합논리회로다. ALU에는 특정한 연산을 선택하기 위하여 몇 개의 선택입력선이 주어진다. 선택입력선은 ALU 내에서 디코드되는데, k개의 선택입력으로 최대 2^k에 해당하는 서로 다른 연산을 표시할 수 있다. 또한, 산술연산회로와 논리연산회로를 결합하여 하나의 ALU를 만들어 낼 수 있다. ALU에 대한 연산표는 다음과 같다. 산술연산회로 산술연산회로의 가장 기본적인...","categories": ["computer-science"],
         "tags": ["2021년 09월"],
-        "url": "/computer%20science/alu/",
+        "url": "/computer-science/alu/",
         "teaser": null
       },{
         "title": "처리장치의 구성요소",
-        "excerpt":"처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다. 위 그림은 처리장치의 내부 구성도로 레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성되어 있다. 처리장치의 동작원리는 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고,...","categories": ["Computer Science"],
+        "excerpt":"처리장치의 구성요소 처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다. 따라서 처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성된다. 위 그림은 처리장치의 내부 구성도로 레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성되어 있다. 처리장치의 동작원리는 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고,...","categories": ["computer-science"],
         "tags": ["2021년 09월"],
-        "url": "/computer%20science/components-processing/",
+        "url": "/computer-science/components-processing/",
         "teaser": null
       },{
         "title": "상태 레지스터와 시프터",
-        "excerpt":"상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다. 상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다. ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장 상태 레지스터는 C(carry bit),...","categories": ["Computer Science"],
+        "excerpt":"상태 레지스터 상태 레지스터는 ALU에서 산술연산을 수행한 후 연산 결과에 의해 상태 레지스터를 세트한다. 상태 레지스터들은 C(carry bit), S(sign bit), Z(zero bit), V(overflow bit)로 구성되어 있으며, 1개 상태가 1개 비트씩 기억될 수 있도록 비트 단위로 구성되어 있다. ALU에서 산술연산이 수행된 후 연산결과에 의해 나타나는 상태값을 저장 상태 레지스터는 C(carry bit),...","categories": ["computer-science"],
         "tags": ["2021년 09월"],
-        "url": "/computer%20science/status-register/",
+        "url": "/computer-science/status-register/",
         "teaser": null
       },{
         "title": "HTTP",

@@ -1,7 +1,7 @@
 ---
 title: 주소지정방식
 categories:
-- Computer Science
+- computer-science
 tags: 
 - 2021년 09월
 
