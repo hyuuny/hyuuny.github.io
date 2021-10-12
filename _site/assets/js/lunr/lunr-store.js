@@ -124,4 +124,10 @@ var store = [{
         "tags": ["2021년 10월"],
         "url": "/docker-kubernetes/infra/",
         "teaser": null
+      },{
+        "title": "쿠버네티스(Kubernetes)",
+        "excerpt":"컨테이너 인프라 환경이란 리눅스 운영 체제의 커널 하나에서 여러 개의 컨테이너가 격리된 상태로 실행되는 인프라 환경을 말한다. 여기서 컨테이너는 하나 이상의 목적을 위해 독립적으로 작동하는 프로세스를 뜻한다. 컨테이너 오케스트레이션 실제로 쿠버네스트는 컨테이너 오케스트레이션을 위한 솔루션으로, 오케스트레이션이란 복잡한 단계를 관리하고 요소들의 유기적인 관계를 미리 정의해 손쉽게 사용하도록 서비스를 제공하는 것을 뜻한다....","categories": ["Docker-Kubernetes"],
+        "tags": ["2021년 10월"],
+        "url": "/docker-kubernetes/kuberbetes/",
+        "teaser": null
       }]
