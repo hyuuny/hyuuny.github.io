@@ -53,7 +53,7 @@ toc: true
 
 ***
 
-## <span style="color:MediumSeaGreen">쿠버네티스 구성 방법</span>
+###### <span style="color:DodgerBlue">쿠버네티스 구성 방법</span>
 1. 퍼블릭 클라우드 업체에서 제공하는 **관리형 쿠버네티스**인 EKS, AKS, GKE 등을 사용한다. 구성이 이미 갖춰져 있고 마스터 노드를 크라우드 업체에서 관리함으로 학습용으로는 부적합하다.
 
 2. 수세의 Rancher, 레드햇의 OpenShift와 같은 플랫폼에서 제공하는 **설치형 쿠버네티스**를 사용한다. `허나 유료다.`
