@@ -6,8 +6,8 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 12 Oct 2021 22:12:50 +0900</pubDate>
-    <lastBuildDate>Tue, 12 Oct 2021 22:12:50 +0900</lastBuildDate>
+    <pubDate>Tue, 12 Oct 2021 22:20:29 +0900</pubDate>
+    <lastBuildDate>Tue, 12 Oct 2021 22:20:29 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -115,7 +115,22 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;쿠버네티스-구성-방법&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;쿠버네티스 구성 방법&lt;/span&gt;&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;퍼블릭 클라우드 업체에서 제공하는 &lt;strong&gt;관리형 쿠버네티스&lt;/strong&gt;인 EKS, AKS, GKE 등을 사용한다. 구성이 이미 갖춰져 있고 마스터 노드를 크라우드 업체에서 관리함으로 학습용으로는 부적합하다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;수세의 Rancher, 레드햇의 OpenShift와 같은 플랫폼에서 제공하는 &lt;strong&gt;설치형 쿠버네티스&lt;/strong&gt;를 사용한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;허나 유료다.&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;사용하는 시스템에 쿠버네티스 클러스터를 &lt;strong&gt;자동으로 구성해주는 솔루션을 사용&lt;/strong&gt;한다. 주요 솔루션으로는 kubeadm, kops, KBIB, kubespray가 있다. 이 중 kubeadm이 가장 잘 알려져 있고, 사용자가 변경하기도 수월하며, 온프레미스와 클라우드를 모두 지원한다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
 
 &lt;ul&gt;
   &lt;li&gt;쿠버네티스 클러스터 구성 솔루션 비교&lt;/li&gt;
