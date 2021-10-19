@@ -132,8 +132,14 @@ var store = [{
         "teaser": null
       },{
         "title": "OSI 7계층",
-        "excerpt":"과게에는 통신용 규약이 표준화되지 읺았고 각 벤더에서 별도로 개발했기 때문에 호환되지 않는 시스템이나 애플리케이션이 많았고 통신이 불가능했다. 이를 하나의 규약으로 통합하려는 노력이 현재의 OSI 7계층으로 남게 되었고 대부분의 프로토콜이 TCP/IP 프로토콜 스택 기반으로 되어 있다. OSI 7계층은 두 가지 계층으로 나눌 수 있다. 1~4 계층 : 데이터 플로 계층(Data Flow...","categories": ["network"],
+        "excerpt":"과거에는 통신용 규약이 표준화되지 읺았고 각 벤더에서 별도로 개발했기 때문에 호환되지 않는 시스템이나 애플리케이션이 많았고 통신이 불가능했다. 이를 하나의 규약으로 통합하려는 노력이 현재의 OSI 7계층으로 남게 되었고 대부분의 프로토콜이 TCP/IP 프로토콜 스택 기반으로 되어 있다. OSI 7계층은 두 가지 계층으로 나눌 수 있다. 1~4 계층 : 데이터 플로 계층(Data Flow...","categories": ["network"],
         "tags": ["2021년 10월"],
         "url": "/network/osi7layer/",
+        "teaser": null
+      },{
+        "title": "REST API란",
+        "excerpt":"REST는 Representational State Transfer의 약자로 아키텍처 스타일이다. 아키텍처 스타일은 아키텍처 패턴과는 조금 다른데 아키텍처 패턴은 어떤 반복되는 문제 상황을 해결하는 도구이고, 아키텍처 스타일은 반복되는 아키텍처 디자인을 의미한다. REST 아키텍처 스타일은 6가지 제약조건으로 구성되며, 이 가이드 라인을 따르는 API를 RESTfull API라고 한다. REST 제약 조건 클라이언트-서버(Client-Server) 상태가 없는(stateless) 캐시되는 데이터(Cacheable) 일관적인...","categories": ["spring"],
+        "tags": ["2021년 10월"],
+        "url": "/spring/rest-api/",
         "teaser": null
       }]

@@ -6,13 +6,92 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 15 Oct 2021 23:25:08 +0900</pubDate>
-    <lastBuildDate>Fri, 15 Oct 2021 23:25:08 +0900</lastBuildDate>
+    <pubDate>Tue, 19 Oct 2021 23:48:01 +0900</pubDate>
+    <lastBuildDate>Tue, 19 Oct 2021 23:48:01 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
+        <title>REST API란</title>
+        <description>&lt;p&gt;REST는 Representational State Transfer의 약자로 아키텍처 스타일이다. 아키텍처 스타일은 아키텍처 패턴과는 조금 다른데 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;아키텍처 패턴은 어떤 반복되는 문제 상황을 해결하는 도구&lt;/code&gt;이고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;아키텍처 스타일은 반복되는 아키텍처 디자인을 의미&lt;/code&gt;한다.&lt;br /&gt;
+&lt;strong&gt;REST 아키텍처 스타일은 6가지 제약조건으로 구성되며, 이 가이드 라인을 따르는 API를 RESTfull API&lt;/strong&gt;라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;REST 제약 조건&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;클라이언트-서버(Client-Server)&lt;/li&gt;
+  &lt;li&gt;상태가 없는(stateless)&lt;/li&gt;
+  &lt;li&gt;캐시되는 데이터(Cacheable)&lt;/li&gt;
+  &lt;li&gt;일관적인 인터페이스(Uniform Interface)&lt;/li&gt;
+  &lt;li&gt;레이어 시스템(Layered System)&lt;/li&gt;
+  &lt;li&gt;코드-온-디맨트(Code-On-Demand)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;클라이언트-서버client-server&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;클라이언트-서버(Client-Server)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;클라이언트-서버는 리소스를 관리하는 서버가 존재하고, 다수의 클라이언트가 리소스를 소비하려고 네트워크를 통해 서버에 접근하는 구조를 말한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;이런 구조 중 우리에게 가장 친숙한 것이 바로 웹 애플리케이션이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;리소스란 REST API가 리턴할 수 있는 모든 것(HTML, JSON, 이미지 등)을 의미한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;상태가-없는stateless&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;상태가 없는(stateless)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;상태가 없다는 것은 클라이언트가 서버에 요청을 보낼 때, 이전 요청의 영향을 받지 않음을 의미한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어 로그인의 경우 서버는 로그인 상태를 유지하지 못하므로, 요청을 보낼 때마다 로그인 정보를 항상 함께 보내야 한다. 리소스를 수정한 후 수정한 상태를 유지해야 하는 경우에는 서버가 아닌 DB와 같은 곳에 상태를 저장해야한다.&lt;/p&gt;
+
+&lt;p&gt;HTTP는 기본적으로 상테가 없는 프로토콜이다. 따라서 HTTP를 사용하는 웹 애플리케이션은 기본적으로 상태가 없는 구조를 따른다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;캐시되는-데이터cacheable&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;캐시되는 데이터(Cacheable)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;서버에서 리소스를 리턴할 때 캐시가 가능한지 아닌지 명시할 수 있어야 한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;HTTP에서는 cache-control이라는 헤더에 리소스의 캐시 여부를 명시할 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;일관적인-인터페이스uniform-interface&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;일관적인 인터페이스(Uniform Interface)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;일관적인 인터페이스란, 시스템 또는 애플리케이션의 리소스에 접근할 때 인터페이스가 일관적이어야 한다는 뜻이다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어 어떤 정보를 가져오기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://example.com/water&lt;/code&gt;를 사용했다고 하자. 이때 정보를 업데이트 하는 데 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://example2.com/water&lt;/code&gt;를 사용한다면 이것은 URI의 일관성이 있다고 볼 수 없다.&lt;/p&gt;
+
+&lt;p&gt;또 다른 예로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://example.com/water&lt;/code&gt;는 JSON 형식의 리소스를 리턴했다. 그런데 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://example.com/book&lt;/code&gt;은 HTML을 리턴했다. 이런 인터페이스는 타입에 일관성이 있다고 볼 수 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;요청의 형태와 응답의 형태가 애플리케이션 전반에 걸쳐 일관적이어야 한다는 것이 일관적인 인터페이스 방침이다&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;레이어-시스템layered-system&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;레이어 시스템(Layered System)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;클라이언트가 서버에 요청을 할 때, 여러 개의 레이어로 된 서버를 거칠 수 있다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어 서버가 인증 서버, 캐싱 서커, 로드 밸런서를 거쳐서 최종적으로 애플리케이션에 도착한다고 가정하자. &lt;strong&gt;이 사이의 레이어들은 요청과 응답에 어떤 영향을 미치지 않으며, 클라이언트는 레이어 존재 유무를 알지 못한다&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;코드-온-디맨트code-on-demand&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;코드-온-디맨트(Code-On-Demand)&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;클라이언트는 서버에 코드를 요청할 수 있고, 서버가 리턴한 코드를 실행할 수 있다.(선택 사항)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;REST는 HTTP와 다르다. REST는 HTTP를 이용해 구현하기 쉽고 대부분 그렇게 구현하지만, &lt;strong&gt;REST는 아키텍처&lt;/strong&gt;이고, &lt;strong&gt;HTTP는 REST 아키텍처를 구현할 때 사용하면 쉬운 프로토콜&lt;/strong&gt;이다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 15 Oct 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/spring/rest-api/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring/rest-api/</guid>
+        
+        <category>2021년 10월</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
+    
+      <item>
         <title>OSI 7계층</title>
-        <description>&lt;p&gt;과게에는 통신용 규약이 표준화되지 읺았고 각 벤더에서 별도로 개발했기 때문에 호환되지 않는 시스템이나 애플리케이션이 많았고 통신이 불가능했다. 이를 하나의 규약으로 통합하려는 노력이 현재의 OSI 7계층으로 남게 되었고 대부분의 프로토콜이 TCP/IP 프로토콜 스택 기반으로 되어 있다.&lt;/p&gt;
+        <description>&lt;p&gt;과거에는 통신용 규약이 표준화되지 읺았고 각 벤더에서 별도로 개발했기 때문에 호환되지 않는 시스템이나 애플리케이션이 많았고 통신이 불가능했다. 이를 하나의 규약으로 통합하려는 노력이 현재의 OSI 7계층으로 남게 되었고 대부분의 프로토콜이 TCP/IP 프로토콜 스택 기반으로 되어 있다.&lt;/p&gt;
 
 &lt;p&gt;OSI 7계층은 두 가지 계층으로 나눌 수 있다.&lt;/p&gt;
 &lt;ul&gt;
@@ -1633,66 +1712,6 @@ HTTP 터널을 활용하는 대표적인 예로, 암호화된 SSL 트래픽을 H
         <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/computer-science/status-register/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/computer-science/status-register/</guid>
-        
-        <category>2021년 09월</category>
-        
-        
-        <category>computer-science</category>
-        
-      </item>
-    
-      <item>
-        <title>처리장치의 구성요소</title>
-        <description>&lt;h2 id=&quot;처리장치의-구성요소&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;처리장치의 구성요소&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;처리장치는 여러 가지 마이크로연산을 수행할 수 있도록 레지스터와 ALU(산술/논리연산장치), 레지스터와 ALU는 연결선로인 버스(bus)로 연결된다.&lt;br /&gt;
-따라서 &lt;strong&gt;처리장치는 여러 개의 레지스터, ALU, 내부버스로 구성&lt;/strong&gt;된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/computer-structure/InternalComposition.png&quot; alt=&quot;img.png&quot; /&gt;&lt;br /&gt;
-위 그림은 처리장치의 내부 구성도로 &lt;strong&gt;레지스터와 ALU, 시프터(shifer), 디지털 논리회로로 구성&lt;/strong&gt;되어 있다.&lt;br /&gt;
-&lt;strong&gt;처리장치의 동작원리는&lt;/strong&gt; 우선 하나의 마이크로연산이 실행되기 위해서 지정된 출발 레지스터의 내용이 ALU의 입력으로 전달되고, ALU에서 그 연산을 실행한 후 그 결과가 도착 레지스터에 전송된다. 처리장치에 있는 각 레지스터는 ALU와 연결된 버스를 통해 2개의 멀티플렉서와 연결된다. 각 멀티플렉서는 선택신호를 이용하여 특정 레지스터를 선택한다. 2개의 멀티플렉서에 의해 선택된 데이터는 ALU에 의해 산술 및 논리연산을 실행한다. 즉, ALU에 있는 선택신호에 의해 실행되어야 할 특정 마이크로연산이 선택되는 것이다. ALU에서 실행된 마이크로연산의 결과는 시프트 레지스터를 거치게 된다. 스프트 레지스터에서 선택신호는 특정 마이크로연산을 선택할 수 있게하고, 그 결과는 연결된 버스를 통해 레지스터들의 입력으로 전달된다. 여기서 디코더는 처리장치의 각 레지스터와 연결되어 있으며, 선택신호에 따라 도착 레지스터를 결정하게 된다. 따라서 결정된 도착 레지스터에는 지금까지 수행된 마이크로연산의 결과가 저장된다.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;이 과정을 요약하면 다음과 같다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;지정된 &lt;strong&gt;출발 레지스터의 내용을 ALU의 입력으로 전달&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;ALU에서 그 &lt;strong&gt;연산을 실행&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;그 결과가 &lt;strong&gt;도착 레지스터에 전송&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;내부버스&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;내부버스&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;내부버스란 &lt;strong&gt;중앙처리장치 내부의 연산장치와 레지스터 사이의 정보 전송 경로&lt;/strong&gt;를 말하며, 외부버스는 &lt;strong&gt;중앙처리장치와 중앙처리장치 외부의 장치 사이에 정보를 전송하는 경로&lt;/strong&gt;를 말한다.&lt;br /&gt;
-&lt;strong&gt;외부버스는 시스템버스로서, 컴퓨터 시스템의 각 구성요소 간의 통신이 가능하도록 하는 기능&lt;/strong&gt;을 하는데, 주기억장치와 중앙처리장치 사이의 주기억장치버스, 입출력장치와 중앙처리장치 사이의 입출력버스 등이 있다.&lt;br /&gt;
-&lt;strong&gt;내부버스는 처리장치 내부에 있는 레지스터 간의 통신이 가능하도록 하는 기능&lt;/strong&gt;을 하는데, 처리장치 내부에 각 레지스터는 그 안에 저장된 정보를 입력버스를 통해 연산장치로 전송하고, 연산장치에서의 연산 결과는 출력버스를 통해 해당 목적지 레지스터로 전송된다. 이러한 내부버스는 멀티플렉서와 디코더를 이용하여 구성하는데, 멀티플렉서는 출발 레지스터를 선택하고, 디코더는 버스로부터 정보를 받아들이는 도착 레지스터를 선택한다.&lt;/p&gt;
-
-&lt;p&gt;내부버스를 구성하는 방법은 멀티플렉서와 디코더를 이용한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;멀티플렉서는 출발 레지스터&lt;/strong&gt; 선택&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;디코더는 도착 레지스터&lt;/strong&gt; 선택
-&lt;img src=&quot;/assets/images/computer-structure/internalBus.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;내부버스의-구성-및-동작&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;내부버스의 구성 및 동작&lt;/span&gt;&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;마이크로 연산 : R1 &amp;lt;- R0(R0, R1이 4비트 레지스터인 경우)
-    &lt;ul&gt;
-      &lt;li&gt;내부버스 구성을 위해 : &lt;strong&gt;2x1 MUX 4개, 1x2 디코더 1개&lt;/strong&gt; 필요&lt;/li&gt;
-      &lt;li&gt;마이크로 연산을 위해 : MUX의 선택신호 0(2진수), 디코더의 선택신호는 1(2진수) 부여
-&lt;img src=&quot;/assets/images/computer-structure/internalBus2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;&lt;span style=&quot;color:DarkOrange&quot;&gt;reference&lt;/span&gt;&lt;br /&gt;
-김형근·손진곤 (공저). (2021). 컴퓨터구조. 한국방송통신대학교출판문화원&lt;/p&gt;
-</description>
-        <pubDate>Sat, 18 Sep 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/computer-science/components-processing/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/computer-science/components-processing/</guid>
         
         <category>2021년 09월</category>
         

@@ -1,0 +1,734 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>REST API란 - Hyuuny`s Blog</title>
+<meta name="description" content="REST는 Representational State Transfer의 약자로 아키텍처 스타일이다. 아키텍처 스타일은 아키텍처 패턴과는 조금 다른데 아키텍처 패턴은 어떤 반복되는 문제 상황을 해결하는 도구이고, 아키텍처 스타일은 반복되는 아키텍처 디자인을 의미한다. REST 아키텍처 스타일은 6가지 제약조건으로 구성되며, 이 가이드 라인을 따르는 API를 RESTfull API라고 한다.">
+
+
+  <meta name="author" content="Kim SeongHyun">
+  
+  <meta property="article:author" content="Kim SeongHyun">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Hyuuny`s Blog">
+<meta property="og:title" content="REST API란">
+<meta property="og:url" content="https://hyuuny.github.io/spring/rest-api/">
+
+
+  <meta property="og:description" content="REST는 Representational State Transfer의 약자로 아키텍처 스타일이다. 아키텍처 스타일은 아키텍처 패턴과는 조금 다른데 아키텍처 패턴은 어떤 반복되는 문제 상황을 해결하는 도구이고, 아키텍처 스타일은 반복되는 아키텍처 디자인을 의미한다. REST 아키텍처 스타일은 6가지 제약조건으로 구성되며, 이 가이드 라인을 따르는 API를 RESTfull API라고 한다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-10-15T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-10-19T14:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://hyuuny.github.io/spring/rest-api/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김성현(Kim SeongHyun)",
+      "url": "https://hyuuny.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Hyuuny`s Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://hyuuny.github.io/feed.xml" title="Hyuuny`s Blog Feed">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/123_3sB_icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="mask-icon" href="/assets/logo.ico/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Hyuuny`s Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://hyuuny.github.io/">
+        <img src="/assets/images/profile.png" alt="Kim SeongHyun" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://hyuuny.github.io/" itemprop="url">Kim SeongHyun</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Back-end Developer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Gwangmyeong</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/hyuuny" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:shyune@knou.ac.kr" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="REST API란">
+    <meta itemprop="description" content="REST는 Representational State Transfer의 약자로 아키텍처 스타일이다. 아키텍처 스타일은 아키텍처 패턴과는 조금 다른데 아키텍처 패턴은 어떤 반복되는 문제 상황을 해결하는 도구이고, 아키텍처 스타일은 반복되는 아키텍처 디자인을 의미한다.REST 아키텍처 스타일은 6가지 제약조건으로 구성되며, 이 가이드 라인을 따르는 API를 RESTfull API라고 한다.">
+    <meta itemprop="datePublished" content="2021-10-15T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-19T14:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://hyuuny.github.io/spring/rest-api/" class="u-url" itemprop="url">REST API란
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#클라이언트-서버client-server">클라이언트-서버(Client-Server)</a></li><li><a href="#상태가-없는stateless">상태가 없는(stateless)</a></li><li><a href="#캐시되는-데이터cacheable">캐시되는 데이터(Cacheable)</a></li><li><a href="#일관적인-인터페이스uniform-interface">일관적인 인터페이스(Uniform Interface)</a></li><li><a href="#레이어-시스템layered-system">레이어 시스템(Layered System)</a></li><li><a href="#코드-온-디맨트code-on-demand">코드-온-디맨트(Code-On-Demand)</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>REST는 Representational State Transfer의 약자로 아키텍처 스타일이다. 아키텍처 스타일은 아키텍처 패턴과는 조금 다른데 <code class="language-plaintext highlighter-rouge">아키텍처 패턴은 어떤 반복되는 문제 상황을 해결하는 도구</code>이고, <code class="language-plaintext highlighter-rouge">아키텍처 스타일은 반복되는 아키텍처 디자인을 의미</code>한다.<br />
+<strong>REST 아키텍처 스타일은 6가지 제약조건으로 구성되며, 이 가이드 라인을 따르는 API를 RESTfull API</strong>라고 한다.</p>
+
+<p><strong>REST 제약 조건</strong></p>
+<ul>
+  <li>클라이언트-서버(Client-Server)</li>
+  <li>상태가 없는(stateless)</li>
+  <li>캐시되는 데이터(Cacheable)</li>
+  <li>일관적인 인터페이스(Uniform Interface)</li>
+  <li>레이어 시스템(Layered System)</li>
+  <li>코드-온-디맨트(Code-On-Demand)</li>
+</ul>
+
+<hr />
+
+<h2 id="클라이언트-서버client-server"><span style="color:MediumSeaGreen">클라이언트-서버(Client-Server)</span></h2>
+<p><strong>클라이언트-서버는 리소스를 관리하는 서버가 존재하고, 다수의 클라이언트가 리소스를 소비하려고 네트워크를 통해 서버에 접근하는 구조를 말한다.</strong></p>
+
+<p>이런 구조 중 우리에게 가장 친숙한 것이 바로 웹 애플리케이션이다.</p>
+
+<blockquote>
+  <p>리소스란 REST API가 리턴할 수 있는 모든 것(HTML, JSON, 이미지 등)을 의미한다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="상태가-없는stateless"><span style="color:MediumSeaGreen">상태가 없는(stateless)</span></h2>
+<p><strong>상태가 없다는 것은 클라이언트가 서버에 요청을 보낼 때, 이전 요청의 영향을 받지 않음을 의미한다.</strong></p>
+
+<p>예를 들어 로그인의 경우 서버는 로그인 상태를 유지하지 못하므로, 요청을 보낼 때마다 로그인 정보를 항상 함께 보내야 한다. 리소스를 수정한 후 수정한 상태를 유지해야 하는 경우에는 서버가 아닌 DB와 같은 곳에 상태를 저장해야한다.</p>
+
+<p>HTTP는 기본적으로 상테가 없는 프로토콜이다. 따라서 HTTP를 사용하는 웹 애플리케이션은 기본적으로 상태가 없는 구조를 따른다.</p>
+
+<hr />
+
+<h2 id="캐시되는-데이터cacheable"><span style="color:MediumSeaGreen">캐시되는 데이터(Cacheable)</span></h2>
+<p><strong>서버에서 리소스를 리턴할 때 캐시가 가능한지 아닌지 명시할 수 있어야 한다.</strong></p>
+
+<p>HTTP에서는 cache-control이라는 헤더에 리소스의 캐시 여부를 명시할 수 있다.</p>
+
+<hr />
+
+<h2 id="일관적인-인터페이스uniform-interface"><span style="color:MediumSeaGreen">일관적인 인터페이스(Uniform Interface)</span></h2>
+<p><strong>일관적인 인터페이스란, 시스템 또는 애플리케이션의 리소스에 접근할 때 인터페이스가 일관적이어야 한다는 뜻이다.</strong></p>
+
+<p>예를 들어 어떤 정보를 가져오기 위해 <code class="language-plaintext highlighter-rouge">http://example.com/water</code>를 사용했다고 하자. 이때 정보를 업데이트 하는 데 <code class="language-plaintext highlighter-rouge">http://example2.com/water</code>를 사용한다면 이것은 URI의 일관성이 있다고 볼 수 없다.</p>
+
+<p>또 다른 예로 <code class="language-plaintext highlighter-rouge">http://example.com/water</code>는 JSON 형식의 리소스를 리턴했다. 그런데 <code class="language-plaintext highlighter-rouge">http://example.com/book</code>은 HTML을 리턴했다. 이런 인터페이스는 타입에 일관성이 있다고 볼 수 없다.</p>
+
+<p><strong>요청의 형태와 응답의 형태가 애플리케이션 전반에 걸쳐 일관적이어야 한다는 것이 일관적인 인터페이스 방침이다</strong>.</p>
+
+<hr />
+
+<h2 id="레이어-시스템layered-system"><span style="color:MediumSeaGreen">레이어 시스템(Layered System)</span></h2>
+<p><strong>클라이언트가 서버에 요청을 할 때, 여러 개의 레이어로 된 서버를 거칠 수 있다.</strong></p>
+
+<p>예를 들어 서버가 인증 서버, 캐싱 서커, 로드 밸런서를 거쳐서 최종적으로 애플리케이션에 도착한다고 가정하자. <strong>이 사이의 레이어들은 요청과 응답에 어떤 영향을 미치지 않으며, 클라이언트는 레이어 존재 유무를 알지 못한다</strong>.</p>
+
+<hr />
+
+<h2 id="코드-온-디맨트code-on-demand"><span style="color:MediumSeaGreen">코드-온-디맨트(Code-On-Demand)</span></h2>
+<p><strong>클라이언트는 서버에 코드를 요청할 수 있고, 서버가 리턴한 코드를 실행할 수 있다.(선택 사항)</strong></p>
+
+<p>REST는 HTTP와 다르다. REST는 HTTP를 이용해 구현하기 쉽고 대부분 그렇게 구현하지만, <strong>REST는 아키텍처</strong>이고, <strong>HTTP는 REST 아키텍처를 구현할 때 사용하면 쉬운 프로토콜</strong>이다.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#2021%EB%85%84-10%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 10월</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-10-19">October 19, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=REST+API%EB%9E%80%20https%3A%2F%2Fhyuuny.github.io%2Fspring%2Frest-api%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fspring%2Frest-api%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fspring%2Frest-api%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/network/osi7layer/" class="pagination--pager" title="OSI 7계층
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/network/osi7layer/" rel="permalink">OSI 7계층
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">과거에는 통신용 규약이 표준화되지 읺았고 각 벤더에서 별도로 개발했기 때문에 호환되지 않는 시스템이나 애플리케이션이 많았고 통신이 불가능했다. 이를 하나의 규약으로 통합하려는 노력이 현재의 OSI 7계층으로 남게 되었고 대부분의 프로토콜이 TCP/IP 프로토콜 스택 기반으로 되어 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/docker-kubernetes/kuberbetes/" rel="permalink">쿠버네티스(Kubernetes)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">컨테이너 인프라 환경이란 리눅스 운영 체제의 커널 하나에서 여러 개의 컨테이너가 격리된 상태로 실행되는 인프라 환경을 말한다. 여기서 컨테이너는 하나 이상의 목적을 위해 독립적으로 작동하는 프로세스를 뜻한다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/docker-kubernetes/infra/" rel="permalink">인프라 환경
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">컨테이너 인프라 환경은 컨테이너를 중심으로 구성된 인프라 환경이다. 컨터이너(container)는 하나의 운영체제 커널에서 다른 프로세스에 영향을 받지 않고 독립적으로 실행되는 프로세스 상태를 의미한다. 이렇게 구현된 컨테이너는 가상화 상태에서 동작하는 프로세스보다 가볍고 빠르게 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/http/status-code/" rel="permalink">상태 코드
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">HTTP 상태 코드는 크게 다섯가지로 나뉘는데, 아래에서 자세히 살펴보자
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김성현(Kim SeongHyun). Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://hyuuny.github.io/spring/rest-api/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/rest-api"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hyuuny-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
