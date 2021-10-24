@@ -1,0 +1,66 @@
+I"_<p>클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리하였다.</p>
+
+<ul>
+  <li>SRP: 단일 책임 원칙(Single Responsibility Principle)</li>
+  <li>OCP: 개방-폐쇄 원칙(Opne Closed Principle)</li>
+  <li>LSP: 리스코프 치환 원칙(Liskov Substitution Principle)</li>
+  <li>ISP: 인터페이스 분리 원칙(Interface Segregation Principle)</li>
+  <li>DIP: 의존관계 역전 원칙(Dependency Inversion Principle)</li>
+</ul>
+
+<h2 id="srp-단일-책임-원칙single-responsibility-principle"><span style="color:MediumSeaGreen">SRP 단일 책임 원칙(Single Responsibility Principle)</span></h2>
+<ul>
+  <li>한 클래스는 하나의 책임을 가져야 한다.</li>
+  <li>하나의 책임이라는 기준은 모호하다.
+    <ul>
+      <li>클 수도 있고, 작을 수도 있다.</li>
+      <li>문맥과 상황에 따라 다르다.</li>
+    </ul>
+  </li>
+  <li><strong>중요한 기준은 변경</strong>이다. 변경이 있을 때, 파급효과가 적으면 단일 책임원칙을 잘 따른 것
+    <ul>
+      <li>예) UI 변경, 객체의 생성과 사용을 분리</li>
+    </ul>
+
+    <hr />
+  </li>
+</ul>
+
+<h2 id="ocp-개방-폐쇄-원칙opne-closed-principle"><span style="color:MediumSeaGreen">OCP 개방-폐쇄 원칙(Opne Closed Principle)</span></h2>
+<ul>
+  <li>소프트웨어 요소는 <strong>확장에는 열려</strong>있으나, <strong>변경에는 닫혀</strong>있어야 한다.</li>
+  <li>다형성을 활용하자.(역할과 구현을 분리)</li>
+  <li>인터페이스를 구현한 새로운 클래스를 하나 만들어서 새로운 기능을 구현하자.<br />
+<br /></li>
+</ul>
+
+<p><span style="color:DodgerBlue">예시</span></p>
+<ul>
+  <li>Service 의존하고 있는 MemberReposiroty를 JdbcMEmberReposiroty로 변경해야 하는 상황.
+    <ul>
+      <li>MemberRepository memberRepository = new MemberRepository(); // 기존 코드</li>
+      <li>MemberRepository memberRepository = new JdbcMemberReposiroty(); // 변경 코드</li>
+      <li><strong>구현 객체를 변경하면 클라이언트 코드를 변경한다.</strong></li>
+      <li>분명 다형성을 사용했지만, OCP 원칙을 지킬 수 없다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MemberRepository</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span><span class="o">{</span>
+    <span class="c1">//private MemberRepository memberRepository = new MemberRepository();</span>
+    <span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JdbcMemberReposiroty</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>인터페이스만 바라봄으로써, Service는 Repository의 구현체가 무엇이든 상관 없다.</li>
+</ul>
+
+<hr />
+
+<h2 id="lsp-리스코프-치환-원칙liskov-substitution-principle"><span style="color:MediumSeaGreen">LSP 리스코프 치환 원칙(Liskov Substitution Principle)</span></h2>
+:ET

@@ -1,0 +1,12 @@
+I"�<p>클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리하였다.</p>
+
+<ul>
+  <li>SRP: 단일 책임 원칙(Single Responsibility Principle)</li>
+  <li>OCP: 개방-폐쇄 원칙(Opne Closed Principle)</li>
+  <li>LSP: 리스코프 치환 원칙(Liskov Substitution Principle)</li>
+  <li>ISP: 인터페이스 분리 원칙(Interface Segregation Principle)</li>
+  <li>DIP: 의존관계 역전 원칙(Dependency Inversion Principle)</li>
+</ul>
+
+<h2 id="srp-단일-책임-원칙single-responsibility-principle"><span style="color:MediumSeaGreen">SRP 단일 책임 원칙(Single Responsibility Principle)</span></h2>
+:ET
