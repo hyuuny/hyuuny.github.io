@@ -1,0 +1,5 @@
+I"�<h2 id="config-기반-bean-설정"><span style="color:MediumSeaGreen">Config 기반 Bean 설정</span></h2>
+<p>```java
+@Configuration
+public class AppConfig {</p>
+:ET

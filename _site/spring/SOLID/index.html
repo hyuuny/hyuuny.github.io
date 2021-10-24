@@ -435,7 +435,7 @@
   <li>프로그래머는 <strong>“추상화에 의존해야지, 구체화에 의존하면 안된다.” 의존성 주입은 이 원칙을 따르는 방법 중 하나</strong>다.
     <ul>
       <li><strong>구현 클래스에 의존하지 말고, 인터페이스에 의존하라는 뜻</strong>
-<strong>역할(Role)에 의존하게 해야 한다는 것과 같다.</strong></li>
+<strong>역할(Role)에 의존하게 해야 한다는 것과 같다.</strong> (구현에 의존하지 말자!)</li>
     </ul>
   </li>
   <li>클라이언트가 <strong>인터페이스에 의존하야 유연하게 구현체를 변경할 수 있다.</strong>
@@ -505,7 +505,7 @@
       
   <nav class="pagination">
     
-      <a href="/spring/rest-api/" class="pagination--pager" title="REST API란
+      <a href="/spring/IoC-DI-Container/" class="pagination--pager" title="IoC, DI, Container
 ">이전</a>
     
     
@@ -523,6 +523,91 @@
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/IoC-DI-Container/" rel="permalink">IoC, DI, Container
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">제어의 역전(Inversion of Control)
+
+  기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다.
+  AppConfig가 등장한 이후에 구현 객체는 자신의 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/ApplicationContext/" rel="permalink">ApplicationContext
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Config 기반 Bean 설정
+```java
+@Configuration
+public class AppConfig {
+</p>
+  </article>
+</div>
+
         
           
 
@@ -599,85 +684,6 @@ REST 아키텍처...</p>
 
 
     <p class="archive__item-excerpt" itemprop="description">과거에는 통신용 규약이 표준화되지 읺았고 각 벤더에서 별도로 개발했기 때문에 호환되지 않는 시스템이나 애플리케이션이 많았고 통신이 불가능했다. 이를 하나의 규약으로 통합하려는 노력이 현재의 OSI 7계층으로 남게 되었고 대부분의 프로토콜이 TCP/IP 프로토콜 스택 기반으로 되어 ...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/docker-kubernetes/kuberbetes/" rel="permalink">쿠버네티스(Kubernetes)
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          3 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">컨테이너 인프라 환경이란 리눅스 운영 체제의 커널 하나에서 여러 개의 컨테이너가 격리된 상태로 실행되는 인프라 환경을 말한다. 여기서 컨테이너는 하나 이상의 목적을 위해 독립적으로 작동하는 프로세스를 뜻한다.
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/docker-kubernetes/infra/" rel="permalink">인프라 환경
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">컨테이너 인프라 환경은 컨테이너를 중심으로 구성된 인프라 환경이다. 컨터이너(container)는 하나의 운영체제 커널에서 다른 프로세스에 영향을 받지 않고 독립적으로 실행되는 프로세스 상태를 의미한다. 이렇게 구현된 컨테이너는 가상화 상태에서 동작하는 프로세스보다 가볍고 빠르게 ...</p>
   </article>
 </div>
 

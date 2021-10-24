@@ -143,6 +143,18 @@ var store = [{
         "url": "/spring/rest-api/",
         "teaser": null
       },{
+        "title": "ApplicationContext",
+        "excerpt":"Config 기반 Bean 설정 @Configuration public class AppConfig { @Bean public MemberService memberService() { return new MemberServiceImpl(memberRepository()); } @Bean public MemberRepository memberRepository() { return new MemoryMemberRepository(); } @Bean public OrderService orderService() { return new OrderServiceImpl(memberRepository(), discountpolicy()); } @Bean public DiscountPolicy discountpolicy() { return new RateDiscountPolicy(); } } AppConfig에 설정을 구성한다는...","categories": ["spring"],
+        "tags": ["2021년 10월"],
+        "url": "/spring/ApplicationContext/",
+        "teaser": null
+      },{
+        "title": "IoC, DI, Container",
+        "excerpt":"제어의 역전(Inversion of Control) 기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다. AppConfig가 등장한 이후에 구현 객체는 자신의 로직을 실행하는 역할만 담당한다. 프로그램의 제어 흐름은 이제 AppConfig가 가져간다. 예를 들어서 OrderServiceImpl 은 필요한 인터페이스들(repository와 같은)을 호출하지만 어떤...","categories": ["spring"],
+        "tags": ["2021년 10월"],
+        "url": "/spring/IoC-DI-Container/",
+        "teaser": null
+      },{
         "title": "SOLID 원칙",
         "excerpt":"클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리하였다. SRP: 단일 책임 원칙(Single Responsibility Principle) OCP: 개방-폐쇄 원칙(Opne Closed Principle) LSP: 리스코프 치환 원칙(Liskov Substitution Principle) ISP: 인터페이스 분리 원칙(Interface Segregation Principle) DIP: 의존관계 역전 원칙(Dependency Inversion Principle) SRP 단일 책임 원칙(Single Responsibility Principle) 한 클래스는 하나의 책임을...","categories": ["spring"],
         "tags": ["2021년 10월"],
