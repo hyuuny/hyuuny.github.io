@@ -6,9 +6,242 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 24 Oct 2021 19:24:25 +0900</pubDate>
-    <lastBuildDate>Sun, 24 Oct 2021 19:24:25 +0900</lastBuildDate>
+    <pubDate>Wed, 27 Oct 2021 22:38:18 +0900</pubDate>
+    <lastBuildDate>Wed, 27 Oct 2021 22:38:18 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>IoC, DI, Container</title>
+        <description>&lt;h2 id=&quot;제어의-역전inversion-of-control&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;제어의 역전(Inversion of Control)&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다.&lt;/li&gt;
+  &lt;li&gt;AppConfig가 등장한 이후에 구현 객체는 자신의 로직을 실행하는 역할만 담당한다. 프로그램의 제어 흐름은 이제 AppConfig가 가져간다.
+    &lt;ul&gt;
+      &lt;li&gt;예를 들어서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt; 은 필요한 인터페이스들(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;repository&lt;/code&gt;와 같은)을 호출하지만 어떤 구현 객체들이 실행될지 모른다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;프로그램에 대한 제어 흐름에 대한 권한은 모두 AppConfig가 가지고 있다. 심지어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;도 AppConfig가 생성한다.
+    &lt;ul&gt;
+      &lt;li&gt;AppConfig는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt; 이 아닌 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderService&lt;/code&gt; 인터페이스의 다른 구현 객체를 생성하고 실행할 수 도 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이렇듯 프로그램의 &lt;strong&gt;제어 흐름을 직접 제어하는 것이 아니라 외부에서 관리하는 것을 제어의 역전(IoC)&lt;/strong&gt;이라 한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;프레임워크와 라이브러리&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;프레임워크가 내가 작성한 코드를 제어하고, 대신 실행하면 프레임워크이다.&lt;/li&gt;
+  &lt;li&gt;내가 작성한 코드가 직접 제어의 흐름을 담당한다면 프레임워크가 아니라 라이브러리다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;의존관계-주입-didependency-injection&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;의존관계 주입 DI(Dependency Injection)&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderServiceImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt; 인터페이스에 의존한다. 실제 어떤 구현 객체가 사용될지는
+모른다.&lt;/li&gt;
+  &lt;li&gt;의존관계는 &lt;strong&gt;정적인 클래스 의존 관계&lt;/strong&gt;와, &lt;strong&gt;실행 시점에 결정되는 동적인 객체(인스턴스) 의존 관계&lt;/strong&gt; 둘을 분리해서 생각해야 한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;정적인 클래스 의존관계&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;클래스가 사용하는 import 코드만 보고 의존관계를 쉽게 판단할 수 있다. 정적인 의존관계는 애플리케이션을 실행하지 않아도 분석할 수 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MemberRepository&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt;에 의존한다는 것을 알 수 있다.
+그런데 이러한 클래스 의존관계 만으로는 실제 어떤 객체가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;에 주입 될지 알 수 없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring/di1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;동적인 객체 인스턴스 의존 관계&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;애플리케이션 실행 시점에&lt;/strong&gt; 실제 생성된 객체 인스턴스의 참조가 연결된 의존 관계다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring/di2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;애플리케이션 &lt;strong&gt;실행 시점(런타임)&lt;/strong&gt;에 외부에서 실제 구현 객체를 생성하고 클라이언트에 전달해서 클라이언트와 서버의 실제 의존관계가 연결 되는 것을 &lt;strong&gt;의존관계 주입&lt;/strong&gt;이라 한다.&lt;/li&gt;
+  &lt;li&gt;객체 인스턴스를 생성하고, 그 참조값을 전달해서 연결된다.&lt;/li&gt;
+  &lt;li&gt;의존관계 주입을 사용하면 클라이언트 코드를 변경하지 않고, 클라이언트가 호출하는 대상의 타입 인스턴스를 변경할 수 있다.&lt;/li&gt;
+  &lt;li&gt;의존관계 주입을 사용하면 &lt;strong&gt;정적인 클래스 의존관계를 변경하지 않고, 동적인 객체 인스턴스 의존관계를 쉽게 변경&lt;/strong&gt;할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;ioc-컨테이너-di-컨테이너&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;IoC 컨테이너, DI 컨테이너&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;AppConfig 처럼 &lt;strong&gt;객체를 생성하고 관리하면서 의존관계를 연결해 주는 것을 IoC 컨테이너 또는 DI 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
+  &lt;li&gt;의존관계 주입에 초점을 맞추어 &lt;strong&gt;최근에는 주로 DI 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 25 Oct 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/spring/IoC-DI-Container/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring/IoC-DI-Container/</guid>
+        
+        <category>2021년 10월</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
+    
+      <item>
+        <title>ApplicationContext</title>
+        <description>&lt;h2 id=&quot;config-기반-bean-설정&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;Config 기반 Bean 설정&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemberServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberRepository&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemoryMemberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;orderService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OrderServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountpolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;discountpolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RateDiscountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;AppConfig에 설정을 구성한다는 뜻의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;을 붙여준다.&lt;/li&gt;
+  &lt;li&gt;각 메서드에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;을 붙여준다. 이렇게 하면 &lt;strong&gt;메서드에서 반환하는 객체를 스프링 컨테이너에 스프링 빈으로 등록&lt;/strong&gt;한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;스프링-컨테이너에-등록한-bean-꺼내서-사용하기&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;스프링 컨테이너에 등록한 Bean 꺼내서 사용하기&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// parameter : @Coufiguration이 붙은 구성 클래스&lt;/span&gt;
+ &lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnnotationConfigApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;// parameter : 빈이름, 반환타입&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;memberService&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);/&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;memberA&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Grade&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;VIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;memberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;ApplicationContext를 스프링 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
+  &lt;li&gt;기존에는 개발자가 AppConfig 를 사용해서 직접 객체를 생성하고 DI를 했지만, 이제부터는 스프링 컨테이너를 통해서 사용한다.&lt;/li&gt;
+  &lt;li&gt;스프링 컨테이너는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;이 붙은 AppConfig 를 설정(구성) 정보로 사용한다. 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이라 적힌 메서드를 모두 호출해서 반환된 객체를 스프링 컨테이너에 등록한다. 이렇게 &lt;strong&gt;스프링 컨테이너에 등록된 객체를 스프링 빈&lt;/strong&gt;이라 한다.&lt;/li&gt;
+  &lt;li&gt;스프링 빈은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이 붙은 &lt;strong&gt;메서드의 명을 스프링 빈의 이름으로 사용&lt;/strong&gt;한다.&lt;/li&gt;
+  &lt;li&gt;이전에는 개발자가 필요한 객체를 AppConfig 를 사용해서 직접 조회했지만, 이제부터는 스프링 컨테이너를 통해서 필요한 스프링 빈(객체)를 찾아야 한다. 스프링 빈은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;applicationContext.getBean()&lt;/code&gt; 메서드를 사용해서 찾을 수 있다.&lt;/li&gt;
+  &lt;li&gt;기존에는 개발자가 직접 자바코드로 모든 것을 했다면 이제부터는 스프링 컨테이너에 객체를 스프링 빈으로 등록하고, 스프링 컨테이너에서 스프링 빈을 찾아서 사용하도록 변경되었다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring/spring-context.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;스프링 부트 실행 시, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이 만들어지는 모습&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;스프링-컨테이너-생성-과정&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;스프링 컨테이너 생성 과정&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;스프링 컨테이너는 XML(거의 사용 안 함)을 기반으로 만들 수 있고, 애노테이션 기반의 자바 설정 클래스로 만들 수 있다.&lt;/li&gt;
+  &lt;li&gt;더 정확하게는 스프링 컨테이너를 부를 때 BeanFactory , ApplicationContext 로 구분하지만,  BeanFactory 를 직접 사용하는 경우는 거의 없으므로 일반적으로 ApplicationContext 를 스프링 컨테이너라 한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 스프링 컨테이너 생성&lt;/strong&gt;
+&lt;img src=&quot;/assets/images/spring/application-context1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;스프링 컨테이너를 생성할 때는 구성 정보(여기서는 AppConfig.class)를 지정해줘야 한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 스프링 빈 등록&lt;/strong&gt;
+&lt;img src=&quot;/assets/images/spring/application-context2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;스프링 컨테이너는 파라미터 넘어온 설정 클래스 정보를 읽어, @Bean 으로 등록된 메서드의 반환 타입을 스프링의 빈으로 등록한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 스프링 빈 의존관계 설정 - 준비&lt;/strong&gt;
+&lt;img src=&quot;/assets/images/spring/application-context3.png&quot; alt=&quot;img.png&quot; /&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 스프링 빈 의존관계 설정 - 완료&lt;/strong&gt;
+&lt;img src=&quot;/assets/images/spring/application-context4.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;스프링 컨테이너는 설정 정보를 참고하여 의존관계를 주입(DI)한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;beanfactory와-applicationcontext&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;BeanFactory와 ApplicationContext&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring/application-context5.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h6 id=&quot;beanfactory&quot;&gt;&lt;strong&gt;BeanFactory&lt;/strong&gt;&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;스프링 컨테이너의 최상위 인터페이스다.&lt;/li&gt;
+  &lt;li&gt;스프링 빈을 관리하고 조회하는 역할을 담당한다.&lt;/li&gt;
+  &lt;li&gt;getBean() 을 제공한다.&lt;/li&gt;
+  &lt;li&gt;지금까지 우리가 사용했던 대부분의 기능은 BeanFactory가 제공하는 기능이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring/application-context6.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h6 id=&quot;applicationcontext&quot;&gt;&lt;strong&gt;ApplicationContext&lt;/strong&gt;&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;BeanFactory 기능을 모두 상속받아서 제공한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;메시지소스를 활용한 국제화 기능(MessageSource)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;한국에서 들어오면 한국어로, 영어권에서 들어오면 영어로 출력&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;환경변수(EnvironmentCapable)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;로컬, 개발, 운영등을 구분해서 처리&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;애플리케이션 이벤트(ApplicationEventPublisher)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;이벤트를 발행하고 구독하는 모델을 편리하게 지원&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;편리한 리소스 조회(ResourceLoader)&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;파일, 클래스패스, 외부 등에서 리소스를 편리하게 조회&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 25 Oct 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/spring/ApplicationContext/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring/ApplicationContext/</guid>
+        
+        <category>2021년 10월</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
     
       <item>
         <title>SOLID 원칙</title>
@@ -126,161 +359,6 @@
         <pubDate>Sun, 24 Oct 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring/SOLID/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring/SOLID/</guid>
-        
-        <category>2021년 10월</category>
-        
-        
-        <category>spring</category>
-        
-      </item>
-    
-      <item>
-        <title>IoC, DI, Container</title>
-        <description>&lt;h2 id=&quot;제어의-역전inversion-of-control&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;제어의 역전(Inversion of Control)&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다.&lt;/li&gt;
-  &lt;li&gt;AppConfig가 등장한 이후에 구현 객체는 자신의 로직을 실행하는 역할만 담당한다. 프로그램의 제어 흐름은 이제 AppConfig가 가져간다.
-    &lt;ul&gt;
-      &lt;li&gt;예를 들어서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt; 은 필요한 인터페이스들(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;repository&lt;/code&gt;와 같은)을 호출하지만 어떤 구현 객체들이 실행될지 모른다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로그램에 대한 제어 흐름에 대한 권한은 모두 AppConfig가 가지고 있다. 심지어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;도 AppConfig가 생성한다.
-    &lt;ul&gt;
-      &lt;li&gt;AppConfig는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt; 이 아닌 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderService&lt;/code&gt; 인터페이스의 다른 구현 객체를 생성하고 실행할 수 도 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;이렇듯 프로그램의 &lt;strong&gt;제어 흐름을 직접 제어하는 것이 아니라 외부에서 관리하는 것을 제어의 역전(IoC)&lt;/strong&gt;이라 한다.&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;프레임워크와 라이브러리&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;프레임워크가 내가 작성한 코드를 제어하고, 대신 실행하면 프레임워크이다.&lt;/li&gt;
-  &lt;li&gt;내가 작성한 코드가 직접 제어의 흐름을 담당한다면 프레임워크가 아니라 라이브러리다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;의존관계-주입-didependency-injection&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;의존관계 주입 DI(Dependency Injection)&lt;/span&gt;&lt;/h2&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderServiceImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt; 인터페이스에 의존한다. 실제 어떤 구현 객체가 사용될지는
-모른다.&lt;/li&gt;
-  &lt;li&gt;의존관계는 &lt;strong&gt;정적인 클래스 의존 관계&lt;/strong&gt;와, &lt;strong&gt;실행 시점에 결정되는 동적인 객체(인스턴스) 의존 관계&lt;/strong&gt; 둘을 분리해서 생각해야 한다.&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;정적인 클래스 의존관계&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;클래스가 사용하는 import 코드만 보고 의존관계를 쉽게 판단할 수 있다. 정적인 의존관계는 애플리케이션을 실행하지 않아도 분석할 수 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MemberRepository&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt;에 의존한다는 것을 알 수 있다.
-그런데 이러한 클래스 의존관계 만으로는 실제 어떤 객체가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;에 주입 될지 알 수 없다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring/di1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;동적인 객체 인스턴스 의존 관계&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;애플리케이션 실행 시점에&lt;/strong&gt; 실제 생성된 객체 인스턴스의 참조가 연결된 의존 관계다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring/di2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;애플리케이션 &lt;strong&gt;실행 시점(런타임)&lt;/strong&gt;에 외부에서 실제 구현 객체를 생성하고 클라이언트에 전달해서 클라이언트와 서버의 실제 의존관계가 연결 되는 것을 &lt;strong&gt;의존관계 주입&lt;/strong&gt;이라 한다.&lt;/li&gt;
-  &lt;li&gt;객체 인스턴스를 생성하고, 그 참조값을 전달해서 연결된다.&lt;/li&gt;
-  &lt;li&gt;의존관계 주입을 사용하면 클라이언트 코드를 변경하지 않고, 클라이언트가 호출하는 대상의 타입 인스턴스를 변경할 수 있다.&lt;/li&gt;
-  &lt;li&gt;의존관계 주입을 사용하면 &lt;strong&gt;정적인 클래스 의존관계를 변경하지 않고, 동적인 객체 인스턴스 의존관계를 쉽게 변경&lt;/strong&gt;할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;ioc-컨테이너-di-컨테이너&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;IoC 컨테이너, DI 컨테이너&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;AppConfig 처럼 &lt;strong&gt;객체를 생성하고 관리하면서 의존관계를 연결해 주는 것을 IoC 컨테이너 또는 DI 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
-  &lt;li&gt;의존관계 주입에 초점을 맞추어 &lt;strong&gt;최근에는 주로 DI 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sun, 24 Oct 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring/IoC-DI-Container/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring/IoC-DI-Container/</guid>
-        
-        <category>2021년 10월</category>
-        
-        
-        <category>spring</category>
-        
-      </item>
-    
-      <item>
-        <title>ApplicationContext</title>
-        <description>&lt;h2 id=&quot;config-기반-bean-설정&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;Config 기반 Bean 설정&lt;/span&gt;&lt;/h2&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemberServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberRepository&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemoryMemberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;orderService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OrderServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountpolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;discountpolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RateDiscountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;AppConfig에 설정을 구성한다는 뜻의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;을 붙여준다.&lt;/li&gt;
-  &lt;li&gt;각 메서드에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;을 붙여준다. 이렇게 하면 &lt;strong&gt;메서드에서 반환하는 객체를 스프링 컨테이너에 스프링 빈으로 등록&lt;/strong&gt;한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;스프링-컨테이너에-등록한-bean-꺼내서-사용하기&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;스프링 컨테이너에 등록한 Bean 꺼내서 사용하기&lt;/span&gt;&lt;/h2&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// parameter : @Coufiguration이 붙은 구성 클래스&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnnotationConfigApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; 
-&lt;span class=&quot;c1&quot;&gt;// parameter : 빈이름, 반환타입&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;memberService&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);/&lt;/span&gt;
-
-&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;member&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;memberA&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Grade&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;VIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;memberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;ApplicationContext를 스프링 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
-  &lt;li&gt;기존에는 개발자가 AppConfig 를 사용해서 직접 객체를 생성하고 DI를 했지만, 이제부터는 스프링 컨테이너를 통해서 사용한다.&lt;/li&gt;
-  &lt;li&gt;스프링 컨테이너는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;이 붙은 AppConfig 를 설정(구성) 정보로 사용한다. 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이라 적힌 메서드를 모두 호출해서 반환된 객체를 스프링 컨테이너에 등록한다. 이렇게 &lt;strong&gt;스프링 컨테이너에 등록된 객체를 스프링 빈&lt;/strong&gt;이라 한다.&lt;/li&gt;
-  &lt;li&gt;스프링 빈은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이 붙은 &lt;strong&gt;메서드의 명을 스프링 빈의 이름으로 사용&lt;/strong&gt;한다.&lt;/li&gt;
-  &lt;li&gt;이전에는 개발자가 필요한 객체를 AppConfig 를 사용해서 직접 조회했지만, 이제부터는 스프링 컨테이너를 통해서 필요한 스프링 빈(객체)를 찾아야 한다. 스프링 빈은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;applicationContext.getBean()&lt;/code&gt; 메서드를 사용해서 찾을 수 있다.&lt;/li&gt;
-  &lt;li&gt;기존에는 개발자가 직접 자바코드로 모든 것을 했다면 이제부터는 스프링 컨테이너에 객체를 스프링 빈으로 등록하고, 스프링 컨테이너에서 스프링 빈을 찾아서 사용하도록 변경되었다.&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring/spring-context.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;스프링 부트 실행 시, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이 만들어지는 모습&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sun, 24 Oct 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring/ApplicationContext/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring/ApplicationContext/</guid>
         
         <category>2021년 10월</category>
         

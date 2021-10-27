@@ -34,11 +34,11 @@
 
 
 
-  <meta property="article:published_time" content="2021-10-24T00:00:00+09:00">
+  <meta property="article:published_time" content="2021-10-25T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2021-10-24T14:00:00+09:00">
+  <meta property="article:modified_time" content="2021-10-25T14:00:00+09:00">
 
 
 
@@ -290,8 +290,8 @@
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="ApplicationContext">
     <meta itemprop="description" content="Config 기반 Bean 설정```java@Configurationpublic class AppConfig {">
-    <meta itemprop="datePublished" content="2021-10-24T00:00:00+09:00">
-    <meta itemprop="dateModified" content="2021-10-24T14:00:00+09:00">
+    <meta itemprop="datePublished" content="2021-10-25T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-10-25T14:00:00+09:00">
 
     <div class="page__inner-wrap">
       
@@ -329,7 +329,7 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#config-기반-bean-설정">Config 기반 Bean 설정</a></li><li><a href="#스프링-컨테이너에-등록한-bean-꺼내서-사용하기">스프링 컨테이너에 등록한 Bean 꺼내서 사용하기</a></li></ul>
+              <ul class="toc__menu"><li><a href="#config-기반-bean-설정">Config 기반 Bean 설정</a></li><li><a href="#스프링-컨테이너에-등록한-bean-꺼내서-사용하기">스프링 컨테이너에 등록한 Bean 꺼내서 사용하기</a></li><li><a href="#스프링-컨테이너-생성-과정">스프링 컨테이너 생성 과정</a></li><li><a href="#beanfactory와-applicationcontext">BeanFactory와 ApplicationContext</a><ul><li><a href="#beanfactory">BeanFactory</a></li><li><a href="#applicationcontext">ApplicationContext</a></li></ul></li></ul></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
@@ -393,6 +393,84 @@
   <li>스프링 부트 실행 시, <code class="language-plaintext highlighter-rouge">@Bean</code>이 만들어지는 모습</li>
 </ul>
 
+<hr />
+
+<h2 id="스프링-컨테이너-생성-과정"><span style="color:MediumSeaGreen">스프링 컨테이너 생성 과정</span></h2>
+<ul>
+  <li>스프링 컨테이너는 XML(거의 사용 안 함)을 기반으로 만들 수 있고, 애노테이션 기반의 자바 설정 클래스로 만들 수 있다.</li>
+  <li>더 정확하게는 스프링 컨테이너를 부를 때 BeanFactory , ApplicationContext 로 구분하지만,  BeanFactory 를 직접 사용하는 경우는 거의 없으므로 일반적으로 ApplicationContext 를 스프링 컨테이너라 한다.<br />
+<br /></li>
+</ul>
+
+<p><strong>1. 스프링 컨테이너 생성</strong>
+<img src="/assets/images/spring/application-context1.png" alt="img.png" /></p>
+<ul>
+  <li>스프링 컨테이너를 생성할 때는 구성 정보(여기서는 AppConfig.class)를 지정해줘야 한다.<br />
+<br /></li>
+</ul>
+
+<p><strong>2. 스프링 빈 등록</strong>
+<img src="/assets/images/spring/application-context2.png" alt="img.png" /></p>
+<ul>
+  <li>스프링 컨테이너는 파라미터 넘어온 설정 클래스 정보를 읽어, @Bean 으로 등록된 메서드의 반환 타입을 스프링의 빈으로 등록한다.<br />
+<br /></li>
+</ul>
+
+<p><strong>3. 스프링 빈 의존관계 설정 - 준비</strong>
+<img src="/assets/images/spring/application-context3.png" alt="img.png" /><br />
+<br /></p>
+
+<p><strong>4. 스프링 빈 의존관계 설정 - 완료</strong>
+<img src="/assets/images/spring/application-context4.png" alt="img.png" /></p>
+<ul>
+  <li>스프링 컨테이너는 설정 정보를 참고하여 의존관계를 주입(DI)한다.<br />
+<br /></li>
+</ul>
+
+<hr />
+
+<h2 id="beanfactory와-applicationcontext"><span style="color:MediumSeaGreen">BeanFactory와 ApplicationContext</span></h2>
+<p><img src="/assets/images/spring/application-context5.png" alt="img.png" /></p>
+
+<h6 id="beanfactory"><strong>BeanFactory</strong></h6>
+<ul>
+  <li>스프링 컨테이너의 최상위 인터페이스다.</li>
+  <li>스프링 빈을 관리하고 조회하는 역할을 담당한다.</li>
+  <li>getBean() 을 제공한다.</li>
+  <li>지금까지 우리가 사용했던 대부분의 기능은 BeanFactory가 제공하는 기능이다.</li>
+</ul>
+
+<hr />
+
+<p><img src="/assets/images/spring/application-context6.png" alt="img.png" /></p>
+
+<h6 id="applicationcontext"><strong>ApplicationContext</strong></h6>
+<ul>
+  <li>
+    <p>BeanFactory 기능을 모두 상속받아서 제공한다.</p>
+  </li>
+  <li><strong>메시지소스를 활용한 국제화 기능(MessageSource)</strong>
+    <ul>
+      <li>한국에서 들어오면 한국어로, 영어권에서 들어오면 영어로 출력</li>
+    </ul>
+  </li>
+  <li><strong>환경변수(EnvironmentCapable)</strong>
+    <ul>
+      <li>로컬, 개발, 운영등을 구분해서 처리</li>
+    </ul>
+  </li>
+  <li><strong>애플리케이션 이벤트(ApplicationEventPublisher)</strong>
+    <ul>
+      <li>이벤트를 발행하고 구독하는 모델을 편리하게 지원</li>
+    </ul>
+  </li>
+  <li><strong>편리한 리소스 조회(ResourceLoader)</strong>
+    <ul>
+      <li>파일, 클래스패스, 외부 등에서 리소스를 편리하게 조회</li>
+    </ul>
+  </li>
+</ul>
+
         
       </section>
 
@@ -433,7 +511,7 @@
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-10-24">October 24, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-10-25">October 25, 2021</time></p>
 
       </footer>
 
@@ -453,7 +531,7 @@
       
   <nav class="pagination">
     
-      <a href="/spring/rest-api/" class="pagination--pager" title="REST API란
+      <a href="/spring/SOLID/" class="pagination--pager" title="SOLID 원칙
 ">이전</a>
     
     
@@ -472,46 +550,6 @@
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/spring/SOLID/" rel="permalink">SOLID 원칙
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리하였다.
-</p>
-  </article>
-</div>
-
         
           
 
@@ -551,6 +589,46 @@
 
   기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다.
   AppConfig가 등장한 이후에 구현 객체는 자신의 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/SOLID/" rel="permalink">SOLID 원칙
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리하였다.
+</p>
   </article>
 </div>
 
