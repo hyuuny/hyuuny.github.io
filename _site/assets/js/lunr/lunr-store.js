@@ -160,4 +160,10 @@ var store = [{
         "tags": ["2021년 10월"],
         "url": "/spring/IoC-DI-Container/",
         "teaser": null
+      },{
+        "title": "Singleton, SingletonContainer",
+        "excerpt":"싱글톤(Sigleton) 클래스의 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴이다. 객체 인스턴스를 2개 이상 생성하지 못하도록 막아야 한다. private 생성자를 사용해서 외부에서 임의로 new 키워드를 사용하지 못하도록 막아야 한다. 싱글톤 패턴의 문제점 싱글톤 패턴을 구현하는 코드 자체가 많이 들어간다. 의존관계상 클라이언트가 구체 클래스에 의존한다. DIP를 위반한다. 클라이언트가 구체 클래스에 의존해서...","categories": ["spring"],
+        "tags": ["2021년 10월"],
+        "url": "/spring/sington/",
+        "teaser": null
       }]
