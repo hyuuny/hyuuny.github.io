@@ -166,4 +166,10 @@ var store = [{
         "tags": ["2021년 10월"],
         "url": "/spring/sington/",
         "teaser": null
+      },{
+        "title": "Configuration과 Singleton",
+        "excerpt":"@Configuration public class AppConfig { @Bean public MemberService memberService() { return new MemberServiceImpl(memberRepository()); } @Bean public OrderService orderService() { return new OrderServiceImpl(memberRepository(), discountPolicy()); } @Bean public MemberRepository memberRepository() { return new MemoryMemberRepository(); } ... } memberService 빈을 만드는 코드를 보면 memberRepository()를 호출한다. orderService 빈을 만드는 코드도 동일하게 memberRepository()를 호출한다. new연산자를...","categories": ["spring"],
+        "tags": ["2021년 10월"],
+        "url": "/spring/configuration/",
+        "teaser": null
       }]

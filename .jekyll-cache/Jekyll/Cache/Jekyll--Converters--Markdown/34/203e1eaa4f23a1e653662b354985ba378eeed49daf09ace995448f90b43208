@@ -1,0 +1,2 @@
+I"�<p>@Configuration을 사용하여 @Bean으로 등록된 객체를 ApplicationContext에 저장하고, 객체를 호출할 때마다 등록된 객체를 가져다 사용하는데, 아래 코드 같은 경우에도</p>
+:ET
