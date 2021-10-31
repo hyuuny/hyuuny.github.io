@@ -1,0 +1,18 @@
+I"�<p>스프링은 설정 정보가 없어도 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능을 제공한다. 또 의존 관계도 자동으로 주입하는 <code class="language-plaintext highlighter-rouge">@Autowired</code>도 제공한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AutoAppConfig</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>컴포넌트 스캔을 사용하려면 먼저 <code class="language-plaintext highlighter-rouge">@ComponentScan</code>을 설정 정보에 붙여주면 된다.</li>
+  <li>기존의 AppConfig와는 다르게 <code class="language-plaintext highlighter-rouge">@Bean</code>으로 등록한 클래스가 하나도 없다.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">@Configuration</code>이 컴포넌트 스캔의 대상이 된 이유도 <code class="language-plaintext highlighter-rouge">@Configuration</code> 소스코드를 열어보면 <code class="language-plaintext highlighter-rouge">@Component</code> 애노테이션이 붙어있기 때문이다.
+<img src="/assets/images/spring/configuration1.png" alt="img.png" /></p>
+
+<p>컴포넌트 스캔의 대상이 될 클래스에 <code class="language-plaintext highlighter-rouge">@Component</code> 애노테이션을 붙여주자.</p>
+:ET
