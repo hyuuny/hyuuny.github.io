@@ -1,0 +1,115 @@
+I", <p>DI는 디자인 패턴으로 크게 다음과 같이 4가지 방법이 있다.</p>
+<ul>
+  <li>생성자 주입</li>
+  <li>setter 주입</li>
+  <li>필드 주입(@Autowired)</li>
+  <li>일반 메서드 주입</li>
+</ul>
+
+<h2 id="생성자-주입"><span style="color:MediumSeaGreen">생성자 주입</span></h2>
+<ul>
+  <li>이름 그대로 생성자를 통해서 의존 관계를 주입 받는 방법</li>
+  <li>생성자 호출 시점에 <strong>단 1번만 호출</strong>되는 것이 보장된다.</li>
+  <li><strong>불변, 필수</strong> 의존 관계에 사용</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+      <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br />
+<strong>생성자가 1개만 있으면 <code class="language-plaintext highlighter-rouge">@Autowired</code>를 생략해도 자동 주입 된다.</strong> (스프링 빈에만 해당)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">;</span>
+
+    <span class="c1">// @Autowired 생략</span>
+    <span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+      <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="setter-주입"><span style="color:MediumSeaGreen">setter 주입</span></h2>
+<ul>
+  <li>필드의 값을 변경하는 수정자 메서드(setter)를 통해서 의존관계를 주입하는 방법</li>
+  <li><strong>선택, 변경</strong> 가능성이 있는 의존 관계에 사용</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMemberRepository</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDiscountPolicy</span><span class="o">(</span><span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">@Autowired</code>의 기본 동작은 주입할 대상이 없으면 오류가 발생</strong>하므로, 주입할 대상이 없어도 동작하게 하려면 <code class="language-plaintext highlighter-rouge">@Autowired(required = false)</code>로 지정해야 한다.</li>
+</ul>
+
+<hr />
+
+<h2 id="필드-주입autowired"><span style="color:MediumSeaGreen">필드 주입(@Autowired)</span></h2>
+<ul>
+  <li>이름 그대로 필드에 바로 주입하는 방법</li>
+  <li>코드가 간결해서 많은 개발자들을 유혹하지만, 외부에서 변경이 불가능해서 테스트 하기 힘들다.</li>
+  <li>DI 프레임워크가 없으면 아무것도 할 수 없다.</li>
+  <li><strong>아래 두 경우를 제외하곤, 사용하지 말자!</strong>
+    <ul>
+      <li>애플리케이션의 실제 코드와 관계 없는 <strong>테스트 코드</strong></li>
+      <li>스프링 설정을 목적으로 하는 @Configuration 같은 곳에서만 특별한 용도로 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>순수한 자바 테스트 코드에는 <code class="language-plaintext highlighter-rouge">@Autowired</code>가 동작하지 않는다. <code class="language-plaintext highlighter-rouge">@SpringBootTest</code>처럼 스프링 컨테이너를 테스트에 통합한 경우에만 가능</li>
+</ul>
+
+<hr />
+
+<h2 id="일반-메서드-주입"><span style="color:MediumSeaGreen">일반 메서드 주입</span></h2>
+<ul>
+  <li>일반 메서드를 통해서 주입 받는 방법</li>
+  <li>한번에 <strong>여러 필드</strong>를 주입 받을 수 있다.</li>
+  <li>일반적으로 잘 사용하지 않는다.</li>
+</ul>
+
+:ET

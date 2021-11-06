@@ -172,4 +172,16 @@ var store = [{
         "tags": ["2021년 10월"],
         "url": "/spring/configuration/",
         "teaser": null
+      },{
+        "title": "컴포넌트 스캔(@ComponentScan)",
+        "excerpt":"스프링은 설정 정보가 없어도 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능을 제공한다. 또 의존 관계도 자동으로 주입하는 @Autowired도 제공한다. @Configuration public class AutoAppConfig { } 컴포넌트 스캔을 사용하려면 먼저 @ComponentScan을 설정 정보에 붙여주면 된다. 기존의 AppConfig와는 다르게 @Bean으로 등록한 클래스가 하나도 없다. @Configuration이 컴포넌트 스캔의 대상이 된 이유도 @Configuration...","categories": ["spring"],
+        "tags": ["2021년 11월"],
+        "url": "/spring/component-scan/",
+        "teaser": null
+      },{
+        "title": "의존성 주입(Dependency Injection)",
+        "excerpt":"DI는 디자인 패턴으로 크게 다음과 같이 4가지 방법이 있다. 생성자 주입 setter 주입 필드 주입(@Autowired) 일반 메서드 주입 생성자 주입 이름 그대로 생성자를 통해서 의존 관계를 주입 받는 방법 생성자 호출 시점에 단 1번만 호출되는 것이 보장된다. 불변, 필수 의존 관계에 사용 @Component public class OrderServiceImpl implements OrderService { private...","categories": ["spring"],
+        "tags": ["2021년 11월"],
+        "url": "/spring/dependency-injection/",
+        "teaser": null
       }]
