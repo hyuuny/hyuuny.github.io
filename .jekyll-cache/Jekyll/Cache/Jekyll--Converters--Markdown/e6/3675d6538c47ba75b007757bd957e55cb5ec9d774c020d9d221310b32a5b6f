@@ -1,0 +1,155 @@
+I"�2<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 타입(Type)으로 조회한다. 이때 선택된 빈이 <strong>2개 이상</strong>일 때 문제가 발생한다.</p>
+
+<p>예제를 위해 <code class="language-plaintext highlighter-rouge">DiscountPolicy</code>의 하위 타입인 <code class="language-plaintext highlighter-rouge">FixDiscountPolicy</code>와 <code class="language-plaintext highlighter-rouge">RateDiscountPolicy</code>를 스프링 빈으로 선언해보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br />
+여기서 다음과 같이 의존관계 자동 주입을 실행하면</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">NoUniqueBeanDefinitionException</code> 예외가 발생한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NoUniqueBeanDefinitionException: No qualifying bean of type
+'hello.core.discount.DiscountPolicy' available: expected single matching bean
+but found 2: fixDiscountPolicy,rateDiscountPolicy
+</code></pre></div></div>
+<p>오류메시지를 읽어보면 하나의 빈을 기대했는데 fixDiscountPolicy, rateDiscountPolicy <strong>2개가 발견</strong>되었다고 알려준다.</p>
+
+<p>이때 직접 하위 타입으로 지정할 수 도 있지만, 하위 타입으로 지정하는 것은 DIP를 위배하고 유연성이 떨어진다. 그리고 이름만 다르고, 완전히 똑같은 타입의 스프링 빈이 2개 있을 때 해결이 안된다.</p>
+
+<p>스프링 빈을 수동 등록해서 문제를 해결해도 되지만, 의존 관계 자동 주입에서 해결하는 다음과 같이 3가지가 있다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Autowired</code> 필드 명 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">@Qualifier</code> -&gt;  <code class="language-plaintext highlighter-rouge">@Qualifier</code>끼리 매칭 빈 이름 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">@Primary</code> 사용</li>
+</ul>
+
+<hr />
+
+<h2 id="autowired-필드-명-매칭"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Autowired</code> 필드 명 매칭</span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 <strong>타입 매칭을 시도</strong>하고, 타입 매칭 결과로 <strong>여러 빈이 있으면 필드 이름, 파라미터 이름으로 빈 이름을 추가 매칭</strong>한다.</p>
+<ol>
+  <li>타입 매칭</li>
+  <li>타입 매칭의 결과가 2개 이상일 때 필드 명, 파라미터 명으로 빈 이름 매칭</li>
+</ol>
+
+<p><br />
+<strong>기존 코드</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>필드 명을 빈 이름으로 변경</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">rateDiscountPolicy</span>
+</code></pre></div></div>
+<ul>
+  <li>필드 명이 rateDiscountPolicy 이므로 정상 주입된다.</li>
+</ul>
+
+<hr />
+
+<h2 id="qualifier"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Qualifier</code></span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Qualifier</code>는 <strong>추가 구분자를 붙여주는</strong> 방법이다. 주입시 추가적인 방법을 제공하는 것이지 빈 이름을 변경하는 것은 아니다.</p>
+<ol>
+  <li>빈 등록시 @Qualifier를 붙여 준다.</li>
+  <li>주입시에 @Qualifier를 붙여주고 등록한 이름을 적어준다.</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"mainDiscountPolicy"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"fixDiscountPolicy"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>생성자 자동 주입 예시</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span>
+                       <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"mainDiscountPolicy"</span><span class="o">)</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>setter 자동 주입 예시</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">setDiscountPolicy</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"mainDiscountPolicy"</span><span class="o">)</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">@Qualifier</code>로 주입할 때 <code class="language-plaintext highlighter-rouge">@Qualifier("mainDiscountPolicy")</code>를 찾지 못하면, mainDiscountPolicy라는 이름의 스프링 빈을 추가로 찾는다. 하지만 <code class="language-plaintext highlighter-rouge">@Qualifier</code>는 <code class="language-plaintext highlighter-rouge">@Qualifier</code>를 찾는 용도로만 사용하는것이 명확하고 좋다.<br />
+<br /></p>
+
+<p><strong>@Qualifier 정리</strong></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">@Qualifier</code>끼리 매칭</li>
+  <li>빈 이름 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">NoSuchBeanDefinitionException</code> 예외 발생</li>
+</ol>
+
+<hr />
+
+<h2 id="primary"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Primary</code></span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Primary</code>는 <strong>우선순위</strong>를 정하는 방법이다. <code class="language-plaintext highlighter-rouge">@Autowired</code>시에 여러 빈이 매칭되면 <code class="language-plaintext highlighter-rouge">@Primary</code>가 우선권을 가진다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@Primary</span> <span class="c1">// @Primary를 사용하여 RateDiscountPolicy가 우선권을 갖는다.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>@Primary를 이용한 생성자, setter 자동 주입 예시</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//생성자 자동 주입</span>
+<span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">//setter 자동 주입</span>
+<span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">setDiscountPolicy</span><span class="o">(</span><span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">@Primary</code>를 이용하여 생성자 자동 주입과 setter 자동주입을 해보면 문제 없이 잘 동작하는 것을 확인할 수 있다.</p>
+
+<hr />
+
+<p><strong>@Primary, @Qualifier 활용</strong><br />
+코드에서 자주 사용하는 메인 데이터베이스의 커넥션을 획득하는 스프링 빈이 있고, 코드에서 특별한 기능으로 가끔 사용하는 서브 데이터베이스의 커넥션을 획득하는 스프링 빈이 있다고 생각해보자. 메인 데이터베이스의 커넥션을 획득하는 스프링 빈은 <code class="language-plaintext highlighter-rouge">@Primary</code>를 적용해서 조회하는 곳에서 <code class="language-plaintext highlighter-rouge">@Qualifier</code> 지정 없이 편리하게 조회하고, 서브 데이터베이스 커넥션 빈을 획득할 때는 <code class="language-plaintext highlighter-rouge">@Qualifier</code>를 지정해서 명시적으로 획득 하는 방식으로 사용하면 코드를 깔끔하게 유지할 수 있다. 물론 이때 메인 데이터베이스의 스프링 빈을 등록할 때 <code class="language-plaintext highlighter-rouge">@Qualifier</code>를 지정해주는 것은 상관없다.</p>
+
+<p><strong>우선순위</strong><br />
+@Primary 는 기본값 처럼 동작하는 것이고, @Qualifier 는 매우 상세하게 동작한다. 이런 경우 어떤 것이 우선권을 가져갈까? 스프링은 자동보다는 수동이, 넒은 범위의 선택권 보다는 좁은 범위의 선택권이 우선 순위가 높다. 따라서 여기서도 @Qualifier 가 우선권이 높다.</p>
+
+:ET

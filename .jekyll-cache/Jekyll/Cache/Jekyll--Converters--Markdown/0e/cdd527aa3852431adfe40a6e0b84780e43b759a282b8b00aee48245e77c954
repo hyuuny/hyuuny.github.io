@@ -1,0 +1,16 @@
+I"<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 타입(Type)으로 조회한다. 이때 선택된 빈이 <strong>2개 이상</strong>일 때 문제가 발생한다.</p>
+
+<p>예제를 위해 <code class="language-plaintext highlighter-rouge">DiscountPolicy</code>의 하위 타입인 <code class="language-plaintext highlighter-rouge">FixDiscountPolicy</code>와 <code class="language-plaintext highlighter-rouge">RateDiscountPolicy</code>를 스프링 빈으로 선언해보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+:ET

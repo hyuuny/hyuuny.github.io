@@ -179,6 +179,12 @@ var store = [{
         "url": "/spring/component-scan/",
         "teaser": null
       },{
+        "title": "조회 빈이 2개 이상일 때 문제 해결",
+        "excerpt":"@Autowired는 타입(Type)으로 조회한다. 이때 선택된 빈이 2개 이상일 때 문제가 발생한다. 예제를 위해 DiscountPolicy의 하위 타입인 FixDiscountPolicy와 RateDiscountPolicy를 스프링 빈으로 선언해보자. @Component public class FixDiscountPolicy implements DiscountPolicy { } @Component public class RateDiscountPolicy implements DiscountPolicy { } 여기서 다음과 같이 의존관계 자동 주입을 실행하면 @Autowired private DiscountPolicy discountPolicy NoUniqueBeanDefinitionException 예외가...","categories": ["spring"],
+        "tags": ["2021년 11월"],
+        "url": "/spring/bean-error/",
+        "teaser": null
+      },{
         "title": "의존성 주입(Dependency Injection)",
         "excerpt":"DI는 디자인 패턴으로 크게 다음과 같이 4가지 방법이 있다. 생성자 주입 setter 주입 필드 주입(@Autowired) 일반 메서드 주입 생성자 주입 이름 그대로 생성자를 통해서 의존 관계를 주입 받는 방법 생성자 호출 시점에 단 1번만 호출되는 것이 보장된다. 불변, 필수 의존 관계에 사용 @Component public class OrderServiceImpl implements OrderService { private...","categories": ["spring"],
         "tags": ["2021년 11월"],

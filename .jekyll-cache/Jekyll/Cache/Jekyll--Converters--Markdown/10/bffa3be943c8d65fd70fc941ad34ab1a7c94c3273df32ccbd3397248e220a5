@@ -1,0 +1,43 @@
+I"�<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 타입(Type)으로 조회한다. 이때 선택된 빈이 <strong>2개 이상</strong>일 때 문제가 발생한다.</p>
+
+<p>예제를 위해 <code class="language-plaintext highlighter-rouge">DiscountPolicy</code>의 하위 타입인 <code class="language-plaintext highlighter-rouge">FixDiscountPolicy</code>와 <code class="language-plaintext highlighter-rouge">RateDiscountPolicy</code>를 스프링 빈으로 선언해보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br />
+여기서 다음과 같이 의존관계 자동 주입을 실행하면</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">NoUniqueBeanDefinitionException</code> 예외가 발생한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NoUniqueBeanDefinitionException: No qualifying bean of type
+'hello.core.discount.DiscountPolicy' available: expected single matching bean
+but found 2: fixDiscountPolicy,rateDiscountPolicy
+</code></pre></div></div>
+<p>오류메시지를 읽어보면 하나의 빈을 기대했는데 fixDiscountPolicy, rateDiscountPolicy <strong>2개가 발견</strong>되었다고 알려준다.</p>
+
+<p>이때 직접 하위 타입으로 지정할 수 도 있지만, 하위 타입으로 지정하는 것은 DIP를 위배하고 유연성이 떨어진다. 그리고 이름만 다르고, 완전히 똑같은 타입의 스프링 빈이 2개 있을 때 해결이 안된다.</p>
+
+<p>스프링 빈을 수동 등록해서 문제를 해결해도 되지만, 의존 관계 자동 주입에서 해결하는 다음과 같이 3가지가 있다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Autowired</code> 필드 명 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">@Qualifier</code> -&gt;  <code class="language-plaintext highlighter-rouge">@Qualifier</code>끼리 매칭 빈 이름 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">@Primary</code> 사용</li>
+</ul>
+
+<hr />
+
+<h2 id="autowired-필드-명-매칭"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Autowired</code> 필드 명 매칭</span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 <strong>타입 매칭을 시도</strong>하고, 이때 <strong>여러 빈이 있으면 필드 이름, 파라미터 이름으로 빈 이름을 추가
+매칭</strong>한다.</p>
+:ET

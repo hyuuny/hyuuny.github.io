@@ -1,0 +1,840 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>조회 빈이 2개 이상일 때 문제 해결 - Hyuuny`s Blog</title>
+<meta name="description" content="@Autowired는 타입(Type)으로 조회한다. 이때 선택된 빈이 2개 이상일 때 문제가 발생한다.">
+
+
+  <meta name="author" content="Kim SeongHyun">
+  
+  <meta property="article:author" content="Kim SeongHyun">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Hyuuny`s Blog">
+<meta property="og:title" content="조회 빈이 2개 이상일 때 문제 해결">
+<meta property="og:url" content="https://hyuuny.github.io/spring/bean-error/">
+
+
+  <meta property="og:description" content="@Autowired는 타입(Type)으로 조회한다. 이때 선택된 빈이 2개 이상일 때 문제가 발생한다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-11-06T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-11-06T14:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://hyuuny.github.io/spring/bean-error/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김성현(Kim SeongHyun)",
+      "url": "https://hyuuny.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Hyuuny`s Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://hyuuny.github.io/feed.xml" title="Hyuuny`s Blog Feed">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/123_3sB_icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="mask-icon" href="/assets/logo.ico/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Hyuuny`s Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://hyuuny.github.io/">
+        <img src="/assets/images/profile.png" alt="Kim SeongHyun" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://hyuuny.github.io/" itemprop="url">Kim SeongHyun</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Back-end Developer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Gwangmyeong</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/hyuuny" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:shyune@knou.ac.kr" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="조회 빈이 2개 이상일 때 문제 해결">
+    <meta itemprop="description" content="@Autowired는 타입(Type)으로 조회한다. 이때 선택된 빈이 2개 이상일 때 문제가 발생한다.">
+    <meta itemprop="datePublished" content="2021-11-06T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-11-06T14:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://hyuuny.github.io/spring/bean-error/" class="u-url" itemprop="url">조회 빈이 2개 이상일 때 문제 해결
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#autowired-필드-명-매칭">@Autowired 필드 명 매칭</a></li><li><a href="#qualifier">@Qualifier</a></li><li><a href="#primary">@Primary</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 타입(Type)으로 조회한다. 이때 선택된 빈이 <strong>2개 이상</strong>일 때 문제가 발생한다.</p>
+
+<p>예제를 위해 <code class="language-plaintext highlighter-rouge">DiscountPolicy</code>의 하위 타입인 <code class="language-plaintext highlighter-rouge">FixDiscountPolicy</code>와 <code class="language-plaintext highlighter-rouge">RateDiscountPolicy</code>를 스프링 빈으로 선언해보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br />
+여기서 다음과 같이 의존관계 자동 주입을 실행하면</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">NoUniqueBeanDefinitionException</code> 예외가 발생한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NoUniqueBeanDefinitionException: No qualifying bean of type
+'hello.core.discount.DiscountPolicy' available: expected single matching bean
+but found 2: fixDiscountPolicy,rateDiscountPolicy
+</code></pre></div></div>
+<p>오류메시지를 읽어보면 하나의 빈을 기대했는데 fixDiscountPolicy, rateDiscountPolicy <strong>2개가 발견</strong>되었다고 알려준다.</p>
+
+<p>이때 직접 하위 타입으로 지정할 수 도 있지만, 하위 타입으로 지정하는 것은 DIP를 위배하고 유연성이 떨어진다. 그리고 이름만 다르고, 완전히 똑같은 타입의 스프링 빈이 2개 있을 때 해결이 안된다.</p>
+
+<p>스프링 빈을 수동 등록해서 문제를 해결해도 되지만, 의존 관계 자동 주입에서 해결하는 다음과 같이 3가지가 있다.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Autowired</code> 필드 명 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">@Qualifier</code> -&gt;  <code class="language-plaintext highlighter-rouge">@Qualifier</code>끼리 매칭 빈 이름 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">@Primary</code> 사용</li>
+</ul>
+
+<hr />
+
+<h2 id="autowired-필드-명-매칭"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Autowired</code> 필드 명 매칭</span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 <strong>타입 매칭을 시도</strong>하고, 타입 매칭 결과로 <strong>여러 빈이 있으면 필드 이름, 파라미터 이름으로 빈 이름을 추가 매칭</strong>한다.</p>
+<ol>
+  <li>타입 매칭</li>
+  <li>타입 매칭의 결과가 2개 이상일 때 필드 명, 파라미터 명으로 빈 이름 매칭</li>
+</ol>
+
+<p><br />
+<strong>기존 코드</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>필드 명을 빈 이름으로 변경</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">rateDiscountPolicy</span>
+</code></pre></div></div>
+<ul>
+  <li>필드 명이 rateDiscountPolicy 이므로 정상 주입된다.</li>
+</ul>
+
+<hr />
+
+<h2 id="qualifier"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Qualifier</code></span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Qualifier</code>는 <strong>추가 구분자를 붙여주는</strong> 방법이다. 주입시 추가적인 방법을 제공하는 것이지 빈 이름을 변경하는 것은 아니다.</p>
+<ol>
+  <li>빈 등록시 @Qualifier를 붙여 준다.</li>
+  <li>주입시에 @Qualifier를 붙여주고 등록한 이름을 적어준다.</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"mainDiscountPolicy"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"fixDiscountPolicy"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>생성자 자동 주입 예시</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span>
+                       <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"mainDiscountPolicy"</span><span class="o">)</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>setter 자동 주입 예시</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">setDiscountPolicy</span><span class="o">(</span><span class="nd">@Qualifier</span><span class="o">(</span><span class="s">"mainDiscountPolicy"</span><span class="o">)</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">@Qualifier</code>로 주입할 때 <code class="language-plaintext highlighter-rouge">@Qualifier("mainDiscountPolicy")</code>를 찾지 못하면, mainDiscountPolicy라는 이름의 스프링 빈을 추가로 찾는다. 하지만 <code class="language-plaintext highlighter-rouge">@Qualifier</code>는 <code class="language-plaintext highlighter-rouge">@Qualifier</code>를 찾는 용도로만 사용하는것이 명확하고 좋다.<br />
+<br /></p>
+
+<p><strong>@Qualifier 정리</strong></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">@Qualifier</code>끼리 매칭</li>
+  <li>빈 이름 매칭</li>
+  <li><code class="language-plaintext highlighter-rouge">NoSuchBeanDefinitionException</code> 예외 발생</li>
+</ol>
+
+<hr />
+
+<h2 id="primary"><span style="color:MediumSeaGreen"><code class="language-plaintext highlighter-rouge">@Primary</code></span></h2>
+<p><code class="language-plaintext highlighter-rouge">@Primary</code>는 <strong>우선순위</strong>를 정하는 방법이다. <code class="language-plaintext highlighter-rouge">@Autowired</code>시에 여러 빈이 매칭되면 <code class="language-plaintext highlighter-rouge">@Primary</code>가 우선권을 가진다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@Primary</span> <span class="c1">// @Primary를 사용하여 RateDiscountPolicy가 우선권을 갖는다.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>@Primary를 이용한 생성자, setter 자동 주입 예시</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//생성자 자동 주입</span>
+<span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">//setter 자동 주입</span>
+<span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">setDiscountPolicy</span><span class="o">(</span><span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">discountPolicy</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">@Primary</code>를 이용하여 생성자 자동 주입과 setter 자동주입을 해보면 문제 없이 잘 동작하는 것을 확인할 수 있다.</p>
+
+<hr />
+
+<p><strong>@Primary, @Qualifier 활용</strong><br />
+코드에서 자주 사용하는 메인 데이터베이스의 커넥션을 획득하는 스프링 빈이 있고, 코드에서 특별한 기능으로 가끔 사용하는 서브 데이터베이스의 커넥션을 획득하는 스프링 빈이 있다고 생각해보자. 메인 데이터베이스의 커넥션을 획득하는 스프링 빈은 <code class="language-plaintext highlighter-rouge">@Primary</code>를 적용해서 조회하는 곳에서 <code class="language-plaintext highlighter-rouge">@Qualifier</code> 지정 없이 편리하게 조회하고, 서브 데이터베이스 커넥션 빈을 획득할 때는 <code class="language-plaintext highlighter-rouge">@Qualifier</code>를 지정해서 명시적으로 획득 하는 방식으로 사용하면 코드를 깔끔하게 유지할 수 있다. 물론 이때 메인 데이터베이스의 스프링 빈을 등록할 때 <code class="language-plaintext highlighter-rouge">@Qualifier</code>를 지정해주는 것은 상관없다.</p>
+
+<p><strong>우선순위</strong><br />
+<code class="language-plaintext highlighter-rouge">@Primary</code>는 <strong>기본값 처럼 동작</strong>하는 것이고, <code class="language-plaintext highlighter-rouge">@Qualifier</code>는 <strong>매우 상세하게 동작</strong>한다.<br />
+스프링은 <strong>자동보다는 수동</strong>이, <strong>넒은 범위의 선택권 보다는 좁은 범위</strong>의 선택권이 우선 순위가 높다. 따라서 <code class="language-plaintext highlighter-rouge">@Primary</code>보다 <code class="language-plaintext highlighter-rouge">@Qualifier</code>가 우선권이 <strong>높다.</strong></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#2021%EB%85%84-11%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 11월</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-11-06">November 6, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%A1%B0%ED%9A%8C+%EB%B9%88%EC%9D%B4+2%EA%B0%9C+%EC%9D%B4%EC%83%81%EC%9D%BC+%EB%95%8C+%EB%AC%B8%EC%A0%9C+%ED%95%B4%EA%B2%B0%20https%3A%2F%2Fhyuuny.github.io%2Fspring%2Fbean-error%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fspring%2Fbean-error%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fspring%2Fbean-error%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/spring/component-scan/" class="pagination--pager" title="컴포넌트 스캔(@ComponentScan)
+">이전</a>
+    
+    
+      <a href="/spring/dependency-injection/" class="pagination--pager" title="의존성 주입(Dependency Injection)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/dependency-injection/" rel="permalink">의존성 주입(Dependency Injection)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">DI는 디자인 패턴으로 크게 다음과 같이 4가지 방법이 있다.
+
+  생성자 주입
+  setter 주입
+  필드 주입(@Autowired)
+  일반 메서드 주입
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/component-scan/" rel="permalink">컴포넌트 스캔(@ComponentScan)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">스프링은 설정 정보가 없어도 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능을 제공한다. 또 의존 관계도 자동으로 주입하는 @Autowired도 제공한다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/configuration/" rel="permalink">Configuration과 Singleton
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">```java
+ @Configuration
+  public class AppConfig {
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/sington/" rel="permalink">Singleton, SingletonContainer
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">싱글톤(Sigleton)
+
+  클래스의 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴이다.
+  객체 인스턴스를 2개 이상 생성하지 못하도록 막아야 한다.
+    
+      private 생성자를 사용해서 외부에서 임의로 new 키워드를 사용하지 못하도록 막아야 한다.
+...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김성현(Kim SeongHyun). Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://hyuuny.github.io/spring/bean-error/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/bean-error"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hyuuny-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -6,8 +6,8 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 06 Nov 2021 21:14:05 +0900</pubDate>
-    <lastBuildDate>Sat, 06 Nov 2021 21:14:05 +0900</lastBuildDate>
+    <pubDate>Sat, 06 Nov 2021 22:31:05 +0900</pubDate>
+    <lastBuildDate>Sat, 06 Nov 2021 22:31:05 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -146,6 +146,175 @@
         <pubDate>Sat, 06 Nov 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring/dependency-injection/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring/dependency-injection/</guid>
+        
+        <category>2021년 11월</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
+    
+      <item>
+        <title>조회 빈이 2개 이상일 때 문제 해결</title>
+        <description>&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;는 타입(Type)으로 조회한다. 이때 선택된 빈이 &lt;strong&gt;2개 이상&lt;/strong&gt;일 때 문제가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;예제를 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt;의 하위 타입인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FixDiscountPolicy&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RateDiscountPolicy&lt;/code&gt;를 스프링 빈으로 선언해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FixDiscountPolicy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RateDiscountPolicy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+여기서 다음과 같이 의존관계 자동 주입을 실행하면&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NoUniqueBeanDefinitionException&lt;/code&gt; 예외가 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NoUniqueBeanDefinitionException: No qualifying bean of type
+'hello.core.discount.DiscountPolicy' available: expected single matching bean
+but found 2: fixDiscountPolicy,rateDiscountPolicy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;오류메시지를 읽어보면 하나의 빈을 기대했는데 fixDiscountPolicy, rateDiscountPolicy &lt;strong&gt;2개가 발견&lt;/strong&gt;되었다고 알려준다.&lt;/p&gt;
+
+&lt;p&gt;이때 직접 하위 타입으로 지정할 수 도 있지만, 하위 타입으로 지정하는 것은 DIP를 위배하고 유연성이 떨어진다. 그리고 이름만 다르고, 완전히 똑같은 타입의 스프링 빈이 2개 있을 때 해결이 안된다.&lt;/p&gt;
+
+&lt;p&gt;스프링 빈을 수동 등록해서 문제를 해결해도 되지만, 의존 관계 자동 주입에서 해결하는 다음과 같이 3가지가 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 필드 명 매칭&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt; -&amp;gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;끼리 매칭 빈 이름 매칭&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt; 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;autowired-필드-명-매칭&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 필드 명 매칭&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;는 &lt;strong&gt;타입 매칭을 시도&lt;/strong&gt;하고, 타입 매칭 결과로 &lt;strong&gt;여러 빈이 있으면 필드 이름, 파라미터 이름으로 빈 이름을 추가 매칭&lt;/strong&gt;한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;타입 매칭&lt;/li&gt;
+  &lt;li&gt;타입 매칭의 결과가 2개 이상일 때 필드 명, 파라미터 명으로 빈 이름 매칭&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;strong&gt;기존 코드&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;필드 명을 빈 이름으로 변경&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rateDiscountPolicy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;필드 명이 rateDiscountPolicy 이므로 정상 주입된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;qualifier&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;는 &lt;strong&gt;추가 구분자를 붙여주는&lt;/strong&gt; 방법이다. 주입시 추가적인 방법을 제공하는 것이지 빈 이름을 변경하는 것은 아니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;빈 등록시 @Qualifier를 붙여 준다.&lt;/li&gt;
+  &lt;li&gt;주입시에 @Qualifier를 붙여주고 등록한 이름을 적어준다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Qualifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mainDiscountPolicy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RateDiscountPolicy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Qualifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fixDiscountPolicy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FixDiscountPolicy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;생성자 자동 주입 예시&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OrderServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MemberRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                       &lt;span class=&quot;nd&quot;&gt;@Qualifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mainDiscountPolicy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;memberRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;discountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;setter 자동 주입 예시&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setDiscountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Qualifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mainDiscountPolicy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;로 주입할 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier(&quot;mainDiscountPolicy&quot;)&lt;/code&gt;를 찾지 못하면, mainDiscountPolicy라는 이름의 스프링 빈을 추가로 찾는다. 하지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;를 찾는 용도로만 사용하는것이 명확하고 좋다.&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;@Qualifier 정리&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;끼리 매칭&lt;/li&gt;
+  &lt;li&gt;빈 이름 매칭&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NoSuchBeanDefinitionException&lt;/code&gt; 예외 발생&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;primary&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;는 &lt;strong&gt;우선순위&lt;/strong&gt;를 정하는 방법이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;시에 여러 빈이 매칭되면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;가 우선권을 가진다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Primary&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// @Primary를 사용하여 RateDiscountPolicy가 우선권을 갖는다.&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RateDiscountPolicy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FixDiscountPolicy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;@Primary를 이용한 생성자, setter 자동 주입 예시&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//생성자 자동 주입&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OrderServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MemberRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;memberRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;discountPolicy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//setter 자동 주입&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setDiscountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;를 이용하여 생성자 자동 주입과 setter 자동주입을 해보면 문제 없이 잘 동작하는 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;@Primary, @Qualifier 활용&lt;/strong&gt;&lt;br /&gt;
+코드에서 자주 사용하는 메인 데이터베이스의 커넥션을 획득하는 스프링 빈이 있고, 코드에서 특별한 기능으로 가끔 사용하는 서브 데이터베이스의 커넥션을 획득하는 스프링 빈이 있다고 생각해보자. 메인 데이터베이스의 커넥션을 획득하는 스프링 빈은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;를 적용해서 조회하는 곳에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt; 지정 없이 편리하게 조회하고, 서브 데이터베이스 커넥션 빈을 획득할 때는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;를 지정해서 명시적으로 획득 하는 방식으로 사용하면 코드를 깔끔하게 유지할 수 있다. 물론 이때 메인 데이터베이스의 스프링 빈을 등록할 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;를 지정해주는 것은 상관없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;우선순위&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;는 &lt;strong&gt;기본값 처럼 동작&lt;/strong&gt;하는 것이고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;는 &lt;strong&gt;매우 상세하게 동작&lt;/strong&gt;한다.&lt;br /&gt;
+스프링은 &lt;strong&gt;자동보다는 수동&lt;/strong&gt;이, &lt;strong&gt;넒은 범위의 선택권 보다는 좁은 범위&lt;/strong&gt;의 선택권이 우선 순위가 높다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Primary&lt;/code&gt;보다 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt;가 우선권이 &lt;strong&gt;높다.&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 06 Nov 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/spring/bean-error/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/spring/bean-error/</guid>
         
         <category>2021년 11월</category>
         
@@ -1103,239 +1272,6 @@
         
         
         <category>network</category>
-        
-      </item>
-    
-      <item>
-        <title>쿠버네티스(Kubernetes)</title>
-        <description>&lt;p&gt;&lt;strong&gt;컨테이너 인프라 환경이란 리눅스 운영 체제의 커널 하나에서 여러 개의 컨테이너가 격리된 상태로 실행되는 인프라 환경을 말한다&lt;/strong&gt;. 여기서 컨테이너는 하나 이상의 목적을 위해 독립적으로 작동하는 프로세스를 뜻한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;컨테이너-오케스트레이션&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;컨테이너 오케스트레이션&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;실제로 쿠버네스트는 컨테이너 오케스트레이션을 위한 솔루션으로, &lt;strong&gt;오케스트레이션이란 복잡한 단계를 관리하고 요소들의 유기적인 관계를 미리 정의해 손쉽게 사용하도록 서비스를 제공하는 것을 뜻한다&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;다수의 컨테이너를 유기적으로 연결, 실행, 종료할 뿐만 아니라 상태를 추적하고 보존하는 등 컨테이너를 안정적으로 사용할 수 있게 만들어주는 것이 컨테이너 오케스트레이션이다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;도커-스웜docker-swarm&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;도커 스웜(Docker Swarm)&lt;/span&gt;&lt;/h6&gt;
-&lt;p&gt;간단하게 설치할 수 있고 사용하기도 용이하다. 그러나 그만큼 기능이 다양하지 않아 대규모 환경에 적용하려면 사용자 환경을 변경해야 할 수 있다. 그리하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;소규모 환경에서는 유용하지만, 대규모 환경에서는 잘 사용하지 않는다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;메소스mesos&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;메소스(Mesos)&lt;/span&gt;&lt;/h6&gt;
-&lt;p&gt;아파치의 오픈 소스 프로젝트로 역사와 전통이 있는 클러스터 도구이며 다양한 곳에서 충분히 검증된 솔루션이다. 메소스는 매우 간결하지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;기능을 충분히 활용하려면 분산 관리 시스탬과 연동해야 하기 때문에 여러가지 솔루션을 유기적으로 구성해야 하는 부담이 있다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;노매드nomad&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;노매드(Nomad)&lt;/span&gt;&lt;/h6&gt;
-&lt;p&gt;베어그런트를 만든 해시코프사의 컨테이너 오케스트레이션으로, 베이그런트처럼 간단한 구성으로 컨테이너 오케스트레이션 환경을 제공한다. 하지만 도커 스웜과 마찬가지로 기능이 부족하므로 복잡하게 여러 기능을 사용하는 환경이 아닌 가볍고 간단한 기능만 필요한 환경에서 사용하는 것이 좋다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;쿠버네티스kubernetes&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;쿠버네티스(Kubernetes)&lt;/span&gt;&lt;/h6&gt;
-&lt;p&gt;다른 오케스트레이션 솔루션보다는 시작하는 데 어려움이 있지만, 쉽게 사용할 수 있도록 도와주는 도구들이 있어서 설치가 쉬워지는 추세이다. 또 다양한 형태의 쿠버네티스가 지속적으로 계속 발전되고 있어 컨테이너 오케스트레이션을 넘어 IT 인프라 자체를 컨테이너화하고, 컨테이너화된 인프라 제품군을 쿠버네티스 위에서 동작할 수 있게 만든다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;컨테이너 오케스트레이션 솔루션 비교&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;구분&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;도커 스윔&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;메소스&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;노매드&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;쿠버네티스&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;설치 난이도&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;쉬움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;쉬움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;사용 편의성&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;좋음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;세부 설정 지원&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;거의 없음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;있음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;거의 없음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;다양하게 있음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;안정성&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 안정적임&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;안정적임&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;안정적엄&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 안정적임&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;확장성&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 잘 됨&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 잘 됨&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;정보량&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;많음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;적음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;적음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 많음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;에코 파트너&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;없음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;거의 없음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;있음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 많음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;학습 곡선&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;쉬움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;쿠버네티스-구성-방법&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;쿠버네티스 구성 방법&lt;/span&gt;&lt;/h6&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;퍼블릭 클라우드 업체에서 제공하는 &lt;strong&gt;관리형 쿠버네티스&lt;/strong&gt;인 EKS, AKS, GKE 등을 사용한다. 구성이 이미 갖춰져 있고 마스터 노드를 크라우드 업체에서 관리함으로 학습용으로는 부적합하다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;수세의 Rancher, 레드햇의 OpenShift와 같은 플랫폼에서 제공하는 &lt;strong&gt;설치형 쿠버네티스&lt;/strong&gt;를 사용한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;허나 유료다.&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;사용하는 시스템에 쿠버네티스 클러스터를 &lt;strong&gt;자동으로 구성해주는 솔루션을 사용&lt;/strong&gt;한다. 주요 솔루션으로는 kubeadm, kops, KBIB, kubespray가 있다. 이 중 kubeadm이 가장 잘 알려져 있고, 사용자가 변경하기도 수월하며, 온프레미스와 클라우드를 모두 지원한다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;쿠버네티스 클러스터 구성 솔루션 비교&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;구분&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;도커 스윔&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;메소스&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;노매드&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;쿠버네티스&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;정보량&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;적음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;많음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;많음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 많음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;세부 설정 변경&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;가능함&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;가능함&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;제한적으로 가능함&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;다양함&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;사전 요구 조건&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;적음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;적음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;적음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 적음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;온프레미스 지원&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;안됨&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 좋음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;클라우드 지원&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;안 됨&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;좋음&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;좋음&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;학습 곡선&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;매우 어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;쉬움&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;어려움&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;자동화 기능&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;제공됨&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;제공됨&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;쉽게 제공됨&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;제한적으로 제공됨&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h6 id=&quot;파드를-배포할-때&quot;&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;파드를 배포할 때&lt;/span&gt;&lt;/h6&gt;
-&lt;p&gt;쿠버네스트의 구성 요소의 유기적인 연결관계를 그림으로 표현하면 다음과 같다.&lt;br /&gt;
-그림에 표시된 숫자는 실제로 관리자나 개발자가 파드 배포 명령을 수행했을 때 실행되는 순서다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/kubernetes1.jpeg&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 style=&quot;color:MediumSlateBlue&quot;&gt;마스터 노드&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;⓪. kubectl&lt;/strong&gt; : 쿠버네티스 클러스터에 명령을 내리는 역할을 한다. 다른 구성 요소들과 다르게 바로 실행되는 명령 형태인 바이너리(binary)로 배포되기 때문에 마스터 노드에 있을 필요는 없다. 허나, 통상적으로 API 서버와 주로 통신하므로 마스터 노드에 구성하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;①. API 서버&lt;/strong&gt; : 쿠버네티스 클러스터의 중심 역할을 하는 통로이다. 주로 상태 값을 저장하는 etcd와 통신하지만, 그 밖의 요소들 또한 API 서버를 중심에 두고 통신하므로 API 서버의 역할이 매우 중요하다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;②. etcd&lt;/strong&gt; : 구성 요소들의 상태 값이 모두 저장되는 곳이다. 회사의 관리자가 모든 보고 내용을 기록하는 노트라고 생각하면 된다. 실제로 etcd 외의 다른 구성 요소는 상태 값을 관리하지 않는다. 그러므로 etcd의 정보만 백업되어 있다면 장애 상황에서도 쿠버네티스 클러스터는 복구할 수 있다. 또한 etcd는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;분산 저장이 가능한 key-value 저장소&lt;/code&gt;이므로, 복제해 여러 곳에 저장해 두면 하나의 etcd에서 장애가 나더라도 시스템의 가용성을 확보할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;③. 컨트롤러 매니저&lt;/strong&gt; : 컨트롤러 매니저는 쿠버네티스 클러스터의 오브젝트 상태를 관리한다. 예를 들어 워커 노드에서 통신이 되지 않는 경우, 상태 체크와 복구는 컨트롤러 매니어제 속한 노드 컨트롤러에서 이뤄진다. 다양한 상태 값을 관리하는 주체들이 컨트롤러 매니저에 소속되어 각자의 역할을 수행한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;④. 스케줄러&lt;/strong&gt; : 노드의 상태와 자원, 레이블, 요구 조건 등을 고려해 파드를 어떤 워커 노드에 생성할 것인지를 결정하고 할당한다. 스케줄러라는 이름에 맞게 파드를 조건에 맞는 워커 노드에 지정하고, 파드가 워커 노드에 할당되는 일정을 관리한다.&lt;/p&gt;
-
-&lt;h4 style=&quot;color:MediumSlateBlue&quot;&gt;워커 노드&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;⑤. kubelet&lt;/strong&gt; : 파드의 구성 내용(PodSpec)을 받아서 컨테이너 런타임으로 전달하고, 파드 안의 컨테이너들이 정상적으로 작동하는지 모니터링 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⑥. 컨테이너 런타임(CRI)&lt;/strong&gt; : 파드를 이루는 컨테이너의 실행을 담당한다. 파드 안에서 다양한 종류의 컨테이너가 문제 없이 작동하게 만드는 표준 인터페이스이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⑦. 파드(Pod)&lt;/strong&gt; : 한 개 이상의 컨테이너로 단일 목적의 일을 하기 위해서 모인 단위이다. 즉, 웹서버 역할을 할 수도 있고 로그나 데이터를 분석할 수도 있다. 중요한 것은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;파드는 언제라도 죽을 수 있는 존재라는 점&lt;/code&gt;이다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DarkOrange&quot;&gt;reference&lt;/span&gt;&lt;br /&gt;
-조훈·심근우·문성주 (2021). 컨테이너 인프라 환경 구축을 위한 쿠버네티스/도커. 길벗&lt;/p&gt;
-</description>
-        <pubDate>Tue, 12 Oct 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/docker-kubernetes/kuberbetes/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/docker-kubernetes/kuberbetes/</guid>
-        
-        <category>2021년 10월</category>
-        
-        
-        <category>Docker-Kubernetes</category>
         
       </item>
     
