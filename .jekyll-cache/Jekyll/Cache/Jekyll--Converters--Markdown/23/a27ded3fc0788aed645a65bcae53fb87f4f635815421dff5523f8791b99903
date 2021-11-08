@@ -1,0 +1,6 @@
+I"l<h2 id="웹-스코프web-scope의-특징"><span style="color:MediumSeaGreen">웹 스코프(Web Scope)의 특징</span></h2>
+<ul>
+  <li>웹 스코프는 웹 환경에서만 동작한다.</li>
+  <li>웹 스코프는 프로토타입과 다르게 스프링이 해당 스코프의 종료시점까지 관리한다. 따라서 종료 메서드가 호출된다.</li>
+</ul>
+:ET

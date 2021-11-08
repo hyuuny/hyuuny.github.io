@@ -515,7 +515,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/spring/dependency-injection/" rel="permalink">의존성 주입(Dependency Injection)
+        <a href="/spring/web-scope/" rel="permalink">웹 스코프(Web Scope)
 </a>
       
     </h2>
@@ -533,19 +533,17 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          최대 1 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">DI는 디자인 패턴으로 크게 다음과 같이 4가지 방법이 있다.
+    <p class="archive__item-excerpt" itemprop="description">웹 스코프(Web Scope)의 특징
 
-  생성자 주입
-  setter 주입
-  필드 주입(@Autowired)
-  일반 메서드 주입
+  웹 스코프는 웹 환경에서만 동작한다.
+  웹 스코프는 프로토타입과 다르게 스프링이 해당 스코프의 종료시점까지 관리한다. 따라서 종료 메서드가 호출된다.
 
 </p>
   </article>
@@ -601,6 +599,52 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
+        <a href="/spring/dependency-injection/" rel="permalink">의존성 주입(Dependency Injection)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">DI는 디자인 패턴으로 크게 다음과 같이 4가지 방법이 있다.
+
+  생성자 주입
+  setter 주입
+  필드 주입(@Autowired)
+  일반 메서드 주입
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
         <a href="/spring/component-scan/" rel="permalink">컴포넌트 스캔(@ComponentScan)
 </a>
       
@@ -628,51 +672,6 @@
 
     <p class="archive__item-excerpt" itemprop="description">스프링은 설정 정보가 없어도 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능을 제공한다. 또 의존 관계도 자동으로 주입하는 @Autowired도 제공한다.
 </p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/spring/sington/" rel="permalink">Singleton, SingletonContainer
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">싱글톤(Sigleton)
-
-  클래스의 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴이다.
-  객체 인스턴스를 2개 이상 생성하지 못하도록 막아야 한다.
-    
-      private 생성자를 사용해서 외부에서 임의로 new 키워드를 사용하지 못하도록 막아야 한다.
-...</p>
   </article>
 </div>
 

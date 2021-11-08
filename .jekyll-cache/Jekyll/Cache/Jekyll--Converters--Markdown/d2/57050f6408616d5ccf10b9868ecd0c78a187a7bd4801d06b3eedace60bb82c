@@ -1,2 +1,0 @@
-I"�<p><code class="language-plaintext highlighter-rouge">@Autowired</code>는 타입(Type)으로 조회한다. 이때 선택된 빈이 <strong>2개 이상</strong>일 때 문제가 발생한다.</p>
-:ET
