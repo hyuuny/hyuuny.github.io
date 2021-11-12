@@ -1,0 +1,14 @@
+I"f<p>동시에 여러 HTTP 요청이 오면 정확히 어떤 요청이 남긴 로그인지 구분하기 어렵다.
+이럴때 사용하기 좋은것이 바로 request 스코프이다.</p>
+
+<p>request 스코프를 이용해서 다음과 같은 로그를 남겨보자.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1085cefa-e6ae-4c2e-b639-c3750fd58945] request scope bean create : hello.core.common.MyLogger@32d1aada
+[1085cefa-e6ae-4c2e-b639-c3750fd58945] [http://localhost:8080/log-demo] controller test
+[1085cefa-e6ae-4c2e-b639-c3750fd58945] [http://localhost:8080/log-demo] service id : testId
+[1085cefa-e6ae-4c2e-b639-c3750fd58945] request scope bean close : hello.core.common.MyLogger@32d1aada
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>로그를 출력하기 위한 <strong>MyLogger</strong> 클래스</p>
+:ET

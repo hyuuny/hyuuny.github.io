@@ -1,0 +1,158 @@
+I"�9<p>동시에 여러 HTTP 요청이 오면 정확히 어떤 요청이 남긴 로그인지 구분하기 어렵다.
+이럴때 사용하기 좋은것이 바로 request 스코프이다.</p>
+
+<p>request 스코프를 이용해서 다음과 같은 로그를 남겨보자.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1085cefa-e6ae-4c2e-b639-c3750fd58945] request scope bean create : hello.core.common.MyLogger@32d1aada
+[1085cefa-e6ae-4c2e-b639-c3750fd58945] [http://localhost:8080/log-demo] controller test
+[1085cefa-e6ae-4c2e-b639-c3750fd58945] [http://localhost:8080/log-demo] service id : testId
+[1085cefa-e6ae-4c2e-b639-c3750fd58945] request scope bean close : hello.core.common.MyLogger@32d1aada
+</code></pre></div></div>
+
+<p><br /></p>
+
+<hr />
+
+<h2 id="로그를-출력하기-위한-mylogger"><span style="color:MediumSeaGreen">로그를 출력하기 위한 <strong>MyLogger</strong></span></h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Scope</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"request"</span><span class="o">,</span> <span class="n">proxyMode</span> <span class="o">=</span> <span class="nc">ScopedProxyMode</span><span class="o">.</span><span class="na">TARGET_CLASS</span><span class="o">)</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyLogger</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">uuid</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">requestURL</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRequestURL</span><span class="o">(</span><span class="nc">String</span> <span class="n">requestURL</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">requestURL</span> <span class="o">=</span> <span class="n">requestURL</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">log</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">uuid</span> <span class="o">+</span> <span class="s">"] "</span> <span class="o">+</span> <span class="s">"["</span> <span class="o">+</span> <span class="n">requestURL</span> <span class="o">+</span> <span class="s">"] "</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@PostConstruct</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">uuid</span> <span class="o">+</span> <span class="s">"] "</span> <span class="o">+</span> <span class="s">"request scope bean create : "</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@PreDestroy</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">uuid</span> <span class="o">+</span> <span class="s">"] "</span> <span class="o">+</span> <span class="s">"request scope bean close : "</span> <span class="o">+</span> <span class="k">this</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Scope(value = "request")</code>를 사용해서 request 스코프로 지정했다. 이제 이 빈은 <strong>HTTP 요청 당 하나씩 생성되고, HTTP 요청이 끝나는 시점에 소멸</strong>된다.</li>
+  <li>이 빈이 생성되는 시점에 자동으로 <code class="language-plaintext highlighter-rouge">@PostConstruct</code> 초기화 메서드를 사용해서 uuid를 생성해서 저장해둔다. 이 빈은 HTTP 요청 당 하나씩 생성되므로, uuid를 저장해두면 다른 HTTP 요청과 구분할 수 있다.</li>
+  <li>이 빈이 소멸되는 시점에 <code class="language-plaintext highlighter-rouge">@PreDestroy</code>를 사용해서 종료 메시지를 남긴다.</li>
+  <li>requestURL은 이 빈이 생성되는 시점에는 알 수 없으므로, 외부에서 setter로 입력 받는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">proxyMode = ScopedProxyMode.TARGET_CLASS</code>를 추가해주자.
+    <ul>
+      <li>적용 대상이 인터페이스가 아닌 클래스면 <code class="language-plaintext highlighter-rouge">TARGET_CLASS</code>를 선택</li>
+      <li>적용 대상이 인터페이스면 <code class="language-plaintext highlighter-rouge">INTERFACES</code>를 선택</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="mylogger-작동을-확인하기-위한-logdemocontroller"><span style="color:MediumSeaGreen">MyLogger 작동을 확인하기 위한 <strong>LogDemoController</strong></span></h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Controller</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogDemoController</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">LogDemoService</span> <span class="n">logDemoService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MyLogger</span> <span class="n">myLogger</span><span class="o">;</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"log-demo"</span><span class="o">)</span>
+  <span class="nd">@ResponseBody</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">logDemo</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">requestURL</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestURL</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"myLogger = "</span> <span class="o">+</span> <span class="n">myLogger</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+    <span class="n">myLogger</span><span class="o">.</span><span class="na">setRequestURL</span><span class="o">(</span><span class="n">requestURL</span><span class="o">);</span>
+
+    <span class="n">myLogger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">"controller test"</span><span class="o">);</span>
+    <span class="n">logDemoService</span><span class="o">.</span><span class="na">logic</span><span class="o">(</span><span class="s">"testId"</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="s">"OK"</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>HttpServletRequest를 통해서 요청 URL을 받았다.
+    <ul>
+      <li>requestURL 값 http://localhost:8080/log-demo</li>
+    </ul>
+  </li>
+  <li>이렇게 받은 requestURL 값을 myLogger에 저장해둔다. myLogger는 HTTP 요청 당 각각 구분되므로 다른 HTTP 요청 때문에 값이 섞이는 걱정은 하지 않아도 된다.</li>
+  <li>컨트롤러에서 controller test라는 로그를 남긴다.</li>
+</ul>
+
+<blockquote>
+  <blockquote>
+    <p>requestURL을 MyLogger에 저장하는 부분은 컨트롤러 보다는 <strong>공통 처리가 가능</strong>한 스프링 인터셉터나 서블릿 필터 같은 곳을 활용하는 것이 좋다.</p>
+  </blockquote>
+</blockquote>
+
+<hr />
+
+<h2 id="비지니스-로직을-처리하는-logdemoservice"><span style="color:MediumSeaGreen">비지니스 로직을 처리하는 <strong>LogDemoService</strong></span></h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RequiredArgsConstructor</span>
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogDemoService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MyLogger</span> <span class="n">myLogger</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">logic</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">myLogger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">"service id : "</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>request scope를 사용하지 않고 파라미터로 이 모든 정보를 서비스 계층에 넘긴다면, 파라미터가 많아서 지저분해진다. 더 문제는 requestURL 같은 <strong>웹과 관련된 정보가 웹과 관련없는 서비스 계층까지 넘어가게 된다.</strong> 웹과 관련된 부분은 컨트롤러까지만 사용해야 한다.
+    <ul>
+      <li>서비스 계층은 웹 기술에 종속되지 않고, 가급적 순수하게 유지하는 것이 유지보수 관점에서 좋다.</li>
+    </ul>
+  </li>
+  <li>request scope의 MyLogger 덕분에 이런 부분을 파라미터로 넘기지 않고, MyLogger의 멤버변수에 저장해서 코드와 계층을 깔끔하게 유지할 수 있다.</li>
+</ul>
+
+<hr />
+
+<h2 id="로그를-출력하기-위한-mylogger-1"><span style="color:MediumSeaGreen">로그를 출력하기 위한 <strong>MyLogger</strong></span></h2>
+<p><strong>myLogger 출력 결과</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myLogger</span> <span class="o">=</span> <span class="kd">class</span> <span class="nc">hello</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">common</span><span class="o">.</span><span class="na">MyLogger</span><span class="err">$</span><span class="n">$EnhancerBySpringCGLIB</span><span class="err">$</span><span class="n">$b68b726d</span>
+</code></pre></div></div>
+<ul>
+  <li><strong>CGLIB라는 라이브러리</strong>로 내 클래스를 상속 받은 가짜 프록시 객체를 만들어서 주입한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">@Scope</code>의 <code class="language-plaintext highlighter-rouge">proxyMode = ScopedProxyMode.TARGET_CLASS)</code>를 설정하면 스프링 컨테이너는 CGLIB
+라는 바이트코드를 조작하는 라이브러리를 사용해서, MyLogger를 상속받은 가짜 프록시 객체를 생성한다.</li>
+  <li>결과를 확인해보면 우리가 등록한 순수한 MyLogger 클래스가 아니라 <strong>MyLogger$$EnhancerBySpringCGLIB 이라는 클래스로 만들어진 객체가 대신 등록</strong>된 것을 확인할 수 있다. 그리고 스프링 컨테이너에 “myLogger”라는 이름으로 <strong>진짜 대신에 이 가짜 프록시 객체를 등록</strong>한다.</li>
+  <li>ac.getBean(“myLogger”, MyLogger.class) 로 조회해도 프록시 객체가 조회되는 것을 확인할 수 있다. 의존관계 주입도 이 가짜 프록시 객체가 주입된다.</li>
+</ul>
+
+<p><img src="/assets/images/spring/myLogger-proxy.png" alt="img.png" /></p>
+<ul>
+  <li>가짜 프록시 객체는 요청이 오면 그때 내부에서 진짜 빈을 요청하는 위임 로직이 들어있다.</li>
+  <li>클라이언트가 myLogger.logic()을 호출하면 사실은 가짜 프록시 객체의 메서드를 호출한 것이다. 가짜 프록시 객체는 request 스코프의 진짜 myLogger.logic() 를 호출한다.</li>
+  <li>가짜 프록시 객체는 원본 클래스를 상속 받아서 만들어졌기 때문에 이 객체를 사용하는 클라이언트 입장에서는 사실 원본인지 아닌지도 모르게, 동일하게 사용할 수 있다(다형성)</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>동작 원리</strong></p>
+<ul>
+  <li>CGLIB라는 라이브러리로 내 클래스를 상속 받은 가짜 프록시 객체를 만들어서 주입한다.</li>
+  <li>이 가짜 프록시 객체는 실제 요청이 오면 그때 내부에서 실제 빈을 요청하는 위임 로직이 들어있다. 가짜 프록시 객체는 실제 request scope와는 관계가 없다. 그냥 가짜이고, 내부에 단순한 위임 로직만 있고, 싱글톤 처럼 동작한다.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>특징 요약</strong>
+프록시 객체 덕분에 클라이언트는 마치 싱글톤 빈을 사용하듯이 편리하게 request scope를 사용할 수 있다.
+사실 Provider를 사용하든, 프록시를 사용하든 핵심 아이디어는 진짜 객체 조회를 꼭 필요한 시점까지 지연처리 한다는 점이다.
+단지 애노테이션 설정 변경만으로 원본 객체를 프록시 객체로 대체할 수 있다. 이것이 바로 다형성과 DI 컨테이너가 가진 큰 강점이다.
+꼭 웹 스코프가 아니어도 프록시는 사용할 수 있다.</p>
+:ET
