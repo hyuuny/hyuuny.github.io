@@ -196,4 +196,10 @@ var store = [{
         "tags": ["2021년 11월"],
         "url": "/spring/web-scope/",
         "teaser": null
+      },{
+        "title": "Web Scope - request 예제",
+        "excerpt":"동시에 여러 HTTP 요청이 오면 정확히 어떤 요청이 남긴 로그인지 구분하기 어렵다. 이럴때 사용하기 좋은것이 바로 request 스코프이다. request 스코프를 이용해서 다음과 같은 로그를 남겨보자. [1085cefa-e6ae-4c2e-b639-c3750fd58945] request scope bean create : hello.core.common.MyLogger@32d1aada [1085cefa-e6ae-4c2e-b639-c3750fd58945] [http://localhost:8080/log-demo] controller test [1085cefa-e6ae-4c2e-b639-c3750fd58945] [http://localhost:8080/log-demo] service id : testId [1085cefa-e6ae-4c2e-b639-c3750fd58945] request scope bean close : hello.core.common.MyLogger@32d1aada 로그를...","categories": ["spring"],
+        "tags": ["2021년 11월"],
+        "url": "/spring/request-exam/",
+        "teaser": null
       }]
