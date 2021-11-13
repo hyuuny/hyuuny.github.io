@@ -1,0 +1,184 @@
+I"�?<p>스프링은 기본적인 메시지 관리 기능을 제공한다.<br />
+메시지 관리 기능을 사용하려면 스프링이 제공하는 <code class="language-plaintext highlighter-rouge">MessageSource</code>를 스프링 빈으로 등록하면 되는데, <code class="language-plaintext highlighter-rouge">MessageSource는 인터페이스</code>이다.<br />
+따라서 <strong>구현체인 ResourceBundleMessageSource 를 스프링 빈으로 등록</strong>하면 된다.</p>
+
+<h2 id="스프링-메시지-소스-직접-등록"><span style="color:MediumSeaGreen">스프링 메시지 소스 직접 등록</span></h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">MessageSource</span> <span class="nf">messageSource</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nc">ResourceBundleMessageSource</span> <span class="n">messageSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ResourceBundleMessageSource</span><span class="o">();</span>
+	<span class="n">messageSource</span><span class="o">.</span><span class="na">setBasenames</span><span class="o">(</span><span class="s">"messages"</span><span class="o">,</span> <span class="s">"errors"</span><span class="o">);</span>
+	<span class="n">messageSource</span><span class="o">.</span><span class="na">setDefaultEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
+	<span class="k">return</span> <span class="n">messageSource</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">basenames</code> : 설정 파일의 이름을 지정한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">messages</code>로 지정하면 <code class="language-plaintext highlighter-rouge">messages.properties</code>파일을 읽어서 사용한다.</li>
+      <li>추가로 국제화 기능을 적용하려면 <code class="language-plaintext highlighter-rouge">messages_en.properties</code>, <code class="language-plaintext highlighter-rouge">messages_ko.properties</code>와 같이 파일명 마지막에 언어 정보를 주면된다. 만약 찾을 수 있는 국제화 파일이 없으면 <code class="language-plaintext highlighter-rouge">messages.properties</code>(언어정보가 없는 파일명)를 기본으로 사용한다.</li>
+      <li>파일의 위치는 <code class="language-plaintext highlighter-rouge">/resources/messages.properties</code>에 두면 된다.</li>
+      <li>여러 파일을 한번에 지정할 수 있다. 위에서는 <code class="language-plaintext highlighter-rouge">messages</code>, <code class="language-plaintext highlighter-rouge">errors</code> 둘을 지정했다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">defaultEncoding</code> : 인코딩 정보를 지정한다. <code class="language-plaintext highlighter-rouge">utf-8</code>을 사용하면 된다.<br />
+<br /></li>
+</ul>
+
+<p style="color:Red">스프링 부트를 사용하면 MessageSource를 자동으로 스프링 빈으로 등록한다.(직접 등록 안 해도 됨.)</p>
+
+<hr />
+
+<h2 id="스프링부트-메시지-소스-사용하기"><span style="color:MediumSeaGreen">스프링부트 메시지 소스 사용하기</span></h2>
+<p>스프링 부트를 사용하면 <code class="language-plaintext highlighter-rouge">application.properties</code>파일에 메시지 소스를 설정할 수 있다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spring</span><span class="o">.</span><span class="na">messages</span><span class="o">.</span><span class="na">basename</span><span class="o">=</span><span class="n">messages</span><span class="o">,</span><span class="n">config</span><span class="o">.</span><span class="na">i18n</span><span class="o">.</span><span class="na">messages</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>스프링 부트 메시지 소스 기본 값</strong><br />
+<code class="language-plaintext highlighter-rouge">spring.messages.basename=messages</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">MessageSource</code>를 스프링 빈으로 등록하지 않고, 스프링 부트와 관련된 별도의 설정을 하지 않으면 <code class="language-plaintext highlighter-rouge">messages</code>라는 이름으로 <strong>기본 등록</strong>된다.<br />
+따라서 <code class="language-plaintext highlighter-rouge">messages_en.properties</code>, <code class="language-plaintext highlighter-rouge">messages_ko.properties</code>, <code class="language-plaintext highlighter-rouge">messages.properties</code>파일만 등록하면 자동으로 인식된다.</p>
+
+<hr />
+
+<h2 id="메시지-파일-만들기"><span style="color:MediumSeaGreen">메시지 파일 만들기</span></h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">messages.properties</code> : 기본 값으로 사용(한글)</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">messages_en.properties</code> : 영어 국제화 사용</p>
+  </li>
+  <li><strong>파일명은 massage가 아니라 messages다. 마지막 s에 주의하자</strong>
+<code class="language-plaintext highlighter-rouge">/resources/messages.properties</code></li>
+</ul>
+
+<p><strong>messages.properties</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hello</span><span class="o">=</span><span class="n">안녕</span>
+<span class="n">hello</span><span class="o">.</span><span class="na">name</span><span class="o">=</span><span class="n">안녕</span> <span class="o">{</span><span class="mi">0</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>messages_en.properties</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hello</span><span class="o">=</span><span class="n">hello</span>
+<span class="n">hello</span><span class="o">.</span><span class="na">name</span><span class="o">=</span><span class="n">hello</span> <span class="o">{</span><span class="mi">0</span><span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="스프링-메시지-소스-사용"><span style="color:MediumSeaGreen">스프링 메시지 소스 사용</span></h2>
+
+<p><strong>MessageSource 인터페이스</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MessageSource</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">getMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">code</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="nc">String</span> <span class="n">defaultMessage</span> <span class="nc">Locale</span> <span class="n">locale</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="nf">getMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">code</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> <span class="nc">Locale</span> <span class="n">locale</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">NoSuchMessageException</span><span class="o">;</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">MessgaeSource</code>인터페이스를 보면 코드를 포함한 일부 파라미터로 메시지를 읽어오는 기능을 제공한다.</p>
+
+<p><br /></p>
+
+<p><strong>메시지 소스 테스트 코드</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.itemservice.message</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">AssertionsForInterfaceTypes</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.MessageSource</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MessageSourceTest</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="nc">MessageSource</span> <span class="n">messageSource</span><span class="o">;</span> <span class="c1">// 스프링부트 자동 등록</span>
+
+  <span class="nd">@Test</span>
+  <span class="kt">void</span> <span class="nf">helloMessage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">messageSource</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"안녕"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><strong>테스트 결과</strong>
+<img src="/assets/images/spring/messages1.png" alt="img.png" /></p>
+
+<ul>
+  <li>ms.getMessage(“hello”, null, null)
+    <ul>
+      <li>code: hello</li>
+      <li>args: null</li>
+      <li>locale: null</li>
+    </ul>
+  </li>
+</ul>
+
+<p>테스트는 메시지 코드로 hello를 입력하고 나머지 값은 null을 입력했다.<br />
+<code class="language-plaintext highlighter-rouge">locale</code>정보가 없으면 <code class="language-plaintext highlighter-rouge">basename</code>에서 설정한 기본 이름 메시지 파일을 조회한다.<br />
+<code class="language-plaintext highlighter-rouge">basename</code>으로 <code class="language-plaintext highlighter-rouge">messages</code>를 지정 했으므로 <code class="language-plaintext highlighter-rouge">messages.properties</code>파일에서 데이터를 조회한다.</p>
+
+<p><br /></p>
+
+<p><strong>메시지 소스 테스트 코드(매개변수 사용)</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">argumentMessage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">messageSource</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">"hello.name"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">[]{</span><span class="s">"Spring"</span><span class="o">},</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"안녕 Spring"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>테스트 결과</strong>
+<img src="/assets/images/spring/messages2.png" alt="img.png" /></p>
+
+<ul>
+  <li>다음 메시지의 {0} 부분은 매개변수를 전달해서 치환할 수 있다.</li>
+  <li>hello.name=안녕 -&gt; {0} Spring 단어를 매개변수로 전달 -&gt; 안녕 Spring</li>
+</ul>
+
+<hr />
+
+<h2 id="국제화"><span style="color:MediumSeaGreen">국제화</span></h2>
+<ul>
+  <li>locale정보를 기반으로 국제화 파일을 선택한다.</li>
+  <li>Locale이 <code class="language-plaintext highlighter-rouge">en_US</code>의 경우 <code class="language-plaintext highlighter-rouge">messages_en_US</code> -&gt; <code class="language-plaintext highlighter-rouge">messages_en</code> -&gt; <code class="language-plaintext highlighter-rouge">messages</code> 순서로 찾는다.</li>
+  <li>Locale에 맞추어 구체적인 것이 있으면 구체적인 것을 찾고, 없으면 디폴트를 찾는다.<br />
+<br /></li>
+</ul>
+
+<p><strong>Default 국제화 테스트 코드</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">defaultLang</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">messageSource</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"안녕"</span><span class="o">);</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">messageSource</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nc">Locale</span><span class="o">.</span><span class="na">KOREA</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"안녕"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>테스트 결과</strong>
+<img src="/assets/images/spring/messages3.png" alt="img.png" /></p>
+
+<ul>
+  <li>ms.getMessage(“hello”, null, null) : <strong>locale 정보가 없으므로 messages를 사용</strong></li>
+  <li>ms.getMessage(“hello”, null, Locale.KOREA) : locale 정보가 있지만, message_ko가 없으므로 messages 를 사용</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>en 국제화 테스트 코드</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">enLang</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">ms</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nc">Locale</span><span class="o">.</span><span class="na">ENGLISH</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>테스트 결과</strong>
+<img src="/assets/images/spring/messages4.png" alt="img.png" /></p>
+
+<ul>
+  <li>ms.getMessage(“hello”, null, Locale.ENGLISH) : locale 정보가 <code class="language-plaintext highlighter-rouge">Locale.ENGLISH</code>이므로 <code class="language-plaintext highlighter-rouge">messages_en</code>을 찾아서 사용</li>
+</ul>
+
+:ET

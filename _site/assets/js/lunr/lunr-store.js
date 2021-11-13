@@ -202,4 +202,10 @@ var store = [{
         "tags": ["2021년 11월"],
         "url": "/spring/request-exam/",
         "teaser": null
+      },{
+        "title": "스프링 메시지 소스 & 국제화",
+        "excerpt":"스프링은 기본적인 메시지 관리 기능을 제공한다. 메시지 관리 기능을 사용하려면 스프링이 제공하는 MessageSource를 스프링 빈으로 등록하면 되는데, MessageSource는 인터페이스이다. 따라서 구현체인 ResourceBundleMessageSource 를 스프링 빈으로 등록하면 된다. 스프링 메시지 소스 직접 등록 @Bean public MessageSource messageSource() { ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); messageSource.setBasenames(\"messages\", \"errors\"); messageSource.setDefaultEncoding(\"utf-8\"); return messageSource; } basenames :...","categories": ["spring"],
+        "tags": ["2021년 11월"],
+        "url": "/spring/spring-message/",
+        "teaser": null
       }]

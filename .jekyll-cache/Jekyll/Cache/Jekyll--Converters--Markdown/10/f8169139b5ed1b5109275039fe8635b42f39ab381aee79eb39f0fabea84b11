@@ -1,0 +1,4 @@
+I"�<p>스프링은 기본적인 메시지 관리 기능을 제공한다.<br />
+메시지 관리 기능을 사용하려면 스프링이 제공하는 <code class="language-plaintext highlighter-rouge">MessageSource</code>를 스프링 빈으로 등록하면 되는데, <code class="language-plaintext highlighter-rouge">MessageSource는 인터페이스</code>이다.<br />
+따라서 <strong>구현체인 ResourceBundleMessageSource 를 스프링 빈으로 등록</strong>하면 된다.</p>
+:ET

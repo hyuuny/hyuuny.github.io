@@ -1,0 +1,15 @@
+I"k<p>스프링은 기본적인 메시지 관리 기능을 제공한다.<br />
+메시지 관리 기능을 사용하려면 스프링이 제공하는 <code class="language-plaintext highlighter-rouge">MessageSource</code>를 스프링 빈으로 등록하면 되는데, <strong>MessageSource는 인터페이스</strong>이다.<br />
+따라서 <strong>구현체인 ResourceBundleMessageSource 를 스프링 빈으로 등록</strong>하면 된다.</p>
+
+<h2 id="스프링-메시지-소스-등록"><span style="color:MediumSeaGreen">스프링 메시지 소스 등록</span></h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@Bean</span>
+	<span class="kd">public</span> <span class="nc">MessageSource</span> <span class="nf">messageSource</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">ResourceBundleMessageSource</span> <span class="n">messageSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ResourceBundleMessageSource</span><span class="o">();</span>
+		<span class="n">messageSource</span><span class="o">.</span><span class="na">setBasenames</span><span class="o">(</span><span class="s">"messages"</span><span class="o">,</span> <span class="s">"errors"</span><span class="o">);</span>
+		<span class="n">messageSource</span><span class="o">.</span><span class="na">setDefaultEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">messageSource</span><span class="o">;</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+:ET

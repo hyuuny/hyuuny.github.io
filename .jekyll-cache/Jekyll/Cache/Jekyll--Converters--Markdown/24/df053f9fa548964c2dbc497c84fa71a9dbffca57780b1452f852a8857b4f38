@@ -1,0 +1,45 @@
+I"<p>스프링은 기본적인 메시지 관리 기능을 제공한다.<br />
+메시지 관리 기능을 사용하려면 스프링이 제공하는 <code class="language-plaintext highlighter-rouge">MessageSource</code>를 스프링 빈으로 등록하면 되는데, <code class="language-plaintext highlighter-rouge">MessageSource는 인터페이스</code>이다.<br />
+따라서 <strong>구현체인 ResourceBundleMessageSource 를 스프링 빈으로 등록</strong>하면 된다.</p>
+
+<h2 id="스프링-메시지-소스-직접-등록"><span style="color:MediumSeaGreen">스프링 메시지 소스 직접 등록</span></h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">MessageSource</span> <span class="nf">messageSource</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nc">ResourceBundleMessageSource</span> <span class="n">messageSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ResourceBundleMessageSource</span><span class="o">();</span>
+	<span class="n">messageSource</span><span class="o">.</span><span class="na">setBasenames</span><span class="o">(</span><span class="s">"messages"</span><span class="o">,</span> <span class="s">"errors"</span><span class="o">);</span>
+	<span class="n">messageSource</span><span class="o">.</span><span class="na">setDefaultEncoding</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
+	<span class="k">return</span> <span class="n">messageSource</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">basenames</code> : 설정 파일의 이름을 지정한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">messages</code>로 지정하면 <code class="language-plaintext highlighter-rouge">messages.properties</code>파일을 읽어서 사용한다.</li>
+      <li>추가로 국제화 기능을 적용하려면 <code class="language-plaintext highlighter-rouge">messages_en.properties</code>, <code class="language-plaintext highlighter-rouge">messages_ko.properties</code>와 같이 파일명 마지막에 언어 정보를 주면된다. 만약 찾을 수 있는 국제화 파일이 없으면 <code class="language-plaintext highlighter-rouge">messages.properties</code>(언어정보가 없는 파일명)를 기본으로 사용한다.</li>
+      <li>파일의 위치는 <code class="language-plaintext highlighter-rouge">/resources/messages.properties</code>에 두면 된다.</li>
+      <li>여러 파일을 한번에 지정할 수 있다. 위에서는 <code class="language-plaintext highlighter-rouge">messages</code>, <code class="language-plaintext highlighter-rouge">errors</code> 둘을 지정했다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">defaultEncoding</code> : 인코딩 정보를 지정한다. <code class="language-plaintext highlighter-rouge">utf-8</code>을 사용하면 된다.<br />
+<br /></li>
+</ul>
+
+<p style="color:Red">스프링 부트를 사용하면 MessageSource를 자동으로 스프링 빈으로 등록한다.(직접 등록 안 해도 됨.)</p>
+
+<hr />
+
+<h2 id="스프링부트-메시지-소스-사용하기"><span style="color:MediumSeaGreen">스프링부트 메시지 소스 사용하기</span></h2>
+<p>스프링 부트를 사용하면 <code class="language-plaintext highlighter-rouge">application.properties</code>파일에 메시지 소스를 설정할 수 있다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spring</span><span class="o">.</span><span class="na">messages</span><span class="o">.</span><span class="na">basename</span><span class="o">=</span><span class="n">messages</span><span class="o">,</span><span class="n">config</span><span class="o">.</span><span class="na">i18n</span><span class="o">.</span><span class="na">messages</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>스프링 부트 메시지 소스 기본 값</strong><br />
+<code class="language-plaintext highlighter-rouge">spring.messages.basename=messages</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">MessageSource</code>를 스프링 빈으로 등록하지 않고, 스프링 부트와 관련된 별도의 설정을 하지 않으면 <code class="language-plaintext highlighter-rouge">messages</code>라는 이름으로 기본 등록된다.<br />
+따라서 <code class="language-plaintext highlighter-rouge">messages_en.properties</code>, <code class="language-plaintext highlighter-rouge">messages_ko.properties</code>, <code class="language-plaintext highlighter-rouge">messages.properties</code>파일만 등록하면 자동으로 인식된다.</p>
+
+:ET
