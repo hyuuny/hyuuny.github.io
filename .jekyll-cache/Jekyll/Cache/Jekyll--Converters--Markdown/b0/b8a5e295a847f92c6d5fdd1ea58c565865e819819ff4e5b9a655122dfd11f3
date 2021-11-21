@@ -1,0 +1,11 @@
+I"l<p>Bean Validation은 특정한 구현체가 아니라 Bean Validation 2.0(JSR-380)이라는 기술 표준이다. 쉽게 이야기해서 검증 애노테이션과 여러 인터페이스의 모음이다. 마치 JPA가 표준 기술이고 그 구현체로 하이버네이트가 있는 것과 같다.</p>
+
+<p>Bean Validation을 구현한 기술중에 일반적으로 사용하는 구현체는 하이버네이트 Validator이다. 이름이 하이버네이트가 붙어서 그렇지 ORM과는 관련이 없다.</p>
+
+<p><a href="http://hibernate.org/validator/" target="_blank">하이버네이트 Validator 공식사이트</a></p>
+
+<p><strong>의존관계 추가</strong>
+Bean Validation을 사용하려면 <code class="language-plaintext highlighter-rouge">build.gradle</code>에 의존관계를 추가해야 한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">implementation</span> <span class="err">'</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">boot</span><span class="o">:</span><span class="n">spring</span><span class="o">-</span><span class="n">boot</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">validation</span><span class="err">'</span>
+</code></pre></div></div>
+:ET

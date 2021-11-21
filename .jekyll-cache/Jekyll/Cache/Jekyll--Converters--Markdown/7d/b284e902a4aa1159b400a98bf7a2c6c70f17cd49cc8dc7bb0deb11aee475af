@@ -1,0 +1,59 @@
+I"�<p>Bean Validation은 특정한 구현체가 아니라 Bean Validation 2.0(JSR-380)이라는 기술 표준이다. 쉽게 이야기해서 검증 애노테이션과 여러 인터페이스의 모음이다. 마치 JPA가 표준 기술이고 그 구현체로 하이버네이트가 있는 것과 같다.</p>
+
+<p>Bean Validation을 구현한 기술중에 일반적으로 사용하는 구현체는 하이버네이트 Validator이다. 이름이 하이버네이트가 붙어서 그렇지 ORM과는 관련이 없다.</p>
+
+<p><a href="http://hibernate.org/validator/" target="_blank">하이버네이트 Validator 공식사이트</a></p>
+
+<p><strong>의존관계 추가</strong><br />
+Bean Validation을 사용하려면 <code class="language-plaintext highlighter-rouge">build.gradle</code>에 의존관계를 추가해야 한다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">implementation</span> <span class="err">'</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">boot</span><span class="o">:</span><span class="n">spring</span><span class="o">-</span><span class="n">boot</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">validation</span><span class="err">'</span>
+</code></pre></div></div>
+<ul>
+  <li>의존관계를 추가하면 라이브러리가 추가 된다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">jakarta.validation-api</code> : Bean Validation 인터페이스</li>
+      <li><code class="language-plaintext highlighter-rouge">hibernate-validator</code> : 구현체</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Validator를 검증하기 위한 Item 클래스를 작성해보자.</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+  <span class="nd">@NotBlank</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">itemName</span><span class="o">;</span>
+
+  <span class="nd">@NotNull</span>
+  <span class="nd">@Range</span><span class="o">(</span><span class="n">min</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">,</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">1000000</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">price</span><span class="o">;</span>
+
+  <span class="nd">@NotNull</span>
+  <span class="nd">@Max</span><span class="o">(</span><span class="mi">9999</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">quantity</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@NotBlank</code> : 빈값 + 공백만 있는 경우를 허용하지 않는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">@NotNull</code> : null 을 허용하지 않는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">@Range(min = 1000, max = 1000000)</code> : 범위 안의 값이어야 한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">@Max(9999)</code> : 최대 9999까지만 허용한다.</li>
+</ul>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">javax.validation.constraints.NotNull</code>
+<code class="language-plaintext highlighter-rouge">org.hibernate.validator.constraints.Range</code></p>
+
+  <p><code class="language-plaintext highlighter-rouge">javax.validation</code>으로 시작하면 특정 구현에 관계없이 제공되는 표준 인터페이스이고,
+<code class="language-plaintext highlighter-rouge">org.hibernate.validator</code> 로 시작하면 하이버네이트 <code class="language-plaintext highlighter-rouge">validator</code> 구현체를 사용할 때만 제공되는 검증 기능이다. 실무에서 대부분 하이버네이트 <code class="language-plaintext highlighter-rouge">validator</code>를 사용하므로 자유롭게 사용해도 된다.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>Item 클래스를 사용하여 Validator로 검증해보자.</strong></p>
+:ET
