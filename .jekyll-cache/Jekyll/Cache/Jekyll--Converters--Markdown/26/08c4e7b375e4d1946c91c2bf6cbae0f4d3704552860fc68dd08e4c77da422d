@@ -1,0 +1,18 @@
+I"�<h2 id="비-연결성"><span style="color:MediumSeaGreen">비 연결성</span></h2>
+<ul>
+  <li>HTTP는 기본이 <strong>연결을 유지하지 않는</strong> 모델</li>
+  <li>일반적으로 초 단위 이하의 빠른 속도로 응답한다.</li>
+  <li>서버 자원을 효율적으로 사용할 수 있다.</li>
+  <li>TCP/IP <strong>연결을 매번 새로</strong> 맺어야 한다.
+    <ul>
+      <li>3 way handshake 시간 소요</li>
+    </ul>
+  </li>
+  <li>웹 브라우저로 사이트를 요청하면 HTML 뿐만 아니라, JS, CSS, 이미지 등 수많은 자원을 함께 다운로드
+<img src="/assets/images/http/connectionless10.png" alt="img.png" />
+    <ul>
+      <li>현재는 HTTP 지속 연결로 문제 해결</li>
+    </ul>
+  </li>
+</ul>
+:ET

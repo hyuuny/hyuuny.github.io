@@ -6,9 +6,85 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Nov 2021 22:34:15 +0900</pubDate>
-    <lastBuildDate>Sun, 21 Nov 2021 22:34:15 +0900</lastBuildDate>
+    <pubDate>Thu, 02 Dec 2021 22:56:52 +0900</pubDate>
+    <lastBuildDate>Thu, 02 Dec 2021 22:56:52 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>비 연결성</title>
+        <description>&lt;h2 id=&quot;비-연결성&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;비 연결성&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTTP는 기본이 &lt;strong&gt;연결을 유지하지 않는&lt;/strong&gt; 모델&lt;/li&gt;
+  &lt;li&gt;일반적으로 초 단위 이하의 빠른 속도로 응답한다.&lt;/li&gt;
+  &lt;li&gt;서버 자원을 효율적으로 사용할 수 있다.&lt;/li&gt;
+  &lt;li&gt;TCP/IP &lt;strong&gt;연결을 매번 새로&lt;/strong&gt; 맺어야 한다.
+    &lt;ul&gt;
+      &lt;li&gt;3 way handshake 시간 소요&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;웹 브라우저로 사이트를 요청하면 HTML 뿐만 아니라, JS, CSS, 이미지 등 수많은 자원을 함께 다운로드
+&lt;img src=&quot;/assets/images/http/connectionless10.png&quot; alt=&quot;img.png&quot; /&gt;
+    &lt;ul&gt;
+      &lt;li&gt;현재는 HTTP 지속 연결로 문제 해결&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP/IP는 연결을 유지&lt;/strong&gt;한다.&lt;br /&gt;
+만약 서버가 계속 연결을 유지한다면, 클라이언트가 서버에 요청을 보내지 않아도, 서버는 자원을 지속적으로 소모하게 된다.&lt;br /&gt;
+&lt;img src=&quot;/assets/images/http/connectionless1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless3.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless4.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;서버가 클라이언트의 요청마다 TCP/IP 연결을 맺고, 응답과 동시에 연결을 끊는다면 최소한의 자원으로 유지할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless5.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless6.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless7.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless8.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/connectionless9.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+        <pubDate>Thu, 02 Dec 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/http/connectionless/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/connectionless/</guid>
+        
+        <category>2021년 12월</category>
+        
+        
+        <category>HTTP</category>
+        
+      </item>
     
       <item>
         <title>Bean Validation</title>
@@ -1156,89 +1232,6 @@ but found 2: fixDiscountPolicy,rateDiscountPolicy
         <pubDate>Wed, 27 Oct 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring/sington/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring/sington/</guid>
-        
-        <category>2021년 10월</category>
-        
-        
-        <category>spring</category>
-        
-      </item>
-    
-      <item>
-        <title>IoC, DI, Container</title>
-        <description>&lt;h2 id=&quot;제어의-역전inversion-of-control&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;제어의 역전(Inversion of Control)&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;기존 프로그램은 클라이언트 구현 객체가 스스로 필요한 서버 구현 객체를 생성하고, 연결하고, 실행했다. 한마디로 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다.&lt;/li&gt;
-  &lt;li&gt;AppConfig가 등장한 이후에 구현 객체는 자신의 로직을 실행하는 역할만 담당한다. 프로그램의 제어 흐름은 이제 AppConfig가 가져간다.
-    &lt;ul&gt;
-      &lt;li&gt;예를 들어서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt; 은 필요한 인터페이스들(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;repository&lt;/code&gt;와 같은)을 호출하지만 어떤 구현 객체들이 실행될지 모른다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로그램에 대한 제어 흐름에 대한 권한은 모두 AppConfig가 가지고 있다. 심지어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;도 AppConfig가 생성한다.
-    &lt;ul&gt;
-      &lt;li&gt;AppConfig는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt; 이 아닌 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderService&lt;/code&gt; 인터페이스의 다른 구현 객체를 생성하고 실행할 수 도 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;이렇듯 프로그램의 &lt;strong&gt;제어 흐름을 직접 제어하는 것이 아니라 외부에서 관리하는 것을 제어의 역전(IoC)&lt;/strong&gt;이라 한다.&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;프레임워크와 라이브러리&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;프레임워크가 내가 작성한 코드를 제어하고, 대신 실행하면 프레임워크이다.&lt;/li&gt;
-  &lt;li&gt;내가 작성한 코드가 직접 제어의 흐름을 담당한다면 프레임워크가 아니라 라이브러리다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;의존관계-주입-didependency-injection&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;의존관계 주입 DI(Dependency Injection)&lt;/span&gt;&lt;/h2&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderServiceImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DiscountPolicy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt; 인터페이스에 의존한다. 실제 어떤 구현 객체가 사용될지는
-모른다.&lt;/li&gt;
-  &lt;li&gt;의존관계는 &lt;strong&gt;정적인 클래스 의존 관계&lt;/strong&gt;와, &lt;strong&gt;실행 시점에 결정되는 동적인 객체(인스턴스) 의존 관계&lt;/strong&gt; 둘을 분리해서 생각해야 한다.&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;정적인 클래스 의존관계&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;클래스가 사용하는 import 코드만 보고 의존관계를 쉽게 판단할 수 있다. 정적인 의존관계는 애플리케이션을 실행하지 않아도 분석할 수 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MemberRepository&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DiscountPolicy&lt;/code&gt;에 의존한다는 것을 알 수 있다.
-그런데 이러한 클래스 의존관계 만으로는 실제 어떤 객체가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderServiceImpl&lt;/code&gt;에 주입 될지 알 수 없다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring/di1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;동적인 객체 인스턴스 의존 관계&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;애플리케이션 실행 시점에&lt;/strong&gt; 실제 생성된 객체 인스턴스의 참조가 연결된 의존 관계다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring/di2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;애플리케이션 &lt;strong&gt;실행 시점(런타임)&lt;/strong&gt;에 외부에서 실제 구현 객체를 생성하고 클라이언트에 전달해서 클라이언트와 서버의 실제 의존관계가 연결 되는 것을 &lt;strong&gt;의존관계 주입&lt;/strong&gt;이라 한다.&lt;/li&gt;
-  &lt;li&gt;객체 인스턴스를 생성하고, 그 참조값을 전달해서 연결된다.&lt;/li&gt;
-  &lt;li&gt;의존관계 주입을 사용하면 클라이언트 코드를 변경하지 않고, 클라이언트가 호출하는 대상의 타입 인스턴스를 변경할 수 있다.&lt;/li&gt;
-  &lt;li&gt;의존관계 주입을 사용하면 &lt;strong&gt;정적인 클래스 의존관계를 변경하지 않고, 동적인 객체 인스턴스 의존관계를 쉽게 변경&lt;/strong&gt;할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;ioc-컨테이너-di-컨테이너&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;IoC 컨테이너, DI 컨테이너&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;AppConfig 처럼 &lt;strong&gt;객체를 생성하고 관리하면서 의존관계를 연결해 주는 것을 IoC 컨테이너 또는 DI 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
-  &lt;li&gt;의존관계 주입에 초점을 맞추어 &lt;strong&gt;최근에는 주로 DI 컨테이너&lt;/strong&gt;라 한다.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 25 Oct 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring/IoC-DI-Container/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring/IoC-DI-Container/</guid>
         
         <category>2021년 10월</category>
         

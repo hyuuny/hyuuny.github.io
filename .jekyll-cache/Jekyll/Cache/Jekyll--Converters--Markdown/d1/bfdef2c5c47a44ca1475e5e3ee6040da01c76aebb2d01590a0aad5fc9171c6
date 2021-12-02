@@ -1,0 +1,42 @@
+I"�<p>TCP/IP는 연결을 유지한다.<br />
+만약 서버가 TCP/IP와 마찬가지로 연결을 유지한다면, 클라이언트가 서버에 요청을 보내지 않아도, 자원을 지속적으로 소모하게 된다.<br />
+<img src="/assets/images/http/connectionless1.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless2.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless3.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless4.png" alt="img.png" /></p>
+
+<hr />
+
+<p><br /></p>
+
+<p>서버가 클라이언트의 요청마다 TCP/IP 연결을 맺고, 응답과 동시에 연결을 끊는다면 최소한의 자원으로 유지할 수 있다.<br />
+<img src="/assets/images/http/connectionless5.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless6.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless7.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless8.png" alt="img.png" /></p>
+
+<hr />
+
+<p><img src="/assets/images/http/connectionless9.png" alt="img.png" /></p>
+
+<hr />
+
+:ET

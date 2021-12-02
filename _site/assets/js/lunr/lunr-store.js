@@ -214,4 +214,10 @@ var store = [{
         "tags": ["2021년 11월"],
         "url": "/spring/bean-validation/",
         "teaser": null
+      },{
+        "title": "비 연결성",
+        "excerpt":"비 연결성 HTTP는 기본이 연결을 유지하지 않는 모델 일반적으로 초 단위 이하의 빠른 속도로 응답한다. 서버 자원을 효율적으로 사용할 수 있다. TCP/IP 연결을 매번 새로 맺어야 한다. 3 way handshake 시간 소요 웹 브라우저로 사이트를 요청하면 HTML 뿐만 아니라, JS, CSS, 이미지 등 수많은 자원을 함께 다운로드 현재는 HTTP 지속...","categories": ["HTTP"],
+        "tags": ["2021년 12월"],
+        "url": "/http/connectionless/",
+        "teaser": null
       }]
