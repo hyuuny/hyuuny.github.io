@@ -220,4 +220,10 @@ var store = [{
         "tags": ["2021년 12월"],
         "url": "/http/connectionless/",
         "teaser": null
+      },{
+        "title": "멱등성",
+        "excerpt":"멱등성 멱등은 한 번 호출하든 두 번 호출하든 백 번 호출하든 결과가 항상 똑같다. f(f(x)) = f(x) 멱등 메서드 GET : 한 번 조회하든, 두 번 조회하든 같은 결과가 조회된다. PUT : 결과를 대체한다. 따라서 같은 요청을 여러번 해도 최종 결과는 같다. DELETE : 결과를 삭제한다. 같은 요청을 여러번 해도...","categories": ["HTTP"],
+        "tags": ["2021년 12월"],
+        "url": "/http/idempotent/",
+        "teaser": null
       }]

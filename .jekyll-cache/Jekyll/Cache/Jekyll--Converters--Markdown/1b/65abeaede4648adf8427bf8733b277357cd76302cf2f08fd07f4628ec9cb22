@@ -1,7 +1,0 @@
-I"�<p>TCP/IP는 연결을 유지한다. 서버가 TCP/IP와 마찬가지로 연결을 유지한다면, 클라이언트가 서버에 요청을 보내지 않아도, 자원을 지속적으로 소모하게 된다.<br />
-<img src="/assets/images/http/connectionless1.png" alt="img.png" /><br />
-<img src="/assets/images/http/connectionless2.png" alt="img.png" /><br />
-<img src="/assets/images/http/connectionless3.png" alt="img.png" /><br />
-<img src="/assets/images/http/connectionless4.png" alt="img.png" /></p>
-
-:ET
