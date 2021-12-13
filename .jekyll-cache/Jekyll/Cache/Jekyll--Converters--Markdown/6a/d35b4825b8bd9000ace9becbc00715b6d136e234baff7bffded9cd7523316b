@@ -1,0 +1,31 @@
+I"�<p>로그인 상태를 유지하기 위해 서버에서 로그인에 성공하면 HTTP 응답에 쿠키를 담아서 브라우저에 전달하고, 브라우저는 서버와 통신할 때 마다 해당 쿠키를 서버에게 지속적으로 보내준다.</p>
+
+<hr />
+
+<p><strong>쿠키에는 영속 쿠키와 세션 쿠키가 있다</strong></p>
+<ul>
+  <li>영속 쿠키: 만료 날짜를 입력하면 해당 날짜까지 유지</li>
+  <li>세션 쿠키: 만료 날짜를 생략하면 브라우저 종료시 까지만 유지</li>
+</ul>
+
+<p>브라우저를 종료했을 때, 로그아웃이 되길 원하면 세션쿠키를 이용하면 된다.</p>
+
+<hr />
+
+<p><strong>보안 문제</strong></p>
+<ul>
+  <li>쿠키 값은 임의로 변경할 수 있다.
+    <ul>
+      <li>클라이언트가 쿠키를 강제로 변경하면 다른 사용자가 된다.</li>
+      <li>실제 웹브라우저 개발자모드 Application Cookie 변경으로 확인</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member1</span><span class="o">{</span><span class="nl">memberId:</span><span class="mi">1</span><span class="o">,</span> <span class="nl">name:</span><span class="n">회원A</span><span class="o">}</span>
+<span class="nc">Member2</span><span class="o">{</span><span class="nl">memberId:</span><span class="mi">2</span><span class="o">,</span> <span class="nl">name:</span><span class="n">회원B</span><span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>현재 <strong>memberId1에는 회원A</strong> <strong>memberId2에는 회원B</strong>의 정보가 들어 있다.</li>
+</ul>
+:ET

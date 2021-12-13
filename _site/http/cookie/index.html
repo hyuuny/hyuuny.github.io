@@ -1,0 +1,737 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>HTTP 쿠키(Cookie) - Hyuuny`s Blog</title>
+<meta name="description" content="Cookie 로그인 상태를 유지하기 위해 서버에서 로그인에 성공하면 HTTP 응답에 쿠키를 담아서 브라우저에 전달하고, 브라우저는 서버와 통신할 때 마다 해당 쿠키를 서버에게 지속적으로 보내준다.">
+
+
+  <meta name="author" content="Kim SeongHyun">
+  
+  <meta property="article:author" content="Kim SeongHyun">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Hyuuny`s Blog">
+<meta property="og:title" content="HTTP 쿠키(Cookie)">
+<meta property="og:url" content="https://hyuuny.github.io/http/cookie/">
+
+
+  <meta property="og:description" content="Cookie 로그인 상태를 유지하기 위해 서버에서 로그인에 성공하면 HTTP 응답에 쿠키를 담아서 브라우저에 전달하고, 브라우저는 서버와 통신할 때 마다 해당 쿠키를 서버에게 지속적으로 보내준다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-12-13T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2021-12-13T14:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://hyuuny.github.io/http/cookie/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김성현(Kim SeongHyun)",
+      "url": "https://hyuuny.github.io/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Hyuuny`s Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://hyuuny.github.io/feed.xml" title="Hyuuny`s Blog Feed">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/assets/logo.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/logo.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/logo.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/logo.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/logo.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/logo.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/logo.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/logo.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/logo.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/logo.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="manifest" href="/assets/logo.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/logo.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo.ico/123_3sB_icon">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo.ico/favicon-16x16.png">
+<link rel="mask-icon" href="/assets/logo.ico/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Hyuuny`s Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="https://hyuuny.github.io/">
+        <img src="/assets/images/profile.png" alt="Kim SeongHyun" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="https://hyuuny.github.io/" itemprop="url">Kim SeongHyun</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Back-end Developer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Gwangmyeong</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/hyuuny" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:shyune@knou.ac.kr" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="HTTP 쿠키(Cookie)">
+    <meta itemprop="description" content="Cookie로그인 상태를 유지하기 위해 서버에서 로그인에 성공하면 HTTP 응답에 쿠키를 담아서 브라우저에 전달하고, 브라우저는 서버와 통신할 때 마다 해당 쿠키를 서버에게 지속적으로 보내준다.">
+    <meta itemprop="datePublished" content="2021-12-13T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2021-12-13T14:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="https://hyuuny.github.io/http/cookie/" class="u-url" itemprop="url">HTTP 쿠키(Cookie)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#cookie">Cookie</a></li><li><a href="#영속쿠키--세션쿠키">영속쿠키 &amp; 세션쿠키</a></li><li><a href="#보안-문제">보안 문제</a></li><li><a href="#대안">대안</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="cookie"><span style="color:MediumSeaGreen">Cookie</span></h2>
+<p>로그인 상태를 유지하기 위해 서버에서 로그인에 성공하면 HTTP 응답에 쿠키를 담아서 브라우저에 전달하고, 브라우저는 서버와 통신할 때 마다 해당 쿠키를 서버에게 지속적으로 보내준다.</p>
+
+<hr />
+
+<h2 id="영속쿠키--세션쿠키"><span style="color:MediumSeaGreen">영속쿠키 &amp; 세션쿠키</span></h2>
+<ul>
+  <li>영속 쿠키: 만료 날짜를 입력하면 해당 날짜까지 유지</li>
+  <li>세션 쿠키: 만료 날짜를 생략하면 브라우저 종료시 까지만 유지</li>
+</ul>
+
+<p>브라우저를 종료했을 때, 로그아웃이 되길 원하면 세션쿠키를 이용하면 된다.</p>
+
+<hr />
+
+<h2 id="보안-문제"><span style="color:MediumSeaGreen">보안 문제</span></h2>
+<ul>
+  <li>쿠키 값은 임의로 변경할 수 있다.
+    <ul>
+      <li>클라이언트가 쿠키를 강제로 변경하면 다른 사용자가 된다.</li>
+      <li>실제 웹브라우저 개발자모드 Application Cookie 변경으로 확인</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>현재 <strong>memberId1에는 회원A</strong>, <strong>memberId2에는 회원B</strong>의 정보가 들어 있다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member1</span><span class="o">{</span><span class="nl">memberId:</span><span class="mi">1</span><span class="o">,</span> <span class="nl">name:</span><span class="n">회원A</span><span class="o">}</span>
+<span class="nc">Member2</span><span class="o">{</span><span class="nl">memberId:</span><span class="mi">2</span><span class="o">,</span> <span class="nl">name:</span><span class="n">회원B</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>회원A의 계정으로 로그인하자 쿠키 저장소에는 회원A를 식별하기 위한 ID가 들어 있는것을 볼 수 있다.
+<img src="/assets/images/http/cookie1.png" alt="img.png" /></p>
+
+<p>쿠키저장소의 memberId의 값을 2로 수정하고 새로고침을 하면 회원B로 인식되는 것을 볼 수 있다.
+<img src="/assets/images/http/cookie2.png" alt="img.png" /></p>
+
+<p><img src="/assets/images/http/cookie3.png" alt="img.png" /></p>
+
+<p>만약 쿠키에 중요한 개인정보나, 신용카드 정보가 들어 있다면 이 정보는 웹 브라우저에 보관되고, 네트워크 요청마다 계속 클라이언트에서 서버로 전달될 것이다. 이 때, 해커가 나의 로컬 PC 또는 네트워크 전송 구간에서 쿠키를 가로채 악의적인 시도를 할 여지가 생기게 된다.</p>
+
+<hr />
+
+<h2 id="대안"><span style="color:MediumSeaGreen">대안</span></h2>
+<ul>
+  <li>쿠키에 중요한 값을 노출하지 않고, 사용자 별로 예측 불가능한 임의의 토큰(랜덤 값)을 노출하고, 서버에서 토큰과 사용자 id를 매핑해서 인식한다. 그리고 서버에서 토큰을 관리한다.</li>
+  <li>토큰은 해커가 임의의 값을 넣어도 찾을 수 없도록 예상 불가능 해야 한다.</li>
+  <li>해커가 토큰을 털어가도 시간이 지나면 사용할 수 없도록 서버에서 해당 토큰의 만료시간을 짧게(예: 30분) 유지한다. 또는 해킹이 의심되는 경우 서버에서 해당 토큰을 강제로 제거하면 된다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#2021%EB%85%84-12%EC%9B%94" class="page__taxonomy-item p-category" rel="tag">2021년 12월</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#http" class="page__taxonomy-item p-category" rel="tag">HTTP</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-12-13">December 13, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=HTTP+%EC%BF%A0%ED%82%A4%28Cookie%29%20https%3A%2F%2Fhyuuny.github.io%2Fhttp%2Fcookie%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhyuuny.github.io%2Fhttp%2Fcookie%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhyuuny.github.io%2Fhttp%2Fcookie%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/http/idempotent/" class="pagination--pager" title="멱등성
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/http/idempotent/" rel="permalink">멱등성
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">멱등성
+멱등은 한 번 호출하든 두 번 호출하든 백 번 호출하든 결과가 항상 똑같다.
+
+  f(f(x)) = f(x)
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/http/connectionless/" rel="permalink">비 연결성
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">비 연결성
+
+  HTTP는 기본이 연결을 유지하지 않는 모델
+  일반적으로 초 단위 이하의 빠른 속도로 응답한다.
+  서버 자원을 효율적으로 사용할 수 있다.
+  TCP/IP 연결을 매번 새로 맺어야 한다.
+    
+      3 way handshake 시간 소요
+    
+  
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/bean-validation/" rel="permalink">Bean Validation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Bean Validation은 특정한 구현체가 아니라 Bean Validation 2.0(JSR-380)이라는 기술 표준이다. 쉽게 이야기해서 검증 애노테이션과 여러 인터페이스의 모음이다. 마치 JPA가 표준 기술이고 그 구현체로 하이버네이트가 있는 것과 같다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-message/" rel="permalink">스프링 메시지 소스 &amp; 국제화
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">스프링은 기본적인 메시지 관리 기능을 제공한다.
+메시지 관리 기능을 사용하려면 스프링이 제공하는 MessageSource를 스프링 빈으로 등록하면 되는데, MessageSource는 인터페이스이다.
+따라서 구현체인 ResourceBundleMessageSource 를 스프링 빈으로...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김성현(Kim SeongHyun). Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://hyuuny.github.io/http/cookie/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/http/cookie"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://hyuuny-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

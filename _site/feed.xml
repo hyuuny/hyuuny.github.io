@@ -6,9 +6,75 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 06 Dec 2021 23:03:43 +0900</pubDate>
-    <lastBuildDate>Mon, 06 Dec 2021 23:03:43 +0900</lastBuildDate>
+    <pubDate>Mon, 13 Dec 2021 22:08:16 +0900</pubDate>
+    <lastBuildDate>Mon, 13 Dec 2021 22:08:16 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>HTTP 쿠키(Cookie)</title>
+        <description>&lt;h2 id=&quot;cookie&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;Cookie&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;로그인 상태를 유지하기 위해 서버에서 로그인에 성공하면 HTTP 응답에 쿠키를 담아서 브라우저에 전달하고, 브라우저는 서버와 통신할 때 마다 해당 쿠키를 서버에게 지속적으로 보내준다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;영속쿠키--세션쿠키&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;영속쿠키 &amp;amp; 세션쿠키&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;영속 쿠키: 만료 날짜를 입력하면 해당 날짜까지 유지&lt;/li&gt;
+  &lt;li&gt;세션 쿠키: 만료 날짜를 생략하면 브라우저 종료시 까지만 유지&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;브라우저를 종료했을 때, 로그아웃이 되길 원하면 세션쿠키를 이용하면 된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;보안-문제&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;보안 문제&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;쿠키 값은 임의로 변경할 수 있다.
+    &lt;ul&gt;
+      &lt;li&gt;클라이언트가 쿠키를 강제로 변경하면 다른 사용자가 된다.&lt;/li&gt;
+      &lt;li&gt;실제 웹브라우저 개발자모드 Application Cookie 변경으로 확인&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;현재 &lt;strong&gt;memberId1에는 회원A&lt;/strong&gt;, &lt;strong&gt;memberId2에는 회원B&lt;/strong&gt;의 정보가 들어 있다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Member1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;memberId:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;회원A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Member2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;memberId:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;회원B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;회원A의 계정으로 로그인하자 쿠키 저장소에는 회원A를 식별하기 위한 ID가 들어 있는것을 볼 수 있다.
+&lt;img src=&quot;/assets/images/http/cookie1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;쿠키저장소의 memberId의 값을 2로 수정하고 새로고침을 하면 회원B로 인식되는 것을 볼 수 있다.
+&lt;img src=&quot;/assets/images/http/cookie2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/http/cookie3.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 쿠키에 중요한 개인정보나, 신용카드 정보가 들어 있다면 이 정보는 웹 브라우저에 보관되고, 네트워크 요청마다 계속 클라이언트에서 서버로 전달될 것이다. 이 때, 해커가 나의 로컬 PC 또는 네트워크 전송 구간에서 쿠키를 가로채 악의적인 시도를 할 여지가 생기게 된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;대안&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;대안&lt;/span&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;쿠키에 중요한 값을 노출하지 않고, 사용자 별로 예측 불가능한 임의의 토큰(랜덤 값)을 노출하고, 서버에서 토큰과 사용자 id를 매핑해서 인식한다. 그리고 서버에서 토큰을 관리한다.&lt;/li&gt;
+  &lt;li&gt;토큰은 해커가 임의의 값을 넣어도 찾을 수 없도록 예상 불가능 해야 한다.&lt;/li&gt;
+  &lt;li&gt;해커가 토큰을 털어가도 시간이 지나면 사용할 수 없도록 서버에서 해당 토큰의 만료시간을 짧게(예: 30분) 유지한다. 또는 해킹이 의심되는 경우 서버에서 해당 토큰을 강제로 제거하면 된다.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 13 Dec 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/http/cookie/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/http/cookie/</guid>
+        
+        <category>2021년 12월</category>
+        
+        
+        <category>HTTP</category>
+        
+      </item>
     
       <item>
         <title>멱등성</title>
@@ -1075,111 +1141,6 @@ but found 2: fixDiscountPolicy,rateDiscountPolicy
         <guid isPermaLink="true">https://hyuuny.github.io/spring/component-scan/</guid>
         
         <category>2021년 11월</category>
-        
-        
-        <category>spring</category>
-        
-      </item>
-    
-      <item>
-        <title>Configuration과 Singleton</title>
-        <description>&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-      &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemberServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-      &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;orderService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OrderServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;discountPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-      &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberRepository&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemoryMemberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; 
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;memberService 빈을 만드는 코드를 보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memberRepository()&lt;/code&gt;를 호출한다.&lt;/li&gt;
-  &lt;li&gt;orderService 빈을 만드는 코드도 동일하게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memberRepository()&lt;/code&gt;를 호출한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;new연산자&lt;/code&gt;를 통해 각각 다른 2개의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MemoryMemberRepository&lt;/code&gt;가 생성되면서 싱글톤이 깨지는 것 처럼 보이는데, 스프링 컨테이너는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;이 붙은 메서드를 한 번만 호출해서 등록하고 이를 재사용한다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;configuration과-바이트코드-조작&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;@Configuration과 바이트코드 조작&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;스프링 컨테이너는 싱글톤 레지스트리다. 따라서 스프링 빈이 싱글톤이 되도록 보장해주어야 한다. 그런데 스프링이 자바 코드까지 어떻게 하기는 어렵다. 위 코드를 보면 분명 3번 호출되어야 하는 것이 맞다. 그래서 스프링은 클래스의 바이트코드를 조작하는 라이브러리를 사용한다.&lt;br /&gt;
-모든 비밀은 &lt;strong&gt;@Configuration 을 적용한 AppConfig&lt;/strong&gt;에 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;configurationDeep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;AnnotationConfigApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;//AppConfig도 스프링 빈으로 등록된다.&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bean = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getClass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//출력: bean = class hello.core.AppConfig$$EnhancerBySpringCGLIB$$bd479d70&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AnnotationConfigApplicationContext&lt;/code&gt;에 파라미터로 넘긴 값은 스프링 빈으로 등록된다. 그래서 AppConfig도 스프링 빈이 된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;순수한 클래스라면 &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;class hello.core.AppConfig&lt;/code&gt;&lt;/strong&gt;와 같이 출력되어야 하지만,&lt;/p&gt;
-
-&lt;p&gt;AppConfig 스프링 빈을 조회해서 클래스 정보를 출력해보면&lt;br /&gt;
-&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;class hello.core.AppConfig$$EnhancerBySpringCGLIB$$bd479d70&lt;/code&gt;&lt;/strong&gt;와 같이 출력된다.&lt;/p&gt;
-
-&lt;p&gt;스프링 빈을 조회해서 출력한 클래스 명에 xxxCGLIB가 붙은 것을 확인 할 수 있는데, 이것은 내가 만든 클래스가 아니라 &lt;strong&gt;스프링이 CGLIB라는 바이트코드 조작 라이브러리를 사용해서 AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고, 이를 스프링 빈으로 등록했기 때문이다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/spring/configuration.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;AppConfig를 상속받은 임의의 클래스가 싱글톤이 보장되도록 해준다.&lt;/strong&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;AppConfig@CGLIB 예상 코드&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemberRepository&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memoryMemberRepository가&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;이미&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;스프링&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;컨테이너에&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;등록되어&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;있으면&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; 
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;스프링&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;컨테이너에서&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;찾아서&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;반환&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//스프링 컨테이너에 없으면&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;기존&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;로직을&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;호출해서&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemoryMemberRepository를&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;생성하고&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;스프링&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;컨테이너에&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;등록&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;반환&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;@Bean이 붙은 메서드마다 이미 스프링 빈이 존재하면 존재하는 빈을 반환하고, 스프링 빈이 없으면 생성해서 스프링 빈으로 등록하고 반환하는 코드가 동적으로 만들어진다.
-    &lt;ul&gt;
-      &lt;li&gt;그로 인해 싱글톤이 보장 됨&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;AppConfig@CGLIB는 AppConfig의 자식 타입이므로, AppConfig 타입으로 조회 할 수 있다.&lt;br /&gt;
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;@Configuration을 적용하지 않고, @Bean만 적용한 경우&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;스프링 빈으로 등록되지만, 매번 객체를 생성한다.(싱글톤을 보장하지 않음)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sun, 31 Oct 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring/configuration/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring/configuration/</guid>
-        
-        <category>2021년 10월</category>
         
         
         <category>spring</category>
