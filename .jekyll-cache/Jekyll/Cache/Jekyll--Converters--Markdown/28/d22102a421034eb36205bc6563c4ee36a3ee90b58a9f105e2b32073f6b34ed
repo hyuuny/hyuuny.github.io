@@ -1,0 +1,4 @@
+I"U<h2 id="servlet-filter"><span style="color:MediumSeaGreen">Servlet Filter</span></h2>
+<p>필터는 서블릿이 지원하는 수문장이다.<br />
+만약 로그인한 회원만 게시판의 글 쓰기, 수정, 삭제 기능을 사용할 수 있다면, 해당 로직마다 로그인을 확인하는 기능을 추가해야 할 것이다.</p>
+:ET

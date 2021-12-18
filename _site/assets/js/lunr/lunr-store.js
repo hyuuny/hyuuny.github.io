@@ -238,4 +238,10 @@ var store = [{
         "tags": ["2021년 12월"],
         "url": "/spring/session/",
         "teaser": null
+      },{
+        "title": "Spring - filter를 이용한 로그인 확인 기능 구현",
+        "excerpt":"Servlet Filter 필터는 서블릿이 지원하는 수문장이다. 만약 로그인한 회원만 게시판의 글 쓰기, 수정, 삭제 기능을 사용할 수 있다면, 해당 로직마다 로그인을 확인하는 기능을 추가해야 할 것이다. 추후 이 기능이 수정되었다면, 일일이 다 찾아서 수정도 해야 한다. 이러한 공통 관심사는 스프링의 AOP로 해결할 수 있지만, 웹과 관련된 공통 관심사는 서블릿 필터...","categories": ["spring"],
+        "tags": ["2021년 12월"],
+        "url": "/spring/filter/",
+        "teaser": null
       }]

@@ -1,0 +1,126 @@
+I"�0<h2 id="servlet-filter"><span style="color:MediumSeaGreen">Servlet Filter</span></h2>
+<p>필터는 서블릿이 지원하는 수문장이다.<br />
+만약 로그인한 회원만 게시판의 글 쓰기, 수정, 삭제 기능을 사용할 수 있다면, 해당 로직마다 로그인을 확인하는 기능을 추가해야 할 것이다. 추후 이 기능이 수정되었다면, 일일이 다 찾아서 수정도 해야 한다.</p>
+
+<p>이러한 공통 관심사는 스프링의 AOP로 해결할 수 있지만, 웹과 관련된 공통 관심사는 서블릿 필터 또는 스프링 인터셉터를 사용하는 것이 좋다.</p>
+
+<p>필터의 흐름은 다음과 같다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt; WAS -&gt; 필터 -&gt; 디스패처 서블릿 -&gt; 컨트롤러
+</code></pre></div></div>
+
+<p>필터를 적용하면 필터가 호출 된 다음에 디스패처 서블릿이 호출된다. 그래서 모든 고객의 요청 로그를 남기는 요구사항이 있다면 필터를 사용하면 된다. <code class="language-plaintext highlighter-rouge">/*</code> 이라고 하면 모든 요청에 필터가 적용된다.</p>
+
+<p>아래는 필터로 제한을 적용했을 때, 흐름이다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt; WAS -&gt; 필터 -&gt; 디스패처 서블릿 -&gt; 컨트롤러 // 로그인한 사용자
+HTTP 요청 -&gt; WAS -&gt; 필터(적절하지 않은 요청이라 판단, 서블릿 호출X) //비 로그인 사용자
+</code></pre></div></div>
+<p><br />
+필터 체인을 이용하여 여러 개의 필터를 사용할 수도 있다.(중간에 넣고, 빼는 것이 수월)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt;WAS-&gt; 필터1-&gt; 필터2-&gt; 필터3-&gt; 서블릿 -&gt; 컨트롤러
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="filter를-이용한-로그인-확인-기능-개발"><span style="color:MediumSeaGreen">filter를 이용한 로그인 확인 기능 개발</span></h2>
+
+<p>filter를 사용하려면 filter 인터페이스를 구현해야 한다.</p>
+
+<p><strong>- LogFilter 클래스</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.login.web.filter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.Filter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterChain</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogFilter</span> <span class="kd">implements</span> <span class="nc">Filter</span> <span class="o">{</span> <span class="c1">// 필터를 사용하려면 필터 인터페이스를 구현해야 한다.</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="nc">FilterConfig</span> <span class="n">filterConfig</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ServletException</span> <span class="o">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"log filter init"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="nc">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="nc">FilterChain</span> <span class="n">chain</span>
+  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ServletException</span> <span class="o">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"log filter doFilter"</span><span class="o">);</span>
+
+    <span class="nc">HttpServletRequest</span> <span class="n">httpRequest</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">httpRequest</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span> <span class="c1">// HTTP 요청을 구분하기 위한 요청당 임의의 uuid 생성</span>
+
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"REQUEST [{}][{}]"</span><span class="o">,</span> <span class="n">uuid</span><span class="o">,</span> <span class="n">requestURI</span><span class="o">);</span>
+      <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"RESPONSE [{}][{}]"</span><span class="o">,</span> <span class="n">uuid</span><span class="o">,</span> <span class="n">requestURI</span><span class="o">);</span>
+    <span class="o">}</span>
+
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"log filter destroy"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<ul>
+  <li><strong>init</strong> : 필터 초기화 메서드, 서블릿 컨테이너가 생성될 때 호출된다.</li>
+  <li><strong>doFilter</strong> : 고객의 요청이 올 때 마다 해당 메서드가 호출된다. 필터의 로직을 구현하면 된다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ServletRequest request</code> 는 HTTP 요청이 아닌 경우까지 고려해서 만든 인터페이스이다.</li>
+      <li>HTTP를 사용하면 <code class="language-plaintext highlighter-rouge">HttpServletRequest httpRequest = (HttpServletRequest) request;</code> 와 같이
+다운 캐스팅 하면 된다.</li>
+      <li><code class="language-plaintext highlighter-rouge">chain.doFilter(request, response)</code> : <code class="language-plaintext highlighter-rouge">이 부분이 가장 중요</code>. 다음 필터가 있으면 필터를 호출하고, 필터가 없으면 서블릿을 호출한다. 만약 이 로직을 호출하지 않으면 다음 단계로 진행되지 않는다</li>
+    </ul>
+  </li>
+  <li><strong>destroy</strong> : 필터 종료 메서드, 서블릿 컨테이너가 종료될 때 호출된다.</li>
+</ul>
+
+<hr />
+
+<p><strong>- WebConifg 클래스</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.login</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.login.web.filter.LogFilter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.Filter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.servlet.FilterRegistrationBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="o">{</span>
+
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">FilterRegistrationBean</span> <span class="nf">logFilter</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">FilterRegistrationBean</span><span class="o">&lt;</span><span class="nc">Filter</span><span class="o">&gt;</span> <span class="n">filterFilterRegistrationBean</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FilterRegistrationBean</span><span class="o">&lt;&gt;();</span>
+    <span class="n">filterFilterRegistrationBean</span><span class="o">.</span><span class="na">setFilter</span><span class="o">(</span><span class="k">new</span> <span class="nc">LogFilter</span><span class="o">());</span>
+    <span class="n">filterFilterRegistrationBean</span><span class="o">.</span><span class="na">setOrder</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">filterFilterRegistrationBean</span><span class="o">.</span><span class="na">addUrlPatterns</span><span class="o">(</span><span class="s">"/*"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">filterFilterRegistrationBean</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">FilterRegistrationBean</span> <span class="nf">loginCheckFilter</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">FilterRegistrationBean</span><span class="o">&lt;</span><span class="nc">Filter</span><span class="o">&gt;</span> <span class="n">filterFilterRegistrationBean</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FilterRegistrationBean</span><span class="o">&lt;&gt;();</span>
+    <span class="n">filterFilterRegistrationBean</span><span class="o">.</span><span class="na">setFilter</span><span class="o">(</span><span class="k">new</span> <span class="nc">LoginCheckFilter</span><span class="o">());</span>
+    <span class="n">filterFilterRegistrationBean</span><span class="o">.</span><span class="na">setOrder</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+    <span class="n">filterFilterRegistrationBean</span><span class="o">.</span><span class="na">addUrlPatterns</span><span class="o">(</span><span class="s">"/*"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">filterFilterRegistrationBean</span><span class="o">;</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+:ET
