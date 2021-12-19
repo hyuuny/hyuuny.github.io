@@ -1,0 +1,319 @@
+I"�m<h2 id="interceptor"><span style="color:MediumSeaGreen">Interceptor</span></h2>
+<p>스프링 인터셉터도 서블릿 필터와 같이 웹과 관련된 공통 관심 사항을 효과적으로 해결할 수 있는 기술이다. 서블릿 필터가 서블릿이 제공하는 기술이라면, 스프링 인터셉터는 스프링 MVC가 제공하는 기술이다. 둘다 웹과 관련된 공통 관심 사항을 처리하지만, 적용되는 순서와 범위, 그리고 사용방법이 다르다.</p>
+
+<p>인터셉터의 흐름은 다음과 같다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt;WAS-&gt; 필터 -&gt; 디스패처 서블릿 -&gt; 스프링 인터셉터 -&gt; 컨트롤러
+</code></pre></div></div>
+<ul>
+  <li>스프링 인터셉터는 디스패처 서블릿과 컨트롤러 사이에서 컨트롤러 호출 직전에 호출 된다.</li>
+  <li>스프링 인터셉터는 스프링 MVC가 제공하는 기능이기 때문에 결국 디스패처 서블릿 이후에 등장하게 된다.</li>
+</ul>
+
+<p>아래는 인터셉터로 제한을 적용했을 때, 흐름이다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt; WAS -&gt; 필터 -&gt; 디스패처 서블릿 -&gt; 스프링 인터셉터 -&gt; 컨트롤러 //로그인 사용자
+HTTP 요청 -&gt; WAS -&gt; 필터 -&gt; 디스패처 서블릿 -&gt; 스프링 인터셉터(적절하지 않은 요청이라 판단, 컨트롤러 호출 X) // 미인증 사용자
+</code></pre></div></div>
+<p><br />
+인터셉터 역시 필터와 마찬가지로 체인을 이용하여 여러 개의 인터셉터를 사용할 수 있다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt; WAS -&gt; 필터 -&gt; 디스패처 서블릿 -&gt; 인터셉터1 -&gt; 인터셉터2 -&gt; 컨트롤러
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="interceptor-호출-흐름"><span style="color:MediumSeaGreen">interceptor 호출 흐름</span></h2>
+
+<p><strong>정상 흐름</strong>
+<img src="/assets/images/spring/interceptor1.png" alt="img.png" /></p>
+<ul>
+  <li><strong>preHandle</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">컨트롤러 호출 전에 호출</code> (더 정확히는 핸들러 어댑터 호출 전에 호출)</li>
+      <li><code class="language-plaintext highlighter-rouge">preHandle</code> 의 응답값이 <code class="language-plaintext highlighter-rouge">true</code>이면 다음으로 진행하고, <code class="language-plaintext highlighter-rouge">false</code>이면 더는 진행하지 않는다. <code class="language-plaintext highlighter-rouge">false</code>
+인 경우 나머지 인터셉터는 물론이고, 핸들러 어댑터도 호출되지 않는다.</li>
+    </ul>
+  </li>
+  <li><strong>postHandle</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">컨트롤러 호출 후에 호출</code> (더 정확히는 핸들러 어댑터 호출 후에 호출)</li>
+    </ul>
+  </li>
+  <li><strong>afterCompletion</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">뷰가 렌더링 된 이후에 호출</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>인터셉터 예외 상황</strong> 
+<img src="/assets/images/spring/interceptor2.png" alt="img.png" /></p>
+<ul>
+  <li><strong>preHandle</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">컨트롤러 호출 전에 호출</code></li>
+    </ul>
+  </li>
+  <li><strong>postHandle</strong>
+    <ul>
+      <li>컨트롤러에서 예외가 발생하면 <code class="language-plaintext highlighter-rouge">postHandle</code>은 호출되지 않는다.</li>
+    </ul>
+  </li>
+  <li><strong>afterCompletion</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">afterCompletion 은 항상 호출</code></li>
+      <li>예외와 무관하게 공통 처리를 하려면 <code class="language-plaintext highlighter-rouge">afterCompletion()</code>을 사용</li>
+      <li>예외가 발생하면 <code class="language-plaintext highlighter-rouge">afterCompletion()</code>에 예외 정보<code class="language-plaintext highlighter-rouge">( ex )</code>를 포함해서 호출된다.</li>
+      <li>이 경우 예외( ex )를 파라미터로 받아서 어떤 예외가 발생했는지 로그로 출력할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="interceptor를-이용한-로그인-확인-기능-개발"><span style="color:MediumSeaGreen">interceptor를 이용한 로그인 확인 기능 개발</span></h2>
+
+<p>스프링의 인터셉터를 사용하려면 <code class="language-plaintext highlighter-rouge">HandlerInterceptor</code> 인터페이스를 구현하면 된다.</p>
+
+<p><br /></p>
+
+<p><strong>- LogInterceptor 클래스</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.login.web.interceptor</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">ObjectUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.method.HandlerMethod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.HandlerInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogInterceptor</span> <span class="kd">implements</span> <span class="nc">HandlerInterceptor</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">LOG_ID</span> <span class="o">=</span> <span class="s">"logId"</span><span class="o">;</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">handler</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+
+    <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="no">LOG_ID</span><span class="o">,</span> <span class="n">uuid</span><span class="o">);</span> <span class="c1">// afterCompletion에 넘길 uuid 저장</span>
+
+    <span class="c1">// @RequestMapping : HandleMethod</span>
+    <span class="c1">// 정적 리소소 : ResourceHttpRequestHandler</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="nc">HandlerMethod</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">HandlerMethod</span> <span class="n">handlerMethod</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HandlerMethod</span><span class="o">)</span> <span class="n">handler</span><span class="o">;</span><span class="c1">// 호출한 컨트롤러 메서드의 모든 정보가 포함되어 있음.</span>
+    <span class="o">}</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"REQUEST [{}][{}][{}]"</span><span class="o">,</span> <span class="n">uuid</span><span class="o">,</span> <span class="n">requestURI</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">handler</span><span class="o">,</span>
+      <span class="nc">ModelAndView</span> <span class="n">modelAndView</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"postHandle [{}]"</span><span class="o">,</span> <span class="n">modelAndView</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterCompletion</span><span class="o">(</span>
+      <span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+      <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+      <span class="nc">Object</span> <span class="n">handler</span><span class="o">,</span>
+      <span class="nc">Exception</span> <span class="n">ex</span>
+  <span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span><span class="n">request</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="no">LOG_ID</span><span class="o">);</span> <span class="c1">// preHandle에서 넘긴 uuid 얻기</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"RESPONSE [{}][{}][{}]"</span><span class="o">,</span> <span class="n">uuid</span><span class="o">,</span> <span class="n">requestURI</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+
+    <span class="k">if</span> <span class="o">(!</span><span class="n">isEmpty</span><span class="o">(</span><span class="n">ex</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"afterCompletion error!!"</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li><strong>request.setAttribute(LOG_ID, uuid)</strong>
+    <ul>
+      <li>서블릿 필터의 경우 지역변수로 해결이 가능하지만, 스프링 인터셉터는 호출 시점이 완전히 분리되어 있다.</li>
+      <li>따라서 <code class="language-plaintext highlighter-rouge">preHandle</code>에서 지정한 값을 <code class="language-plaintext highlighter-rouge">postHandle</code>, <code class="language-plaintext highlighter-rouge">afterCompletion</code>에서 함께 사용하려면 어딘가에 담아두어야 한다.</li>
+      <li><code class="language-plaintext highlighter-rouge">LogInterceptor</code>도 싱글톤 처럼 사용되기 때문에 맴버변수를 사용하면 위험하다.</li>
+    </ul>
+  </li>
+  <li><strong>return true</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">true</code>면 정상 호출</li>
+      <li>다음 인터셉터나 컨트롤러가 호출된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>HandlerMethod</strong><br />
+핸들러 정보는 어떤 핸들러 매핑을 사용하는지에 따라 달라진다.<br />
+스프링을 사용하면 일반적으로 <code class="language-plaintext highlighter-rouge">@Controller</code>, <code class="language-plaintext highlighter-rouge">@RequestMapping</code>을 활용한 핸들러 매핑을 사용하는데, 이 경우 핸들러 정보로 <code class="language-plaintext highlighter-rouge">HandlerMethod</code>가 넘어온다.</p>
+
+<p><strong>ResourceHttpRequestHandler</strong><br />
+<code class="language-plaintext highlighter-rouge">@Controller</code>가 아니라 <code class="language-plaintext highlighter-rouge">/resources/static</code>과 같은 정적 리소스가 호출 되는 경우, <code class="language-plaintext highlighter-rouge">ResourceHttpRequestHandler</code>가 핸들러 정보로 넘어오기 때문에 타입에 따라서 처리가 필요하다.</p>
+
+<hr />
+
+<p><strong>- LoginCheckInterceptor 클래스</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.login.web.interceptor</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">ObjectUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.login.web.SessionConst</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpSession</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.HandlerInterceptor</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginCheckInterceptor</span> <span class="kd">implements</span> <span class="nc">HandlerInterceptor</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">handler</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+
+    <span class="nc">String</span> <span class="n">requestURI</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"인증 체크 인터셉터 실행 {}"</span><span class="o">,</span> <span class="n">requestURI</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * filter는 인증이 필요없는 resource의 경우,
+     * String[] whiteList = {"/", "/members/add", "/login", "/logout", "/css/*"}를 사용하여 처리했지만,
+     * interceptor는 @Configuration으로 설정 가능
+     */</span>
+    <span class="nc">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">(</span><span class="n">session</span><span class="o">)</span> <span class="o">||</span> <span class="n">isEmpty</span><span class="o">(</span><span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="nc">SessionConst</span><span class="o">.</span><span class="na">LOGIN_MEMBER</span><span class="o">)))</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"미인증 사용자 요청"</span><span class="o">);</span>
+      <span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="s">"/login?redirectURL="</span> <span class="o">+</span> <span class="n">requestURI</span><span class="o">);</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+<ul>
+  <li>서블릿 필터와 비교해서 코드가 매우 간결하다.</li>
+  <li>인증이라는 것은 컨트롤러 호출 전에만 호출되면 된다. 따라서 <code class="language-plaintext highlighter-rouge">preHandle</code>만 구현하면 된다.</li>
+</ul>
+
+<hr />
+
+<p><strong>- WebConifg 클래스</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.login</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.login.web.agumentresolver.LoginMemberArgumentResolver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.login.web.interceptor.LogInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.login.web.interceptor.LoginCheckInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.method.support.HandlerMethodArgumentResolver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.InterceptorRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="kd">implements</span> <span class="nc">WebMvcConfigurer</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addArgumentResolvers</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">HandlerMethodArgumentResolver</span><span class="o">&gt;</span> <span class="n">resolvers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">resolvers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">LoginMemberArgumentResolver</span><span class="o">());</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addInterceptors</span><span class="o">(</span><span class="nc">InterceptorRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">addInterceptor</span><span class="o">(</span><span class="k">new</span> <span class="nc">LogInterceptor</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">addPathPatterns</span><span class="o">(</span><span class="s">"/**"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">excludePathPatterns</span><span class="o">(</span><span class="s">"/css/**"</span><span class="o">,</span> <span class="s">"/*.ico"</span><span class="o">,</span> <span class="s">"/error"</span><span class="o">);</span>
+
+    <span class="n">registry</span><span class="o">.</span><span class="na">addInterceptor</span><span class="o">(</span><span class="k">new</span> <span class="nc">LoginCheckInterceptor</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">addPathPatterns</span><span class="o">(</span><span class="s">"/**"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">excludePathPatterns</span><span class="o">(</span>
+            <span class="s">"/"</span><span class="o">,</span> <span class="s">"/members/add"</span><span class="o">,</span> <span class="s">"/login"</span><span class="o">,</span> <span class="s">"/logout"</span><span class="o">,</span> <span class="s">"/css/**"</span><span class="o">,</span> <span class="s">"/*.ico"</span><span class="o">,</span> <span class="s">"/error"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">WebMvcConfigurer</code>가 제공하는 <code class="language-plaintext highlighter-rouge">addInterceptors()</code>를 사용해서 인터셉터를 등록할 수 있다.</p>
+
+<ul>
+  <li><strong>registry.addInterceptor()</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">인터셉터를 등록</code></li>
+    </ul>
+  </li>
+  <li><strong>order()</strong>
+    <ul>
+      <li>인터셉터는 체인으로 동작하기 때문에, 순서가 필요(낮을수록 먼저 동작)</li>
+      <li><code class="language-plaintext highlighter-rouge">LogInterceptor</code>가 먼저 적용되고, <code class="language-plaintext highlighter-rouge">LoginCheckInterceptor</code>가 적용된다.</li>
+    </ul>
+  </li>
+  <li><strong>addPathPatterns(“/</strong>”)**
+    <ul>
+      <li>인터셉터를 적용할 URL 패턴을 지정</li>
+    </ul>
+  </li>
+  <li><strong>excludePathPatterns(“/css/</strong>”, “/*.ico”, “/error”)**
+    <ul>
+      <li>인터셉터에서 제외할 패턴을 지정한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p><strong>- LoginController 클래스</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">login</span><span class="o">(</span>
+      <span class="nd">@Valid</span> <span class="nd">@ModelAttribute</span><span class="o">(</span><span class="s">"loginForm"</span><span class="o">)</span> <span class="nc">LoginForm</span> <span class="n">form</span><span class="o">,</span>
+      <span class="nc">BindingResult</span> <span class="n">bindingResult</span><span class="o">,</span>
+      <span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+      <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">defaultValue</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">redirectURL</span>
+  <span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">bindingResult</span><span class="o">.</span><span class="na">hasErrors</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="s">"login/loginForm"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nc">Member</span> <span class="n">loginMember</span> <span class="o">=</span> <span class="n">loginService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getLoginId</span><span class="o">(),</span> <span class="n">form</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">(</span><span class="n">loginMember</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">bindingResult</span><span class="o">.</span><span class="na">reject</span><span class="o">(</span><span class="s">"loginFail"</span><span class="o">,</span> <span class="s">"아이디 또는 패스워드가 맞지 않습니다."</span><span class="o">);</span>
+      <span class="k">return</span> <span class="s">"login/loginForm"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nc">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+    <span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="nc">SessionConst</span><span class="o">.</span><span class="na">LOGIN_MEMBER</span><span class="o">,</span> <span class="n">loginMember</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="s">"redirect:"</span> <span class="o">+</span> <span class="n">redirectURL</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li><strong>return “redirect:” + redirectURL;</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">LoginCheckFilter</code>에서 미인증 사용자가 로그인을 성공적으로 마친 뒤, 원래 페이지로 <code class="language-plaintext highlighter-rouge">redirect</code> 시키기 위함</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p>로그인 확인과 같이 반복되는 작업을 서블릿 필터를 사용하여 처리한다면, <code class="language-plaintext highlighter-rouge">SOLID의 단일책임원칙</code>을 위배하지 않고, 향후 로그인 관련된 정책이 변경되더라도 이 부분만 수정하면 될 것이다.</p>
+:ET

@@ -244,4 +244,10 @@ var store = [{
         "tags": ["2021년 12월"],
         "url": "/spring/filter/",
         "teaser": null
+      },{
+        "title": "Spring - interceptor를 이용한 로그인 확인 기능 구현",
+        "excerpt":"Interceptor 스프링 인터셉터도 서블릿 필터와 같이 웹과 관련된 공통 관심 사항을 효과적으로 해결할 수 있는 기술이다. 서블릿 필터가 서블릿이 제공하는 기술이라면, 스프링 인터셉터는 스프링 MVC가 제공하는 기술이다. 둘다 웹과 관련된 공통 관심 사항을 처리하지만, 적용되는 순서와 범위, 그리고 사용방법이 다르다. 인터셉터의 흐름은 다음과 같다. HTTP 요청 -&gt;WAS-&gt; 필터 -&gt; 디스패처...","categories": ["spring"],
+        "tags": ["2021년 12월"],
+        "url": "/spring/interceptor/",
+        "teaser": null
       }]

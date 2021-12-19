@@ -352,7 +352,7 @@ HTTP 요청 -&gt; WAS -&gt; 필터(적절하지 않은 요청이라 판단, 서�
 </code></pre></div></div>
 <p><br />
 필터 체인을 이용하여 여러 개의 필터를 사용할 수도 있다.(중간에 넣고, 빼는 것이 수월)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt;WAS-&gt; 필터1-&gt; 필터2-&gt; 필터3-&gt; 서블릿 -&gt; 컨트롤러
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청 -&gt;WAS-&gt; 필터1-&gt; 필터2-&gt; 필터3-&gt; 디스패처 서블릿 -&gt; 컨트롤러
 </code></pre></div></div>
 
 <hr />
@@ -445,7 +445,7 @@ filter 인터페이스가 가지고 있는 메서드는 아래와 같다.</p>
 
 <hr />
 
-<p><strong>- LoginCheckFilte 클래스r</strong></p>
+<p><strong>- LoginCheckFilte 클래스</strong></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.login.web.filter</span><span class="o">;</span>
 
@@ -701,7 +701,8 @@ filter 인터페이스가 가지고 있는 메서드는 아래와 같다.</p>
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/spring/interceptor/" class="pagination--pager" title="Spring - interceptor를 이용한 로그인 확인 기능 구현
+">다음</a>
     
   </nav>
 
@@ -715,6 +716,46 @@ filter 인터페이스가 가지고 있는 메서드는 아래와 같다.</p>
     <div class="page__related">
       <h2 class="page__related-title">참고</h2>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/interceptor/" rel="permalink">Spring - interceptor를 이용한 로그인 확인 기능 구현
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Interceptor
+스프링 인터셉터도 서블릿 필터와 같이 웹과 관련된 공통 관심 사항을 효과적으로 해결할 수 있는 기술이다. 서블릿 필터가 서블릿이 제공하는 기술이라면, 스프링 인터셉터는 스프링 MVC가 제공하는 기술이다. 둘다 웹과 관련된 공통 관심 사항을 처리하지만, 적용되는...</p>
+  </article>
+</div>
+
         
           
 
@@ -839,55 +880,6 @@ filter 인터페이스가 가지고 있는 메서드는 아래와 같다.</p>
   f(f(x)) = f(x)
 
 </p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/http/connectionless/" rel="permalink">비 연결성
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">비 연결성
-
-  HTTP는 기본이 연결을 유지하지 않는 모델
-  일반적으로 초 단위 이하의 빠른 속도로 응답한다.
-  서버 자원을 효율적으로 사용할 수 있다.
-  TCP/IP 연결을 매번 새로 맺어야 한다.
-    
-      3 way handshake 시간 소요
-    
-  
-...</p>
   </article>
 </div>
 
