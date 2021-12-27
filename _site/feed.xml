@@ -6,9 +6,42 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 Dec 2021 13:34:11 +0900</pubDate>
-    <lastBuildDate>Sun, 19 Dec 2021 13:34:11 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Dec 2021 22:06:50 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Dec 2021 22:06:50 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>JPA - primitive error(Null value was assigned to a property ~~~ of primitive type setter of)</title>
+        <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;스프링으로 JPA를 사용해서 개발하다보면 아래와 같은 에러를 마주치곤 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Null&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;was&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assigned&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~~~&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primitive&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;이유&lt;/strong&gt;&lt;br /&gt;
+하이버네이트는 내부적으로 setter메소드를 사용해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;조회 결과와 객체(Dto 또는 Entity)를 Mapping&lt;/code&gt;하게 되는데, 조회 결과의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null값을 primitive 타입의 변수에 저장하려 할 때 발생&lt;/code&gt;하는 것이다.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;해결 방법&lt;/strong&gt;&lt;br /&gt;
+위 문제는 아래와 같은 방법으로 해결할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;매핑될 변수를 reference타입으로 변경&lt;/li&gt;
+  &lt;li&gt;DB에 default 값 할당&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 27 Dec 2021 00:00:00 +0900</pubDate>
+        <link>https://hyuuny.github.io/jpa/primitive-error/</link>
+        <guid isPermaLink="true">https://hyuuny.github.io/jpa/primitive-error/</guid>
+        
+        <category>2021년 12월</category>
+        
+        
+        <category>JPA</category>
+        
+      </item>
     
       <item>
         <title>Spring - interceptor를 이용한 로그인 확인 기능 구현</title>
@@ -1403,39 +1436,6 @@ Bean Validation을 사용하려면 &lt;code class=&quot;language-plaintext highl
         <pubDate>Tue, 09 Nov 2021 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring/request-exam/</link>
         <guid isPermaLink="true">https://hyuuny.github.io/spring/request-exam/</guid>
-        
-        <category>2021년 11월</category>
-        
-        
-        <category>spring</category>
-        
-      </item>
-    
-      <item>
-        <title>웹 스코프(Web Scope)</title>
-        <description>&lt;h2 id=&quot;웹-스코프web-scope의-특징&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;웹 스코프(Web Scope)의 특징&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;웹 스코프는 웹 환경에서만 동작한다.&lt;/li&gt;
-  &lt;li&gt;웹 스코프는 프로토타입과 다르게 스프링이 해당 스코프의 종료시점까지 관리한다. 따라서 종료 메서드가 호출된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;웹-스코프web-scope-종류&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;웹 스코프(Web Scope) 종류&lt;/span&gt;&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;request&lt;/strong&gt; : HTTP 요청 &lt;strong&gt;하나&lt;/strong&gt;가 들어오고 나갈 때 까지 유지되는 스코프, 각각의 &lt;strong&gt;HTTP 요청마다 별도의 빈 인스턴스가 생성&lt;/strong&gt;되고, 관리된다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;session&lt;/strong&gt; : HTTP Session과 동일한 생명주기를 가지는 스코프&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;application&lt;/strong&gt; : 서블릿 컨텍스트( ServletContext )와 동일한 생명주기를 가지는 스코프&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;websocket&lt;/strong&gt; : 웹 소켓과 동일한 생명주기를 가지는 스코프&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/spring/web-scope.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 08 Nov 2021 00:00:00 +0900</pubDate>
-        <link>https://hyuuny.github.io/spring/web-scope/</link>
-        <guid isPermaLink="true">https://hyuuny.github.io/spring/web-scope/</guid>
         
         <category>2021년 11월</category>
         
