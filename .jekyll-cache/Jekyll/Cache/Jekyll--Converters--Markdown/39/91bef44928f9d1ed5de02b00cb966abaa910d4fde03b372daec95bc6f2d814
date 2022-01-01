@@ -1,6 +1,0 @@
-I"�<p>스프링으로 개발하다보면 아래와 같은 에러를 마주치곤 한다.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Null</span> <span class="n">value</span> <span class="n">was</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">a</span> <span class="n">property</span> <span class="o">~~~</span> <span class="n">of</span> <span class="n">primitive</span> <span class="n">type</span> <span class="n">setter</span> <span class="n">of</span>
-</code></pre></div></div>
-
-<p>그 이유는 하이버네이트는 내부적으로 setter메소드를 사용해서 <code class="language-plaintext highlighter-rouge">조회된 내용와 객체(Dto 또는 Entity)를 Mapping</code>하게 되는데, 객체 변수가 <code class="language-plaintext highlighter-rouge">primitive(int, double, boolean)타입이라면, null값을 가질 수 없기 때문에 발생</code>하는 것이다.</p>
-:ET

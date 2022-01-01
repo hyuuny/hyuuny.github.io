@@ -4,6 +4,22 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://hyuuny.github.io/spring/ThreadLocal/</loc>
+        
+        <lastmod>2022-01-01T00:00:00+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
         <loc>https://hyuuny.github.io/jpa/primitive-error/</loc>
         
         <lastmod>2021-12-27T00:00:00+09:00</lastmod>
