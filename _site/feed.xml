@@ -6,55 +6,60 @@
     <description>객체지향과 DDD에 관심이 많은 백엔드개발자로서, 최근에는 리눅스와 도커에 관심이 생겨 함께 공부하고 있습니다.</description>
     <link>https://hyuuny.github.io/</link>
     <atom:link href="https://hyuuny.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 01 Jan 2022 23:58:14 +0900</pubDate>
-    <lastBuildDate>Sat, 01 Jan 2022 23:58:14 +0900</lastBuildDate>
+    <pubDate>Sun, 02 Jan 2022 00:13:44 +0900</pubDate>
+    <lastBuildDate>Sun, 02 Jan 2022 00:13:44 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>Spring - Thread Local</title>
         <description>&lt;h2 id=&quot;thread-local&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;Thread Local&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;쓰레드 로컬은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.&lt;br /&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Thread Local&lt;/code&gt;은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.&lt;br /&gt;
 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다.&lt;br /&gt;
 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;일반적인 필드 변수&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;일반적인 필드 변수&lt;/span&gt;&lt;br /&gt;
 여러 쓰레드가 같은 인스턴스의 필드에 접근하면 처음 쓰레드가 보관한 데이터가 사라질 수 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/spring/threadlocal1.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;thread-A 가 userA 라는 값을 저장하고&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-A&lt;/code&gt; 가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userA&lt;/code&gt; 라는 값을 저장하고&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/spring/threadlocal2.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;thread-B 가 userB 라는 값을 저장하면 직전에 thread-A 가 저장한 userA 값은 사라진다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-B&lt;/code&gt; 가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userB&lt;/code&gt; 라는 값을 저장하면 직전에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-A&lt;/code&gt; 가 저장한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userA&lt;/code&gt; 값은 사라진다.&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;쓰레드 로컬&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;쓰레드 로컬&lt;/span&gt;&lt;br /&gt;
 쓰레드 로컬을 사용하면 각 쓰레드마다 별도의 내부 저장소를 제공한다. 따라서 같은 인스턴스의 쓰레드 로컬 필드에 접근해도 문제 없다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/spring/threadlocal3.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;thread-A 가 userA 라는 값을 저장하면 쓰레드 로컬은 thread-A 전용 보관소에 데이터를 안전하게 보관한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-A&lt;/code&gt; 가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userA&lt;/code&gt; 라는 값을 저장하면 쓰레드 로컬은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-A&lt;/code&gt; 전용 보관소에 데이터를 안전하게 보관한다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/spring/threadlocal4.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;thread-B 가 userB 라는 값을 저장하면 쓰레드 로컬은 thread-B 전용 보관소에 데이터를 안전하게 보관한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-B&lt;/code&gt; 가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userB&lt;/code&gt; 라는 값을 저장하면 쓰레드 로컬은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-B&lt;/code&gt; 전용 보관소에 데이터를 안전하게 보관한다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/spring/threadlocal5.png&quot; alt=&quot;img.png&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;쓰레드 로컬을 통해서 데이터를 조회할 때도 thread-A 가 조회하면 쓰레드 로컬은 thread-A 전용 보관소에서 userA 데이터를 반환해준다.  물론 thread-B 가 조회하면 thread-B 전용 보관소에서 userB 데이터를 반환해준다.&lt;/li&gt;
+  &lt;li&gt;쓰레드 로컬을 통해서 데이터를 조회할 때도 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-A&lt;/code&gt; 가 조회하면 쓰레드 로컬은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-A&lt;/code&gt; 전용 보관소에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userA&lt;/code&gt; 데이터를 반환해준다.&lt;br /&gt;
+물론 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-B&lt;/code&gt; 가 조회하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread-B&lt;/code&gt; 전용 보관소에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userB&lt;/code&gt; 데이터를 반환해준다.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr /&gt;
 
 &lt;h2 id=&quot;thread-local-test-code&quot;&gt;&lt;span style=&quot;color:MediumSeaGreen&quot;&gt;Thread Local Test Code&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;- ThreadLocalService 클래스&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.hyuuny.advanced.trace.threadlocal.code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;lombok.extern.slf4j.Slf4j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -85,11 +90,13 @@
 
 &lt;blockquote&gt;
   &lt;blockquote&gt;
-    &lt;p&gt;해당 쓰레드가 쓰레드 로컬을 모두 사용하고 나면 ThreadLocal.remove() 를 호출해서 쓰레드 로컬에
-저장된 값을 제거해주어야 한다.&lt;/p&gt;
+    &lt;p&gt;해당 쓰레드가 쓰레드 로컬을 모두 사용하고 나면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal.remove()&lt;/code&gt; 를 호출해서 쓰레드 로컬에
+저장된 값을 제거해주어야 한다.&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
   &lt;/blockquote&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;&lt;strong&gt;- ThreadLocalServiceTest 클래스&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.hyuuny.advanced.trace.threadlocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.hyuuny.advanced.trace.threadlocal.code.ThreadLocalService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -134,10 +141,12 @@
 
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;결과&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/spring/threadlocal-test-code.png&quot; alt=&quot;img.png&quot; /&gt;&lt;br /&gt;
-쓰레드 로컬 덕분에 쓰레드 마다 각각 별도의 데이터 저장소를 가지게됨으로써, 동시성 문제가 해결되었다.&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;color:DodgerBlue&quot;&gt;테스트 결과&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/spring/threadlocal-test-code.png&quot; alt=&quot;img.png&quot; /&gt;&lt;br /&gt;
+쓰레드 로컬 덕분에 쓰레드 마다 각각 별도의 데이터 저장소를 가지게됨으로써, 동시성 문제는 해결되었다.&lt;/p&gt;
 </description>
         <pubDate>Sat, 01 Jan 2022 00:00:00 +0900</pubDate>
         <link>https://hyuuny.github.io/spring/ThreadLocal/</link>

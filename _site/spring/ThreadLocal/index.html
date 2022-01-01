@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Spring - Thread Local - Hyuuny`s Blog</title>
-<meta name="description" content="Thread Local 쓰레드 로컬은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다. 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다. 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.">
+<meta name="description" content="Thread Local Thread Local은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다. 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다. 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.">
 
 
   <meta name="author" content="Kim SeongHyun">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://hyuuny.github.io/spring/ThreadLocal/">
 
 
-  <meta property="og:description" content="Thread Local 쓰레드 로컬은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다. 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다. 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.">
+  <meta property="og:description" content="Thread Local Thread Local은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다. 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다. 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.">
 
 
 
@@ -289,7 +289,7 @@
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Spring - Thread Local">
-    <meta itemprop="description" content="Thread Local쓰레드 로컬은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다.사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.">
+    <meta itemprop="description" content="Thread LocalThread Local은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다.사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.">
     <meta itemprop="datePublished" content="2022-01-01T00:00:00+09:00">
     <meta itemprop="dateModified" content="2022-01-01T14:00:00+09:00">
 
@@ -335,48 +335,53 @@
           </aside>
         
         <h2 id="thread-local"><span style="color:MediumSeaGreen">Thread Local</span></h2>
-<p>쓰레드 로컬은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.<br />
+<p><code class="language-plaintext highlighter-rouge">Thread Local</code>은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.<br />
 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다.<br />
 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.</p>
 
 <hr />
 
-<p><strong>일반적인 필드 변수</strong><br />
+<p><span style="color:DodgerBlue">일반적인 필드 변수</span><br />
 여러 쓰레드가 같은 인스턴스의 필드에 접근하면 처음 쓰레드가 보관한 데이터가 사라질 수 있다.</p>
 
 <p><img src="/assets/images/spring/threadlocal1.png" alt="img.png" /></p>
 <ul>
-  <li>thread-A 가 userA 라는 값을 저장하고</li>
+  <li><code class="language-plaintext highlighter-rouge">thread-A</code> 가 <code class="language-plaintext highlighter-rouge">userA</code> 라는 값을 저장하고<br />
+<br /></li>
 </ul>
 
 <p><img src="/assets/images/spring/threadlocal2.png" alt="img.png" /></p>
 <ul>
-  <li>thread-B 가 userB 라는 값을 저장하면 직전에 thread-A 가 저장한 userA 값은 사라진다.</li>
+  <li><code class="language-plaintext highlighter-rouge">thread-B</code> 가 <code class="language-plaintext highlighter-rouge">userB</code> 라는 값을 저장하면 직전에 <code class="language-plaintext highlighter-rouge">thread-A</code> 가 저장한 <code class="language-plaintext highlighter-rouge">userA</code> 값은 사라진다.<br />
+<br /></li>
 </ul>
 
 <hr />
 
-<p><strong>쓰레드 로컬</strong><br />
+<p><span style="color:DodgerBlue">쓰레드 로컬</span><br />
 쓰레드 로컬을 사용하면 각 쓰레드마다 별도의 내부 저장소를 제공한다. 따라서 같은 인스턴스의 쓰레드 로컬 필드에 접근해도 문제 없다.</p>
 
 <p><img src="/assets/images/spring/threadlocal3.png" alt="img.png" /></p>
 <ul>
-  <li>thread-A 가 userA 라는 값을 저장하면 쓰레드 로컬은 thread-A 전용 보관소에 데이터를 안전하게 보관한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">thread-A</code> 가 <code class="language-plaintext highlighter-rouge">userA</code> 라는 값을 저장하면 쓰레드 로컬은 <code class="language-plaintext highlighter-rouge">thread-A</code> 전용 보관소에 데이터를 안전하게 보관한다.</li>
 </ul>
 
 <p><img src="/assets/images/spring/threadlocal4.png" alt="img.png" /></p>
 <ul>
-  <li>thread-B 가 userB 라는 값을 저장하면 쓰레드 로컬은 thread-B 전용 보관소에 데이터를 안전하게 보관한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">thread-B</code> 가 <code class="language-plaintext highlighter-rouge">userB</code> 라는 값을 저장하면 쓰레드 로컬은 <code class="language-plaintext highlighter-rouge">thread-B</code> 전용 보관소에 데이터를 안전하게 보관한다.</li>
 </ul>
 
 <p><img src="/assets/images/spring/threadlocal5.png" alt="img.png" /></p>
 <ul>
-  <li>쓰레드 로컬을 통해서 데이터를 조회할 때도 thread-A 가 조회하면 쓰레드 로컬은 thread-A 전용 보관소에서 userA 데이터를 반환해준다.  물론 thread-B 가 조회하면 thread-B 전용 보관소에서 userB 데이터를 반환해준다.</li>
+  <li>쓰레드 로컬을 통해서 데이터를 조회할 때도 <code class="language-plaintext highlighter-rouge">thread-A</code> 가 조회하면 쓰레드 로컬은 <code class="language-plaintext highlighter-rouge">thread-A</code> 전용 보관소에서 <code class="language-plaintext highlighter-rouge">userA</code> 데이터를 반환해준다.<br />
+물론 <code class="language-plaintext highlighter-rouge">thread-B</code> 가 조회하면 <code class="language-plaintext highlighter-rouge">thread-B</code> 전용 보관소에서 <code class="language-plaintext highlighter-rouge">userB</code> 데이터를 반환해준다.</li>
 </ul>
 
 <hr />
 
 <h2 id="thread-local-test-code"><span style="color:MediumSeaGreen">Thread Local Test Code</span></h2>
+
+<p><strong>- ThreadLocalService 클래스</strong></p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.hyuuny.advanced.trace.threadlocal.code</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
@@ -407,11 +412,13 @@
 
 <blockquote>
   <blockquote>
-    <p>해당 쓰레드가 쓰레드 로컬을 모두 사용하고 나면 ThreadLocal.remove() 를 호출해서 쓰레드 로컬에
-저장된 값을 제거해주어야 한다.</p>
+    <p>해당 쓰레드가 쓰레드 로컬을 모두 사용하고 나면 <code class="language-plaintext highlighter-rouge">ThreadLocal.remove()</code> 를 호출해서 쓰레드 로컬에
+저장된 값을 제거해주어야 한다.<br />
+<br /></p>
   </blockquote>
 </blockquote>
 
+<p><strong>- ThreadLocalServiceTest 클래스</strong></p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.hyuuny.advanced.trace.threadlocal</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">com.hyuuny.advanced.trace.threadlocal.code.ThreadLocalService</span><span class="o">;</span>
@@ -456,10 +463,12 @@
 
 <span class="o">}</span>
 </code></pre></div></div>
+<p><br /></p>
 
-<p><strong>결과</strong><br />
-<img src="/assets/images/spring/threadlocal-test-code.png" alt="img.png" /><br />
-쓰레드 로컬 덕분에 쓰레드 마다 각각 별도의 데이터 저장소를 가지게됨으로써, 동시성 문제가 해결되었다.</p>
+<p><span style="color:DodgerBlue">테스트 결과</span></p>
+
+<p><img src="/assets/images/spring/threadlocal-test-code.png" alt="img.png" /><br />
+쓰레드 로컬 덕분에 쓰레드 마다 각각 별도의 데이터 저장소를 가지게됨으로써, 동시성 문제는 해결되었다.</p>
 
         
       </section>

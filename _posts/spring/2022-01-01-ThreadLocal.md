@@ -10,38 +10,43 @@ toc: true
 ---
 
 ## <span style="color:MediumSeaGreen">Thread Local</span>
-쓰레드 로컬은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.  
+`Thread Local`은 해당 쓰레드만 접근할 수 있는 특별한 저장소를 말한다.  
 쉽게 이야기해서 물건 보관 창구를 떠올리면 된다. 여러 사람이 같은 물건 보관 창구를 사용하더라도 창구 직원은 사용자를 인식해서 사용자별로 확실하게 물건을 구분해준다.  
 사용자A, 사용자B 모두 창구 직원을 통해서 물건을 보관하고, 꺼내지만 창구 지원이 사용자에 따라 보관한 물건을 구분해주는 것이다.
 
 ***
 
-**일반적인 필드 변수**  
+<span style="color:DodgerBlue">일반적인 필드 변수</span>  
 여러 쓰레드가 같은 인스턴스의 필드에 접근하면 처음 쓰레드가 보관한 데이터가 사라질 수 있다.  
 
 ![img.png](/assets/images/spring/threadlocal1.png)  
-- thread-A 가 userA 라는 값을 저장하고  
+- `thread-A` 가 `userA` 라는 값을 저장하고  
+<br>
 
 ![img.png](/assets/images/spring/threadlocal2.png)  
-- thread-B 가 userB 라는 값을 저장하면 직전에 thread-A 가 저장한 userA 값은 사라진다.  
+- `thread-B` 가 `userB` 라는 값을 저장하면 직전에 `thread-A` 가 저장한 `userA` 값은 사라진다.  
+<br>
 
 ***
 
-**쓰레드 로컬**  
+<span style="color:DodgerBlue">쓰레드 로컬</span>  
 쓰레드 로컬을 사용하면 각 쓰레드마다 별도의 내부 저장소를 제공한다. 따라서 같은 인스턴스의 쓰레드 로컬 필드에 접근해도 문제 없다.  
 
 ![img.png](/assets/images/spring/threadlocal3.png)  
-- thread-A 가 userA 라는 값을 저장하면 쓰레드 로컬은 thread-A 전용 보관소에 데이터를 안전하게 보관한다.  
+- `thread-A` 가 `userA` 라는 값을 저장하면 쓰레드 로컬은 `thread-A` 전용 보관소에 데이터를 안전하게 보관한다.  
 
 ![img.png](/assets/images/spring/threadlocal4.png)  
-- thread-B 가 userB 라는 값을 저장하면 쓰레드 로컬은 thread-B 전용 보관소에 데이터를 안전하게 보관한다.  
+- `thread-B` 가 `userB` 라는 값을 저장하면 쓰레드 로컬은 `thread-B` 전용 보관소에 데이터를 안전하게 보관한다.  
 
 ![img.png](/assets/images/spring/threadlocal5.png)  
-- 쓰레드 로컬을 통해서 데이터를 조회할 때도 thread-A 가 조회하면 쓰레드 로컬은 thread-A 전용 보관소에서 userA 데이터를 반환해준다.  물론 thread-B 가 조회하면 thread-B 전용 보관소에서 userB 데이터를 반환해준다.
+- 쓰레드 로컬을 통해서 데이터를 조회할 때도 `thread-A` 가 조회하면 쓰레드 로컬은 `thread-A` 전용 보관소에서 `userA` 데이터를 반환해준다.  
+물론 `thread-B` 가 조회하면 `thread-B` 전용 보관소에서 `userB` 데이터를 반환해준다.
 
 ***
 
 ## <span style="color:MediumSeaGreen">Thread Local Test Code</span>
+
+**- ThreadLocalService 클래스**
 ```java
 package com.hyuuny.advanced.trace.threadlocal.code;
 
@@ -71,9 +76,11 @@ public class ThreadLocalService {
 }
 ```
 
->> 해당 쓰레드가 쓰레드 로컬을 모두 사용하고 나면 ThreadLocal.remove() 를 호출해서 쓰레드 로컬에
-저장된 값을 제거해주어야 한다.
+>> 해당 쓰레드가 쓰레드 로컬을 모두 사용하고 나면 `ThreadLocal.remove()` 를 호출해서 쓰레드 로컬에
+저장된 값을 제거해주어야 한다.  
+<br>
 
+**- ThreadLocalServiceTest 클래스**
 ```java
 package com.hyuuny.advanced.trace.threadlocal;
 
@@ -119,7 +126,9 @@ public class ThreadLocalServiceTest {
 
 }
 ```
+<br>
 
-**결과**  
+<span style="color:DodgerBlue">테스트 결과</span>  
+
 ![img.png](/assets/images/spring/threadlocal-test-code.png)  
-쓰레드 로컬 덕분에 쓰레드 마다 각각 별도의 데이터 저장소를 가지게됨으로써, 동시성 문제가 해결되었다.
+쓰레드 로컬 덕분에 쓰레드 마다 각각 별도의 데이터 저장소를 가지게됨으로써, 동시성 문제는 해결되었다.
